@@ -215,8 +215,10 @@ class PCNBlock(nn.Module):
             # 因果掩码与主路径一致（no_gating 消融同样不允许看未来）
             mask = torch.triu(torch.ones(x.size(1), x.size(1),
                                          device=x.device, dtype=torch.bool), diagonal=1)
-            attn_out, aw = self.attn(e, e, e, attn_mask=mask, need_weights=True)
-            self.last_attn_w = aw.detach() if aw is not None else None
+            # need_weights=False：权重矩阵全仓无读取方，True 会强制 MHA 慢路径
+            # （b1 终端口径 -13% 吞吐，T5 优化项）
+            attn_out, _ = self.attn(e, e, e, attn_mask=mask, need_weights=False)
+            self.last_attn_w = None
             lat = self.attn_out(attn_out)
             update = pc.W_up(pc.norm_update(e + lat))
             h = F.gelu(update) + pc.W_res(x)
