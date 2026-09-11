@@ -1,0 +1,238 @@
+{
+  "arm1": {
+    "pcn": {
+      "base_ppl": 19.51,
+      "grid": {
+        "lr5e-05_s60": {
+          "ppl": 20.94,
+          "improve_pct": -7.4
+        },
+        "lr5e-05_s150": {
+          "ppl": 25.31,
+          "improve_pct": -29.7
+        },
+        "lr5e-05_s300": {
+          "ppl": 33.01,
+          "improve_pct": -69.2
+        },
+        "lr0.0001_s60": {
+          "ppl": 23.37,
+          "improve_pct": -19.8
+        },
+        "lr0.0001_s150": {
+          "ppl": 30.9,
+          "improve_pct": -58.4
+        },
+        "lr0.0001_s300": {
+          "ppl": 40.66,
+          "improve_pct": -108.5
+        },
+        "lr0.00025_s60": {
+          "ppl": 29.0,
+          "improve_pct": -48.7
+        },
+        "lr0.00025_s150": {
+          "ppl": 40.34,
+          "improve_pct": -106.8
+        },
+        "lr0.00025_s300": {
+          "ppl": 52.93,
+          "improve_pct": -171.3
+        },
+        "lr0.0005_s60": {
+          "ppl": 34.73,
+          "improve_pct": -78.0
+        },
+        "lr0.0005_s150": {
+          "ppl": 49.06,
+          "improve_pct": -151.5
+        },
+        "lr0.0005_s300": {
+          "ppl": 64.12,
+          "improve_pct": -228.7
+        }
+      },
+      "best": {
+        "config": "lr5e-05_s60",
+        "ppl": 20.94,
+        "improve_pct": -7.4
+      }
+    },
+    "tf": {
+      "base_ppl": 18.66,
+      "grid": {
+        "lr5e-05_s60": {
+          "ppl": 19.41,
+          "improve_pct": -4.0
+        },
+        "lr5e-05_s150": {
+          "ppl": 22.41,
+          "improve_pct": -20.1
+        },
+        "lr5e-05_s300": {
+          "ppl": 30.61,
+          "improve_pct": -64.1
+        },
+        "lr0.0001_s60": {
+          "ppl": 21.14,
+          "improve_pct": -13.3
+        },
+        "lr0.0001_s150": {
+          "ppl": 29.81,
+          "improve_pct": -59.8
+        },
+        "lr0.0001_s300": {
+          "ppl": 47.73,
+          "improve_pct": -155.8
+        },
+        "lr0.00025_s60": {
+          "ppl": 28.04,
+          "improve_pct": -50.3
+        },
+        "lr0.00025_s150": {
+          "ppl": 48.98,
+          "improve_pct": -162.6
+        },
+        "lr0.00025_s300": {
+          "ppl": 75.9,
+          "improve_pct": -306.8
+        },
+        "lr0.0005_s60": {
+          "ppl": 38.88,
+          "improve_pct": -108.4
+        },
+        "lr0.0005_s150": {
+          "ppl": 68.79,
+          "improve_pct": -268.7
+        },
+        "lr0.0005_s300": {
+          "ppl": 99.24,
+          "improve_pct": -432.0
+        }
+      },
+      "best": {
+        "config": "lr5e-05_s60",
+        "ppl": 19.41,
+        "improve_pct": -4.0
+      }
+    }
+  },
+  "arm2": {
+    "pcn": {
+      "base_ppl": 23756.7,
+      "grid": {
+        "lr5e-05_s60": {
+          "ppl": 2996.94,
+          "improve_pct": 87.4
+        },
+        "lr5e-05_s150": {
+          "ppl": 3501.23,
+          "improve_pct": 85.3
+        },
+        "lr5e-05_s300": {
+          "ppl": 7387.81,
+          "improve_pct": 68.9
+        },
+        "lr0.0001_s60": {
+          "ppl": 2904.45,
+          "improve_pct": 87.8
+        },
+        "lr0.0001_s150": {
+          "ppl": 4912.96,
+          "improve_pct": 79.3
+        },
+        "lr0.0001_s300": {
+          "ppl": 10043.96,
+          "improve_pct": 57.7
+        },
+        "lr0.00025_s60": {
+          "ppl": 3390.61,
+          "improve_pct": 85.7
+        },
+        "lr0.00025_s150": {
+          "ppl": 6930.3,
+          "improve_pct": 70.8
+        },
+        "lr0.00025_s300": {
+          "ppl": 9720.98,
+          "improve_pct": 59.1
+        },
+        "lr0.0005_s60": {
+          "ppl": 4318.03,
+          "improve_pct": 81.8
+        },
+        "lr0.0005_s150": {
+          "ppl": 9243.74,
+          "improve_pct": 61.1
+        },
+        "lr0.0005_s300": {
+          "ppl": 11654.72,
+          "improve_pct": 50.9
+        }
+      },
+      "best": {
+        "config": "lr0.0001_s60",
+        "ppl": 2904.45,
+        "improve_pct": 87.8
+      }
+    },
+    "tf": {
+      "base_ppl": 25042.79,
+      "grid": {
+        "lr5e-05_s60": {
+          "ppl": 4560.27,
+          "improve_pct": 81.8
+        },
+        "lr5e-05_s150": {
+          "ppl": 4175.28,
+          "improve_pct": 83.3
+        },
+        "lr5e-05_s300": {
+          "ppl": 8212.21,
+          "improve_pct": 67.2
+        },
+        "lr0.0001_s60": {
+          "ppl": 3888.54,
+          "improve_pct": 84.5
+        },
+        "lr0.0001_s150": {
+          "ppl": 6328.33,
+          "improve_pct": 74.7
+        },
+        "lr0.0001_s300": {
+          "ppl": 13579.86,
+          "improve_pct": 45.8
+        },
+        "lr0.00025_s60": {
+          "ppl": 4976.58,
+          "improve_pct": 80.1
+        },
+        "lr0.00025_s150": {
+          "ppl": 8710.11,
+          "improve_pct": 65.2
+        },
+        "lr0.00025_s300": {
+          "ppl": 17302.6,
+          "improve_pct": 30.9
+        },
+        "lr0.0005_s60": {
+          "ppl": 5768.37,
+          "improve_pct": 77.0
+        },
+        "lr0.0005_s150": {
+          "ppl": 11391.5,
+          "improve_pct": 54.5
+        },
+        "lr0.0005_s300": {
+          "ppl": 19908.22,
+          "improve_pct": 20.5
+        }
+      },
+      "best": {
+        "config": "lr0.0001_s60",
+        "ppl": 3888.54,
+        "improve_pct": 84.5
+      }
+    }
+  }
+}

@@ -1,0 +1,973 @@
+{
+  "protocol": {
+    "regime": "aggressive",
+    "freeze": "emb+前6层",
+    "train_chunks": 6,
+    "eval_chunks": 4,
+    "seeds": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "checkpoints": {
+      "pcn": "ts_causal_no_gating_s{1-4}",
+      "tf": "ts_tf_lr1e3_s{1-4}（公平版，lr 1e-3）"
+    },
+    "kw_A": [
+      "dragon",
+      "knight",
+      "castle",
+      "wizard",
+      "fairy",
+      "magic"
+    ],
+    "kw_B": [
+      "school",
+      "teacher",
+      "class",
+      "homework",
+      "lesson"
+    ],
+    "note": "skeleton/demo 系列用的 wt_causal_transformer_s0 为 lr 次优 TF(PPL 557 vs 公平版 215)，本基准改用公平对"
+  },
+  "raw": {
+    "arm1_domain_topic": {
+      "pcn": {
+        "1": {
+          "ppl": {
+            "P0_base": {
+              "held_A": 19.51,
+              "held_B": 20.63,
+              "gen": 14.37,
+              "held_WT": 23756.7
+            },
+            "P1_ftA": {
+              "held_A": 64.12,
+              "held_B": 75.17,
+              "gen": 45.98,
+              "held_WT": 36061.99
+            },
+            "P2_ftB": {
+              "held_A": 99.17,
+              "held_B": 100.09,
+              "gen": 64.08,
+              "held_WT": 49662.79
+            },
+            "P3_ftA2": {
+              "held_A": 108.71,
+              "held_B": 125.5,
+              "gen": 71.53,
+              "held_WT": 98011.92
+            }
+          },
+          "dw": [
+            {
+              "phase": "P1_ftA",
+              "dw": 0.8428,
+              "lr": 0.0005,
+              "steps": 300,
+              "time_s": 4.6
+            },
+            {
+              "phase": "P2_ftB",
+              "dw": 0.7087,
+              "lr": 0.0005,
+              "steps": 300,
+              "time_s": 4.6
+            },
+            {
+              "phase": "P3_ftA2",
+              "dw": 0.4505,
+              "lr": 0.0005,
+              "steps": 300,
+              "time_s": 4.5
+            }
+          ]
+        },
+        "2": {
+          "ppl": {
+            "P0_base": {
+              "held_A": 20.02,
+              "held_B": 20.04,
+              "gen": 14.61,
+              "held_WT": 30996.45
+            },
+            "P1_ftA": {
+              "held_A": 73.5,
+              "held_B": 82.61,
+              "gen": 49.82,
+              "held_WT": 49923.82
+            },
+            "P2_ftB": {
+              "held_A": 103.32,
+              "held_B": 100.73,
+              "gen": 77.42,
+              "held_WT": 88655.32
+            },
+            "P3_ftA2": {
+              "held_A": 118.94,
+              "held_B": 137.5,
+              "gen": 81.35,
+              "held_WT": 178365.09
+            }
+          },
+          "dw": [
+            {
+              "phase": "P1_ftA",
+              "dw": 0.8319,
+              "lr": 0.0005,
+              "steps": 300,
+              "time_s": 4.6
+            },
+            {
+              "phase": "P2_ftB",
+              "dw": 0.7092,
+              "lr": 0.0005,
+              "steps": 300,
+              "time_s": 4.5
+            },
+            {
+              "phase": "P3_ftA2",
+              "dw": 0.4727,
+              "lr": 0.0005,
+              "steps": 300,
+              "time_s": 4.6
+            }
+          ]
+        },
+        "3": {
+          "ppl": {
+            "P0_base": {
+              "held_A": 20.11,
+              "held_B": 20.29,
+              "gen": 14.62,
+              "held_WT": 37500.38
+            },
+            "P1_ftA": {
+              "held_A": 74.3,
+              "held_B": 75.13,
+              "gen": 47.61,
+              "held_WT": 38600.35
+            },
+            "P2_ftB": {
+              "held_A": 99.0,
+              "held_B": 94.22,
+              "gen": 65.0,
+              "held_WT": 52846.15
+            },
+            "P3_ftA2": {
+              "held_A": 120.66,
+              "held_B": 113.45,
+              "gen": 70.83,
+              "held_WT": 144270.99
+            }
+          },
+          "dw": [
+            {
+              "phase": "P1_ftA",
+              "dw": 0.854,
+              "lr": 0.0005,
+              "steps": 300,
+              "time_s": 4.6
+            },
+            {
+              "phase": "P2_ftB",
+              "dw": 0.7171,
+              "lr": 0.0005,
+              "steps": 300,
+              "time_s": 4.6
+            },
+            {
+              "phase": "P3_ftA2",
+              "dw": 0.4523,
+              "lr": 0.0005,
+              "steps": 300,
+              "time_s": 4.5
+            }
+          ]
+        },
+        "4": {
+          "ppl": {
+            "P0_base": {
+              "held_A": 19.9,
+              "held_B": 19.99,
+              "gen": 14.18,
+              "held_WT": 21598.98
+            },
+            "P1_ftA": {
+              "held_A": 69.53,
+              "held_B": 74.0,
+              "gen": 54.02,
+              "held_WT": 35385.64
+            },
+            "P2_ftB": {
+              "held_A": 100.63,
+              "held_B": 90.77,
+              "gen": 64.17,
+              "held_WT": 54465.58
+            },
+            "P3_ftA2": {
+              "held_A": 119.58,
+              "held_B": 122.05,
+              "gen": 76.19,
+              "held_WT": 82117.37
+            }
+          },
+          "dw": [
+            {
+              "phase": "P1_ftA",
+              "dw": 0.8437,
+              "lr": 0.0005,
+              "steps": 300,
+              "time_s": 4.5
+            },
+            {
+              "phase": "P2_ftB",
+              "dw": 0.781,
+              "lr": 0.0005,
+              "steps": 300,
+              "time_s": 4.5
+            },
+            {
+              "phase": "P3_ftA2",
+              "dw": 0.4776,
+              "lr": 0.0005,
+              "steps": 300,
+              "time_s": 4.5
+            }
+          ]
+        }
+      },
+      "tf": {
+        "1": {
+          "ppl": {
+            "P0_base": {
+              "held_A": 18.66,
+              "held_B": 18.29,
+              "gen": 12.8,
+              "held_WT": 25042.79
+            },
+            "P1_ftA": {
+              "held_A": 99.24,
+              "held_B": 94.36,
+              "gen": 62.99,
+              "held_WT": 118213.92
+            },
+            "P2_ftB": {
+              "held_A": 215.89,
+              "held_B": 189.03,
+              "gen": 103.46,
+              "held_WT": 248871.43
+            },
+            "P3_ftA2": {
+              "held_A": 195.1,
+              "held_B": 182.48,
+              "gen": 108.9,
+              "held_WT": 657118.96
+            }
+          },
+          "dw": [
+            {
+              "phase": "P1_ftA",
+              "dw": 1.4712,
+              "lr": 0.0005,
+              "steps": 300,
+              "time_s": 2.8
+            },
+            {
+              "phase": "P2_ftB",
+              "dw": 1.214,
+              "lr": 0.0005,
+              "steps": 300,
+              "time_s": 2.8
+            },
+            {
+              "phase": "P3_ftA2",
+              "dw": 0.5776,
+              "lr": 0.0005,
+              "steps": 300,
+              "time_s": 2.8
+            }
+          ]
+        },
+        "2": {
+          "ppl": {
+            "P0_base": {
+              "held_A": 18.0,
+              "held_B": 17.97,
+              "gen": 12.86,
+              "held_WT": 28698.83
+            },
+            "P1_ftA": {
+              "held_A": 102.81,
+              "held_B": 112.72,
+              "gen": 55.96,
+              "held_WT": 145630.0
+            },
+            "P2_ftB": {
+              "held_A": 123.26,
+              "held_B": 135.59,
+              "gen": 76.31,
+              "held_WT": 108990.21
+            },
+            "P3_ftA2": {
+              "held_A": 172.91,
+              "held_B": 193.94,
+              "gen": 85.13,
+              "held_WT": 243377.5
+            }
+          },
+          "dw": [
+            {
+              "phase": "P1_ftA",
+              "dw": 1.4279,
+              "lr": 0.0005,
+              "steps": 300,
+              "time_s": 2.9
+            },
+            {
+              "phase": "P2_ftB",
+              "dw": 1.3597,
+              "lr": 0.0005,
+              "steps": 300,
+              "time_s": 2.8
+            },
+            {
+              "phase": "P3_ftA2",
+              "dw": 0.6365,
+              "lr": 0.0005,
+              "steps": 300,
+              "time_s": 2.8
+            }
+          ]
+        },
+        "3": {
+          "ppl": {
+            "P0_base": {
+              "held_A": 17.83,
+              "held_B": 17.94,
+              "gen": 12.76,
+              "held_WT": 28265.58
+            },
+            "P1_ftA": {
+              "held_A": 67.63,
+              "held_B": 77.39,
+              "gen": 44.87,
+              "held_WT": 71423.37
+            },
+            "P2_ftB": {
+              "held_A": 172.47,
+              "held_B": 156.35,
+              "gen": 101.3,
+              "held_WT": 374641.91
+            },
+            "P3_ftA2": {
+              "held_A": 195.12,
+              "held_B": 199.79,
+              "gen": 121.3,
+              "held_WT": 1008035.3
+            }
+          },
+          "dw": [
+            {
+              "phase": "P1_ftA",
+              "dw": 1.5575,
+              "lr": 0.0005,
+              "steps": 300,
+              "time_s": 2.8
+            },
+            {
+              "phase": "P2_ftB",
+              "dw": 1.2354,
+              "lr": 0.0005,
+              "steps": 300,
+              "time_s": 2.8
+            },
+            {
+              "phase": "P3_ftA2",
+              "dw": 0.5989,
+              "lr": 0.0005,
+              "steps": 300,
+              "time_s": 2.8
+            }
+          ]
+        },
+        "4": {
+          "ppl": {
+            "P0_base": {
+              "held_A": 20.28,
+              "held_B": 20.38,
+              "gen": 13.83,
+              "held_WT": 23803.06
+            },
+            "P1_ftA": {
+              "held_A": 115.1,
+              "held_B": 113.17,
+              "gen": 62.81,
+              "held_WT": 44208.02
+            },
+            "P2_ftB": {
+              "held_A": 196.78,
+              "held_B": 197.56,
+              "gen": 100.85,
+              "held_WT": 156047.47
+            },
+            "P3_ftA2": {
+              "held_A": 315.12,
+              "held_B": 316.95,
+              "gen": 151.81,
+              "held_WT": 256495.69
+            }
+          },
+          "dw": [
+            {
+              "phase": "P1_ftA",
+              "dw": 1.5166,
+              "lr": 0.0005,
+              "steps": 300,
+              "time_s": 2.8
+            },
+            {
+              "phase": "P2_ftB",
+              "dw": 1.3548,
+              "lr": 0.0005,
+              "steps": 300,
+              "time_s": 2.9
+            },
+            {
+              "phase": "P3_ftA2",
+              "dw": 0.6754,
+              "lr": 0.0005,
+              "steps": 300,
+              "time_s": 2.9
+            }
+          ]
+        }
+      }
+    },
+    "arm2_cross_domain": {
+      "pcn": {
+        "1": {
+          "ppl": {
+            "P0_base": {
+              "held_A": 19.51,
+              "held_B": 20.63,
+              "gen": 14.37,
+              "held_WT": 23756.7
+            },
+            "P1_ftWT": {
+              "held_A": 430.32,
+              "held_B": 487.95,
+              "gen": 380.98,
+              "held_WT": 11654.72
+            },
+            "P2_ftA": {
+              "held_A": 91.91,
+              "held_B": 106.8,
+              "gen": 71.96,
+              "held_WT": 42404.92
+            }
+          },
+          "dw": [
+            {
+              "phase": "P1_ftWT",
+              "dw": 1.0554,
+              "lr": 0.0005,
+              "steps": 300,
+              "time_s": 4.7
+            },
+            {
+              "phase": "P2_ftA",
+              "dw": 0.7584,
+              "lr": 0.0005,
+              "steps": 300,
+              "time_s": 4.6
+            }
+          ]
+        },
+        "2": {
+          "ppl": {
+            "P0_base": {
+              "held_A": 20.02,
+              "held_B": 20.04,
+              "gen": 14.61,
+              "held_WT": 30996.45
+            },
+            "P1_ftWT": {
+              "held_A": 800.03,
+              "held_B": 783.54,
+              "gen": 695.33,
+              "held_WT": 13638.49
+            },
+            "P2_ftA": {
+              "held_A": 106.21,
+              "held_B": 107.63,
+              "gen": 75.77,
+              "held_WT": 43173.71
+            }
+          },
+          "dw": [
+            {
+              "phase": "P1_ftWT",
+              "dw": 1.0358,
+              "lr": 0.0005,
+              "steps": 300,
+              "time_s": 4.5
+            },
+            {
+              "phase": "P2_ftA",
+              "dw": 0.7581,
+              "lr": 0.0005,
+              "steps": 300,
+              "time_s": 4.6
+            }
+          ]
+        },
+        "3": {
+          "ppl": {
+            "P0_base": {
+              "held_A": 20.11,
+              "held_B": 20.29,
+              "gen": 14.62,
+              "held_WT": 37500.38
+            },
+            "P1_ftWT": {
+              "held_A": 560.24,
+              "held_B": 712.02,
+              "gen": 603.9,
+              "held_WT": 8913.09
+            },
+            "P2_ftA": {
+              "held_A": 94.78,
+              "held_B": 115.75,
+              "gen": 68.1,
+              "held_WT": 40908.06
+            }
+          },
+          "dw": [
+            {
+              "phase": "P1_ftWT",
+              "dw": 1.0546,
+              "lr": 0.0005,
+              "steps": 300,
+              "time_s": 4.6
+            },
+            {
+              "phase": "P2_ftA",
+              "dw": 0.7613,
+              "lr": 0.0005,
+              "steps": 300,
+              "time_s": 4.6
+            }
+          ]
+        },
+        "4": {
+          "ppl": {
+            "P0_base": {
+              "held_A": 19.9,
+              "held_B": 19.99,
+              "gen": 14.18,
+              "held_WT": 21598.98
+            },
+            "P1_ftWT": {
+              "held_A": 660.45,
+              "held_B": 615.37,
+              "gen": 520.24,
+              "held_WT": 12117.47
+            },
+            "P2_ftA": {
+              "held_A": 93.25,
+              "held_B": 113.32,
+              "gen": 80.65,
+              "held_WT": 49221.11
+            }
+          },
+          "dw": [
+            {
+              "phase": "P1_ftWT",
+              "dw": 1.046,
+              "lr": 0.0005,
+              "steps": 300,
+              "time_s": 4.5
+            },
+            {
+              "phase": "P2_ftA",
+              "dw": 0.7604,
+              "lr": 0.0005,
+              "steps": 300,
+              "time_s": 4.5
+            }
+          ]
+        }
+      },
+      "tf": {
+        "1": {
+          "ppl": {
+            "P0_base": {
+              "held_A": 18.66,
+              "held_B": 18.29,
+              "gen": 12.8,
+              "held_WT": 25042.79
+            },
+            "P1_ftWT": {
+              "held_A": 112.97,
+              "held_B": 109.79,
+              "gen": 55.87,
+              "held_WT": 19908.22
+            },
+            "P2_ftA": {
+              "held_A": 191.89,
+              "held_B": 199.34,
+              "gen": 98.65,
+              "held_WT": 88181.71
+            }
+          },
+          "dw": [
+            {
+              "phase": "P1_ftWT",
+              "dw": 1.9635,
+              "lr": 0.0005,
+              "steps": 300,
+              "time_s": 2.9
+            },
+            {
+              "phase": "P2_ftA",
+              "dw": 1.3192,
+              "lr": 0.0005,
+              "steps": 300,
+              "time_s": 2.8
+            }
+          ]
+        },
+        "2": {
+          "ppl": {
+            "P0_base": {
+              "held_A": 18.0,
+              "held_B": 17.97,
+              "gen": 12.86,
+              "held_WT": 28698.83
+            },
+            "P1_ftWT": {
+              "held_A": 98.18,
+              "held_B": 97.66,
+              "gen": 46.93,
+              "held_WT": 24008.81
+            },
+            "P2_ftA": {
+              "held_A": 185.99,
+              "held_B": 174.33,
+              "gen": 82.08,
+              "held_WT": 218154.95
+            }
+          },
+          "dw": [
+            {
+              "phase": "P1_ftWT",
+              "dw": 1.9284,
+              "lr": 0.0005,
+              "steps": 300,
+              "time_s": 2.9
+            },
+            {
+              "phase": "P2_ftA",
+              "dw": 1.271,
+              "lr": 0.0005,
+              "steps": 300,
+              "time_s": 2.8
+            }
+          ]
+        },
+        "3": {
+          "ppl": {
+            "P0_base": {
+              "held_A": 17.83,
+              "held_B": 17.94,
+              "gen": 12.76,
+              "held_WT": 28265.58
+            },
+            "P1_ftWT": {
+              "held_A": 116.77,
+              "held_B": 106.99,
+              "gen": 47.35,
+              "held_WT": 16179.19
+            },
+            "P2_ftA": {
+              "held_A": 165.4,
+              "held_B": 211.58,
+              "gen": 99.35,
+              "held_WT": 162171.8
+            }
+          },
+          "dw": [
+            {
+              "phase": "P1_ftWT",
+              "dw": 1.9337,
+              "lr": 0.0005,
+              "steps": 300,
+              "time_s": 2.8
+            },
+            {
+              "phase": "P2_ftA",
+              "dw": 1.2768,
+              "lr": 0.0005,
+              "steps": 300,
+              "time_s": 2.9
+            }
+          ]
+        },
+        "4": {
+          "ppl": {
+            "P0_base": {
+              "held_A": 20.28,
+              "held_B": 20.38,
+              "gen": 13.83,
+              "held_WT": 23803.06
+            },
+            "P1_ftWT": {
+              "held_A": 199.12,
+              "held_B": 189.69,
+              "gen": 69.64,
+              "held_WT": 27175.06
+            },
+            "P2_ftA": {
+              "held_A": 177.43,
+              "held_B": 181.85,
+              "gen": 108.48,
+              "held_WT": 90390.45
+            }
+          },
+          "dw": [
+            {
+              "phase": "P1_ftWT",
+              "dw": 1.8435,
+              "lr": 0.0005,
+              "steps": 300,
+              "time_s": 2.9
+            },
+            {
+              "phase": "P2_ftA",
+              "dw": 1.469,
+              "lr": 0.0005,
+              "steps": 300,
+              "time_s": 2.9
+            }
+          ]
+        }
+      }
+    }
+  },
+  "date": "2026-09-11",
+  "summary": {
+    "arm1_domain_topic": {
+      "pcn": {
+        "adapt_A_pct": {
+          "per_seed": [
+            -228.7,
+            -267.1,
+            -269.5,
+            -249.4
+          ],
+          "mean": -253.68
+        },
+        "forget_A_pct": {
+          "per_seed": [
+            54.7,
+            40.6,
+            33.2,
+            44.7
+          ],
+          "mean": 43.3
+        },
+        "relearn_A_pct": {
+          "per_seed": [
+            -9.6,
+            -15.1,
+            -21.9,
+            -18.8
+          ],
+          "mean": -16.35
+        },
+        "learn_B_pct": {
+          "per_seed": [
+            -385.2,
+            -402.6,
+            -364.4,
+            -354.1
+          ],
+          "mean": -376.57
+        },
+        "gen_drift_P2_pct": {
+          "per_seed": [
+            345.9,
+            429.9,
+            344.6,
+            352.5
+          ],
+          "mean": 368.23
+        },
+        "dw_P1": {
+          "per_seed": [
+            0.8428,
+            0.8319,
+            0.854,
+            0.8437
+          ],
+          "mean": 0.84
+        }
+      },
+      "tf": {
+        "adapt_A_pct": {
+          "per_seed": [
+            -431.8,
+            -471.2,
+            -279.3,
+            -467.6
+          ],
+          "mean": -412.48
+        },
+        "forget_A_pct": {
+          "per_seed": [
+            117.5,
+            19.9,
+            155.0,
+            71.0
+          ],
+          "mean": 90.85
+        },
+        "relearn_A_pct": {
+          "per_seed": [
+            9.6,
+            -40.3,
+            -13.1,
+            -60.1
+          ],
+          "mean": -25.98
+        },
+        "learn_B_pct": {
+          "per_seed": [
+            -933.5,
+            -654.5,
+            -771.5,
+            -869.4
+          ],
+          "mean": -807.23
+        },
+        "gen_drift_P2_pct": {
+          "per_seed": [
+            708.3,
+            493.4,
+            693.9,
+            629.2
+          ],
+          "mean": 631.2
+        },
+        "dw_P1": {
+          "per_seed": [
+            1.4712,
+            1.4279,
+            1.5575,
+            1.5166
+          ],
+          "mean": 1.49
+        }
+      }
+    },
+    "arm2_cross_domain": {
+      "pcn": {
+        "adapt_WT_pct": {
+          "per_seed": [
+            50.9,
+            56.0,
+            76.2,
+            43.9
+          ],
+          "mean": 56.75
+        },
+        "ts_forget_pct": {
+          "per_seed": [
+            2551.2,
+            4659.3,
+            4030.6,
+            3568.8
+          ],
+          "mean": 3702.47
+        },
+        "ts_recover_pct": {
+          "per_seed": [
+            81.1,
+            89.1,
+            88.7,
+            84.5
+          ],
+          "mean": 85.85
+        },
+        "wt_retention_pct": {
+          "per_seed": [
+            263.8,
+            216.6,
+            359.0,
+            306.2
+          ],
+          "mean": 286.4
+        },
+        "dw_P1": {
+          "per_seed": [
+            1.0554,
+            1.0358,
+            1.0546,
+            1.046
+          ],
+          "mean": 1.05
+        }
+      },
+      "tf": {
+        "adapt_WT_pct": {
+          "per_seed": [
+            20.5,
+            16.3,
+            42.8,
+            -14.2
+          ],
+          "mean": 16.35
+        },
+        "ts_forget_pct": {
+          "per_seed": [
+            336.5,
+            264.9,
+            271.1,
+            403.5
+          ],
+          "mean": 319.0
+        },
+        "ts_recover_pct": {
+          "per_seed": [
+            -76.6,
+            -74.9,
+            -109.8,
+            -55.8
+          ],
+          "mean": -79.28
+        },
+        "wt_retention_pct": {
+          "per_seed": [
+            342.9,
+            808.6,
+            902.3,
+            232.6
+          ],
+          "mean": 571.6
+        },
+        "dw_P1": {
+          "per_seed": [
+            1.9635,
+            1.9284,
+            1.9337,
+            1.8435
+          ],
+          "mean": 1.92
+        }
+      }
+    }
+  }
+}
