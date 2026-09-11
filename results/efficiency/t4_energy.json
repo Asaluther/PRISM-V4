@@ -1,0 +1,106 @@
+{
+  "gpu": "RTX 4080 16GB",
+  "idle_w": 35.4,
+  "protocol": {
+    "train": "autocast+AdamW B=32 N=256 60\u6b65",
+    "infer": "fp32 \u524d\u5411 N=256 300\u6b65",
+    "sample_ms": 50
+  },
+  "train": {
+    "tf": {
+      "tok_per_s": 163950,
+      "mean_w": 205.4,
+      "idle_w": 35.4,
+      "n_samples": 56,
+      "duration_s": 3.0,
+      "j_per_tok_abs": 0.001253,
+      "j_per_tok_net": 0.001037
+    },
+    "no_gating": {
+      "tok_per_s": 144079,
+      "mean_w": 199.7,
+      "idle_w": 35.4,
+      "n_samples": 63,
+      "duration_s": 3.41,
+      "j_per_tok_abs": 0.001386,
+      "j_per_tok_net": 0.00114
+    },
+    "gate_bmm": {
+      "tok_per_s": 158384,
+      "mean_w": 181.8,
+      "idle_w": 35.4,
+      "n_samples": 58,
+      "duration_s": 3.1,
+      "j_per_tok_abs": 0.001148,
+      "j_per_tok_net": 0.000924
+    }
+  },
+  "infer": {
+    "tf_b1": {
+      "tok_per_s": 56716,
+      "mean_w": 64.3,
+      "idle_w": 35.4,
+      "n_samples": 25,
+      "duration_s": 1.35,
+      "j_per_tok_abs": 0.001134,
+      "j_per_tok_net": 0.00051
+    },
+    "tf_b32": {
+      "tok_per_s": 398962,
+      "mean_w": 282.7,
+      "idle_w": 35.4,
+      "n_samples": 112,
+      "duration_s": 6.16,
+      "j_per_tok_abs": 0.000709,
+      "j_per_tok_net": 0.00062
+    },
+    "no_gating_b1": {
+      "tok_per_s": 30813,
+      "mean_w": 69.4,
+      "idle_w": 35.4,
+      "n_samples": 47,
+      "duration_s": 2.49,
+      "j_per_tok_abs": 0.002253,
+      "j_per_tok_net": 0.001104
+    },
+    "no_gating_b32": {
+      "tok_per_s": 373275,
+      "mean_w": 287.2,
+      "idle_w": 35.4,
+      "n_samples": 120,
+      "duration_s": 6.58,
+      "j_per_tok_abs": 0.000769,
+      "j_per_tok_net": 0.000674
+    },
+    "gate_bmm_b1": {
+      "tok_per_s": 29469,
+      "mean_w": 67.7,
+      "idle_w": 35.4,
+      "n_samples": 49,
+      "duration_s": 2.61,
+      "j_per_tok_abs": 0.002297,
+      "j_per_tok_net": 0.001095
+    },
+    "gate_bmm_b32": {
+      "tok_per_s": 444426,
+      "mean_w": 274.6,
+      "idle_w": 35.4,
+      "n_samples": 101,
+      "duration_s": 5.53,
+      "j_per_tok_abs": 0.000618,
+      "j_per_tok_net": 0.000538
+    }
+  },
+  "to_ppl_ts5k": {
+    "tf": {
+      "ppl_ref": 15.08,
+      "tokens": 40960000,
+      "net_kJ": 42.5
+    },
+    "no_gating": {
+      "ppl_ref": 16.5,
+      "tokens": 40960000,
+      "net_kJ": 46.7
+    }
+  }
+}
