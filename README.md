@@ -1,4 +1,4 @@
-# PRISM V4-V5
+# PRISM V4-V6
 
 **Predictive Coding Networks in Language Modeling: Sample Efficiency, Mechanistic Unreachability, and Measurement Discipline — A Single-GPU Architecture Study**
 
@@ -13,13 +13,15 @@
 1. **Two-Dimensional Asymmetric Law**: The error-stream variant (no_gating) advantage over Transformers follows different shapes along two orthogonal axes:
    - **Data-reduction axis** (fixed model, decreasing data): monotonically increases to **+84%**
    - **Parameter-increase axis** (fixed data, increasing parameters): inverted-U, peak at ≈1000 tokens/parameter (**+60.8%** on WikiText-103)
-   - Direct deployment implication: terminal personalization (frozen mid-size model + few-shot user data) sits precisely in the +84% quadrant
+   - Deployment implication (v2.2 rescoped): the advantage cashes out in **cross-domain / cold-start adaptation**, not in-domain fine-tuning — see finding 5
 
-2. **Compositional Property with Symmetric Unreachability**: PCN's exact-copy capability (15/15 vs Transformer's 0/30) survives component removal but cannot be transplanted into standard blocks — confirmed across a complete 2×2×2 factorial design (8 cells, all successful) plus 5 standard-block graft attempts (all failed).
+2. **Compositional Property with Symmetric Unreachability**: PCN's exact-copy capability (15/15 vs Transformer's 0/30) survives component removal but cannot be transplanted into standard blocks — confirmed across a complete 2×2×2 factorial design (8 cells, all successful) plus 5 standard-block graft attempts (all failed). The weight-magnitude constraint during fine-tuning (ΔW ≈ TF/2) follows the same pattern (second emergent property, robust to fair baselines at 1.91×) — reframed as **parameter economy**, not forgetting protection.
 
-3. **Local Learning Rule Boundary**: Whittington-Bogacz predictive coding rules exactly match backpropagation on MLPs (loss 0.0002 vs 0.0002) but exhibit a structural 2.4-3.7× gap on PCN — the equivalence does not cross the structural complexity boundary.
+3. **Local Learning Rule Boundary**: Whittington-Bogacz predictive coding rules exactly match backpropagation on MLPs (loss 0.0002 vs 0.0002) but exhibit a structural 2.4-3.7× gap on PCN — the equivalence does not cross the structural complexity boundary. V6 closed this line per its failure exit.
 
-4. **Measurement Discipline**: Four systematic measurement biases (non-causal leakage, suboptimal baseline hyperparameters, invalid custom controls, evaluation double-shift) were each captured by pre-registered verification procedures — codified into 9 reusable lessons (see `LESSONS.md`).
+4. **Measurement Discipline**: Four systematic measurement biases (non-causal leakage, suboptimal baseline hyperparameters — including one V6-series recurrence with errata, invalid custom controls, synthetic-benchmark frequency shortcut) were each captured by pre-registered verification procedures — codified into 10 reusable lessons (see `LESSONS.md`).
+
+5. **Terminal Adaptation Boundaries (v2.2)**: The adaptation advantage is real but strictly **cross-domain**: one-shot user adaptation +58.5% vs fair TF +5.4%; true streaming (prequential, one pass) +24.0% vs TF −80.9%. In-domain personalization has **no headroom** (24-cell calibration grid, all negative for both archs); at matched adaptation PCN forgets *more* (plasticity–stability tradeoff). Deployment rule: adapt on cold start, freeze when converged. Terminal efficiency completed: CUDA-Graph b1 throughput 102% of TF with −28% energy; int4 recipe (g64 + W_res kept fp16) near-lossless — W_res (non-additive residual trunk) is PCN's entire quantization fragility. MQAR is a **negative** result (all four archs at chance at toy scale; copy advantage does not extend to key-value binding).
 
 ## Repository Structure
 
@@ -48,19 +50,28 @@ PRISM V4/
 ├── bench_t1a.py                # Gate bmm vs loop throughput benchmark
 ├── bench_infer.py              # Inference benchmark (batch 1-32)
 ├── bench_int8.py               # int8 quantization sensitivity
+├── bench_energy.py             # T4: NVML energy (J/token, train+infer)
+├── bench_b1_graph.py           # T5: batch1 CUDA Graph optimization
+├── bench_int4.py               # T6: int4 ladder + W_res probe
+├── forgetting_benchmark.py     # Catastrophic forgetting (calibrated/aggressive)
+├── forgetting_calibration.py   # Per-arch adaptation budget calibration
+├── skeleton_fair_recheck.py    # Weight-constraint fair-baseline recheck
+├── mqar_benchmark.py           # MQAR phase 1 (+ phase2/3/4 scripts)
+├── streaming_demo.py           # Prequential streaming adaptation demo
 ├── local_rule_test.py          # W&B local rule Level 0 (MLP calibration)
 ├── local_rule_level2.py        # W&B local rule Level 2 (LM task)
-├── LESSONS.md                  # 9 lessons from measurement failures
+├── LESSONS.md                  # 10 lessons from measurement failures
 ├── GOAL.md                     # Research roadmap and current status
 ├── V4_PLAN.md                  # Original V4 design document
 └── results/
     ├── analysis_v2/            # Scale curve with CI, signatures, efficiency data
-    ├── mechanism/              # Copy task, factorial, block ablation, local rule
-    ├── efficiency/             # Throughput, inference, int8 benchmarks
-    ├── PRISM_V5_TECH_REPORT.md # Full technical report (Chinese)
-    ├── PRISM_V5_TECH_REPORT_v2.pdf
+    ├── mechanism/              # Copy, factorial, skeleton, forgetting, MQAR, local rule
+    ├── efficiency/             # Throughput, inference, int8/int4, energy, graphs
+    ├── demo/                   # Personalization + streaming demos
+    ├── PRISM_V5_TECH_REPORT.md # Full technical report (Chinese, v2.2)
+    ├── V6_CLOSURE.md           # V6 final closure document
     ├── SUBMISSION_PACKAGE.md   # AiraXiv submission metadata
-    └── EFFICIENCY_REPORT.md    # V6 efficiency engineering results
+    └── EFFICIENCY_REPORT.md    # Efficiency results (T1-T6)
 ```
 
 ## Quick Start
@@ -120,6 +131,14 @@ python factorial_fill.py           # 2×2×2 full factorial
 # Efficiency benchmarks (v2 improvement)
 python bench_t1a.py               # bmm vs loop throughput
 python bench_infer.py             # batch 1-32 inference
+
+# V6 finale series (v2.2)
+python forgetting_benchmark.py calibrated   # forgetting, matched-adaptation regime
+python bench_energy.py            # T4 energy (needs nvidia-ml-py)
+python bench_b1_graph.py          # T5 batch1 CUDA Graph
+python bench_int4.py              # T6 int4 + W_res probe
+python streaming_demo.py          # prequential streaming adaptation
+python mqar_benchmark.py          # MQAR (negative result, phase 1)
 ```
 
 ## Results File Schema
@@ -132,6 +151,12 @@ python bench_infer.py             # batch 1-32 inference
 | `mechanism/local_rule_level2_FINAL.json` | W&B local rule Level 2 verdict | `p1a.lr_scan, p1b_final` |
 | `efficiency/t1a_bench.json` | bmm vs loop throughput | `tf, pcn_bmm, pcn_loop, speedup, pct_of_tf` |
 | `efficiency/t3_infer.json` | Inference batch 1-32 | `1, 4, 16, 32` × `tf, no_gating, gate_bmm` |
+| `mechanism/forgetting_benchmark_*.json` | Forgetting (calibrated/aggressive, 4 seeds) | `raw, summary` |
+| `mechanism/skeleton_fair_recheck.json` | ΔW constraint fair-baseline check | `tag, dw, ppl_b/a, ch` |
+| `demo/streaming_demo.json` | Prequential streaming | `traj, frozen_ppl, online_gain_pct` |
+| `efficiency/t4_energy.json` | Energy J/token (train + b1/b32 infer) | `train, infer, to_ppl_ts5k` |
+| `efficiency/t5_b1_graph.json` | CUDA Graph b1 optimization | `eager, graph, graph_speedup, max_logit_diff` |
+| `efficiency/t6_int4.json` | int4 ladder + W_res probe | `methods, size_mb, wres_probe` |
 
 ## Known Issues & Environment Notes
 
