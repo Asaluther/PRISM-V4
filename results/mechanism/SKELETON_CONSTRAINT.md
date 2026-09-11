@@ -28,3 +28,27 @@ PCN 微调时权重变化始终是 TF 的 ~1/2，无论加/去任何单一结构
 - `generalization_mechanism.json` (E1-E3)
 - `skeleton_constraint.json` (S1)
 - `skeleton_s3s4.json` (S3/S4)
+
+---
+
+## 勘误与重定性（2026-09-11 晚，公平基线复核后）
+
+**基线问题**：E1-E3/S 系列的 TF 侧用的是 `wt_causal_transformer_s0`（lr 3e-4 次优，
+WT best_ppl=557；公平版 `wt_tf_lr1e3_s1` 为 215）——教训 8 的对称性问题在本系列复发。
+
+**公平复核**（`skeleton_fair_recheck.py` → `skeleton_fair_recheck.json`，同协议换 checkpoint）：
+
+| 臂 | ΔW | TS held-out 变化 |
+|---|---|---|
+| PCN (wt_causal_no_gating_s1) | 0.9726 | 2392→857（+64.2%） |
+| TF-次优 (原系列基线, PPL 557) | 1.8315 | 4222→4343（**-2.9%**） |
+| TF-公平 (PPL 215) | 1.8552 | 2257→2135（**+5.4%**） |
+
+- **幅度结论稳健**：TF/PCN ΔW = 1.91×（公平）vs 1.88×（次优）——权重约束不是欠训练伪影。
+- **泛化叙事需修**：公平 TF 微调是改善（+5.4%）而非恶化——「TF 过拟合退化」是次优基线伪影。
+  PCN 仍大幅胜出（+64.2% vs +5.4%，起点还更差：2257 vs 2392），但对比是「多改善 vs 少改善」。
+- **含义重定性**（遗忘基准联动，见 FORGETTING_BENCHMARK.md）：PCN ΔW 小但函数移动大
+  （适应快、遗忘也快）——第二涌现性质是「参数经济性」，不是「稳定性保护」。
+
+规模边界：E/S/F 系列均为 22M / 300 步 / 1.5K token 快速范式，单次或 4 seed，
+外推需复验。

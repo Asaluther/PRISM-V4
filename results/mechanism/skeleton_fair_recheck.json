@@ -1,0 +1,23 @@
+[
+  {
+    "tag": "PCN (wt_causal_no_gating_s1)",
+    "dw": 0.9726,
+    "ppl_b": 2392.5,
+    "ppl_a": 857.0,
+    "ch": 64.2
+  },
+  {
+    "tag": "TF-次优 (wt_causal_transformer_s0, PPL 557)",
+    "dw": 1.8315,
+    "ppl_b": 4221.7,
+    "ppl_a": 4343.2,
+    "ch": -2.9
+  },
+  {
+    "tag": "TF-公平 (wt_tf_lr1e3_s1, PPL 215)",
+    "dw": 1.8552,
+    "ppl_b": 2257.0,
+    "ppl_a": 2134.9,
+    "ch": 5.4
+  }
+]
