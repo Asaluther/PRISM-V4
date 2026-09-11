@@ -1,0 +1,66 @@
+{
+  "pcn": [
+    {
+      "before": 2170.17,
+      "after": 851.83,
+      "improvement_pct": 60.7,
+      "time_s": 4.8
+    },
+    {
+      "before": 2216.3,
+      "after": 1241.69,
+      "improvement_pct": 44.0,
+      "time_s": 4.6
+    },
+    {
+      "before": 2224.44,
+      "after": 955.1,
+      "improvement_pct": 57.1,
+      "time_s": 4.5
+    },
+    {
+      "before": 2504.77,
+      "after": 794.46,
+      "improvement_pct": 68.3,
+      "time_s": 4.6
+    },
+    {
+      "before": 3124.91,
+      "after": 1179.66,
+      "improvement_pct": 62.2,
+      "time_s": 4.6
+    }
+  ],
+  "transformer": [
+    {
+      "before": 2647.96,
+      "after": 2400.94,
+      "improvement_pct": 9.3,
+      "time_s": 3.5
+    },
+    {
+      "before": 2923.13,
+      "after": 3999.16,
+      "improvement_pct": -36.8,
+      "time_s": 3.4
+    },
+    {
+      "before": 2981.64,
+      "after": 4478.76,
+      "improvement_pct": -50.2,
+      "time_s": 3.4
+    },
+    {
+      "before": 3021.39,
+      "after": 3537.21,
+      "improvement_pct": -17.1,
+      "time_s": 3.4
+    },
+    {
+      "before": 3605.96,
+      "after": 3734.0,
+      "improvement_pct": -3.6,
+      "time_s": 3.4
+    }
+  ]
+}
