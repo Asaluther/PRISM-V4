@@ -1,0 +1,79 @@
+{
+  "config": {
+    "model": "pcn",
+    "dataset": "wikitext",
+    "attn_impl": "sdpa",
+    "no_feedback": false,
+    "no_gating": true,
+    "feedback_mode": "prev_layer",
+    "local_rule": "none",
+    "lr_loc": null,
+    "n_pass": 1,
+    "layers": 12,
+    "d_model": 512,
+    "n_heads": 4,
+    "ffn_dim": 2048,
+    "d_gate": 64,
+    "dropout": 0.1,
+    "max_seq_len": 256,
+    "topk": 64,
+    "batch_size": 32,
+    "seq_len": 256,
+    "lr": 0.0005,
+    "weight_decay": 0.1,
+    "warmup_steps": 500,
+    "max_steps": 5000,
+    "grad_clip": 1.0,
+    "accum_steps": 1,
+    "eval_interval": 1000,
+    "log_interval": 1000,
+    "save_dir": "./results/",
+    "exp_name": "w512_ng_s0",
+    "seed": 0
+  },
+  "n_params": 57777152,
+  "vocab_size": 50257,
+  "val_ppl": [
+    {
+      "step": 1000,
+      "loss": 5.83820009528971,
+      "ppl": 343.161127140021,
+      "time_min": 1.7908777197202046
+    },
+    {
+      "step": 2000,
+      "loss": 6.10336672590577,
+      "ppl": 447.3613806894681,
+      "time_min": 3.5005300601323444
+    },
+    {
+      "step": 3000,
+      "loss": 6.042235652027408,
+      "ppl": 420.8328197259229,
+      "time_min": 5.186626219749451
+    },
+    {
+      "step": 4000,
+      "loss": 5.947492579660396,
+      "ppl": 382.7923134844077,
+      "time_min": 6.873032200336456
+    },
+    {
+      "step": 5000,
+      "loss": 5.924216908873243,
+      "ppl": 373.98545596835777,
+      "time_min": 8.561830206712086
+    }
+  ],
+  "best_ppl": 343.161127140021,
+  "total_time_s": 513.7103593349457,
+  "budget": {
+    "optimizer_steps": 5000,
+    "accum_steps": 1,
+    "effective_batch": 32,
+    "seq_len": 256,
+    "total_tokens_seen": 40960000,
+    "tokens_per_sec": 79733.64612118628,
+    "peak_vram_gb": 8.340992512
+  }
+}

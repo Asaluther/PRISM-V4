@@ -1,0 +1,72 @@
+[
+  {
+    "point": "WT d256@164M",
+    "tf_mean": 53.07,
+    "tf_n": 1,
+    "tf_sd": 0,
+    "ng_mean": 87.52,
+    "ng_n": 1,
+    "ng_sd": 0,
+    "adv_pct": -64.9
+  },
+  {
+    "point": "TS d256@41M",
+    "tf_mean": 15.18,
+    "tf_n": 5,
+    "tf_sd": 0.8,
+    "ng_mean": 16.5,
+    "ng_n": 5,
+    "ng_sd": 0.07,
+    "adv_pct": -8.8
+  },
+  {
+    "point": "WT d256@41M",
+    "tf_mean": 221.97,
+    "tf_n": 5,
+    "tf_sd": 17.9,
+    "ng_mean": 175.96,
+    "ng_n": 5,
+    "ng_sd": 0.53,
+    "adv_pct": 20.7
+  },
+  {
+    "point": "TS d384@41M",
+    "tf_mean": 20.04,
+    "tf_n": 5,
+    "tf_sd": 1.16,
+    "ng_mean": 11.37,
+    "ng_n": 5,
+    "ng_sd": 0.58,
+    "adv_pct": 43.3
+  },
+  {
+    "point": "WT d384@41M",
+    "tf_mean": 390.08,
+    "tf_n": 3,
+    "tf_sd": 131.76,
+    "ng_mean": 152.92,
+    "ng_n": 3,
+    "ng_sd": 34.04,
+    "adv_pct": 60.8
+  },
+  {
+    "point": "TS d512@41M",
+    "tf_mean": 36.82,
+    "tf_n": 3,
+    "tf_sd": 1.61,
+    "ng_mean": 23.75,
+    "ng_n": 3,
+    "ng_sd": 1.76,
+    "adv_pct": 35.5
+  },
+  {
+    "point": "WT d512@41M",
+    "tf_mean": 547.68,
+    "tf_n": 2,
+    "tf_sd": 65.66,
+    "ng_mean": 341.47,
+    "ng_n": 2,
+    "ng_sd": 2.39,
+    "adv_pct": 37.7
+  }
+]

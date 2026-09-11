@@ -1,0 +1,80 @@
+{
+  "config": {
+    "model": "transformer",
+    "dataset": "tinystories",
+    "attn_impl": "sdpa",
+    "no_feedback": false,
+    "no_gating": false,
+    "feedback_mode": "prev_layer",
+    "local_rule": "none",
+    "lr_loc": null,
+    "n_pass": 1,
+    "gate_impl": "bmm",
+    "layers": 12,
+    "d_model": 256,
+    "n_heads": 4,
+    "ffn_dim": 1024,
+    "d_gate": 32,
+    "dropout": 0.1,
+    "max_seq_len": 256,
+    "topk": 64,
+    "batch_size": 32,
+    "seq_len": 256,
+    "lr": 0.001,
+    "weight_decay": 0.1,
+    "warmup_steps": 1500,
+    "max_steps": 5000,
+    "grad_clip": 1.0,
+    "accum_steps": 1,
+    "eval_interval": 1000,
+    "log_interval": 1000,
+    "save_dir": "./results/",
+    "exp_name": "warm1500_tf_s0",
+    "seed": 0
+  },
+  "n_params": 22408960,
+  "vocab_size": 50257,
+  "val_ppl": [
+    {
+      "step": 1000,
+      "loss": 5.550705432891846,
+      "ppl": 257.4190837590601,
+      "time_min": 1.2154022812843324
+    },
+    {
+      "step": 2000,
+      "loss": 3.622848331435653,
+      "ppl": 37.44406919381087,
+      "time_min": 2.4243378122647603
+    },
+    {
+      "step": 3000,
+      "loss": 2.9319767735221167,
+      "ppl": 18.76468739525162,
+      "time_min": 3.634664555390676
+    },
+    {
+      "step": 4000,
+      "loss": 2.666421529675318,
+      "ppl": 14.388388536523806,
+      "time_min": 4.664751454194387
+    },
+    {
+      "step": 5000,
+      "loss": 2.6065875459308465,
+      "ppl": 13.552723804830917,
+      "time_min": 5.874540897210439
+    }
+  ],
+  "best_ppl": 13.552723804830917,
+  "total_time_s": 352.764767408371,
+  "budget": {
+    "optimizer_steps": 5000,
+    "accum_steps": 1,
+    "effective_batch": 32,
+    "seq_len": 256,
+    "total_tokens_seen": 40960000,
+    "tokens_per_sec": 116111.36877675624,
+    "peak_vram_gb": 6.247149568
+  }
+}

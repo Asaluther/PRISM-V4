@@ -1,0 +1,613 @@
+{
+  "results": [
+    {
+      "final_copy_loss": 0.353,
+      "steps_to_learn": 500,
+      "curve": [
+        3.156,
+        2.205,
+        1.472,
+        1.016,
+        0.805,
+        0.668,
+        0.552,
+        0.439,
+        0.416,
+        0.353
+      ],
+      "model": "pcn",
+      "H": 16,
+      "seed": 1
+    },
+    {
+      "final_copy_loss": 0.494,
+      "steps_to_learn": 400,
+      "curve": [
+        3.118,
+        1.929,
+        1.245,
+        0.996,
+        0.847,
+        0.725,
+        0.64,
+        0.584,
+        0.528,
+        0.494
+      ],
+      "model": "pcn",
+      "H": 16,
+      "seed": 2
+    },
+    {
+      "final_copy_loss": 0.637,
+      "steps_to_learn": 500,
+      "curve": [
+        3.167,
+        2.15,
+        1.427,
+        1.147,
+        0.985,
+        0.866,
+        0.801,
+        0.752,
+        0.682,
+        0.637
+      ],
+      "model": "pcn",
+      "H": 16,
+      "seed": 3
+    },
+    {
+      "final_copy_loss": 0.532,
+      "steps_to_learn": 500,
+      "curve": [
+        3.166,
+        2.054,
+        1.371,
+        1.102,
+        0.913,
+        0.81,
+        0.719,
+        0.625,
+        0.565,
+        0.532
+      ],
+      "model": "pcn",
+      "H": 16,
+      "seed": 4
+    },
+    {
+      "final_copy_loss": 0.579,
+      "steps_to_learn": 500,
+      "curve": [
+        3.152,
+        1.936,
+        1.364,
+        1.105,
+        0.942,
+        0.826,
+        0.734,
+        0.689,
+        0.622,
+        0.579
+      ],
+      "model": "pcn",
+      "H": 16,
+      "seed": 5
+    },
+    {
+      "final_copy_loss": 3.435,
+      "steps_to_learn": null,
+      "curve": [
+        3.437,
+        3.435,
+        3.435,
+        3.436,
+        3.433,
+        3.436,
+        3.437,
+        3.437,
+        3.435,
+        3.435
+      ],
+      "model": "transformer",
+      "H": 16,
+      "seed": 1
+    },
+    {
+      "final_copy_loss": 3.433,
+      "steps_to_learn": null,
+      "curve": [
+        3.437,
+        3.438,
+        3.434,
+        3.433,
+        3.436,
+        3.436,
+        3.437,
+        3.436,
+        3.435,
+        3.433
+      ],
+      "model": "transformer",
+      "H": 16,
+      "seed": 2
+    },
+    {
+      "final_copy_loss": 3.438,
+      "steps_to_learn": null,
+      "curve": [
+        3.437,
+        3.432,
+        3.436,
+        3.433,
+        3.437,
+        3.439,
+        3.433,
+        3.436,
+        3.437,
+        3.438
+      ],
+      "model": "transformer",
+      "H": 16,
+      "seed": 3
+    },
+    {
+      "final_copy_loss": 3.434,
+      "steps_to_learn": null,
+      "curve": [
+        3.441,
+        3.436,
+        3.434,
+        3.435,
+        3.437,
+        3.437,
+        3.435,
+        3.436,
+        3.436,
+        3.434
+      ],
+      "model": "transformer",
+      "H": 16,
+      "seed": 4
+    },
+    {
+      "final_copy_loss": 3.438,
+      "steps_to_learn": null,
+      "curve": [
+        3.438,
+        3.434,
+        3.436,
+        3.435,
+        3.437,
+        3.438,
+        3.437,
+        3.433,
+        3.435,
+        3.438
+      ],
+      "model": "transformer",
+      "H": 16,
+      "seed": 5
+    },
+    {
+      "final_copy_loss": 0.88,
+      "steps_to_learn": 800,
+      "curve": [
+        3.32,
+        3.257,
+        2.546,
+        1.675,
+        1.37,
+        1.175,
+        1.055,
+        0.97,
+        0.897,
+        0.88
+      ],
+      "model": "pcn",
+      "H": 32,
+      "seed": 1
+    },
+    {
+      "final_copy_loss": 0.473,
+      "steps_to_learn": 500,
+      "curve": [
+        3.309,
+        3.024,
+        1.648,
+        1.168,
+        0.884,
+        0.726,
+        0.63,
+        0.552,
+        0.511,
+        0.473
+      ],
+      "model": "pcn",
+      "H": 32,
+      "seed": 2
+    },
+    {
+      "final_copy_loss": 0.749,
+      "steps_to_learn": 600,
+      "curve": [
+        3.303,
+        3.179,
+        1.868,
+        1.328,
+        1.069,
+        0.934,
+        0.859,
+        0.81,
+        0.772,
+        0.749
+      ],
+      "model": "pcn",
+      "H": 32,
+      "seed": 3
+    },
+    {
+      "final_copy_loss": 0.632,
+      "steps_to_learn": 600,
+      "curve": [
+        3.325,
+        3.234,
+        2.001,
+        1.441,
+        1.143,
+        0.909,
+        0.778,
+        0.721,
+        0.676,
+        0.632
+      ],
+      "model": "pcn",
+      "H": 32,
+      "seed": 4
+    },
+    {
+      "final_copy_loss": 0.566,
+      "steps_to_learn": 600,
+      "curve": [
+        3.325,
+        3.26,
+        2.409,
+        1.488,
+        1.111,
+        0.885,
+        0.761,
+        0.698,
+        0.643,
+        0.566
+      ],
+      "model": "pcn",
+      "H": 32,
+      "seed": 5
+    },
+    {
+      "final_copy_loss": 3.436,
+      "steps_to_learn": null,
+      "curve": [
+        3.438,
+        3.435,
+        3.436,
+        3.435,
+        3.435,
+        3.436,
+        3.437,
+        3.434,
+        3.436,
+        3.436
+      ],
+      "model": "transformer",
+      "H": 32,
+      "seed": 1
+    },
+    {
+      "final_copy_loss": 3.435,
+      "steps_to_learn": null,
+      "curve": [
+        3.437,
+        3.436,
+        3.436,
+        3.436,
+        3.434,
+        3.435,
+        3.435,
+        3.434,
+        3.436,
+        3.435
+      ],
+      "model": "transformer",
+      "H": 32,
+      "seed": 2
+    },
+    {
+      "final_copy_loss": 3.437,
+      "steps_to_learn": null,
+      "curve": [
+        3.435,
+        3.434,
+        3.437,
+        3.436,
+        3.436,
+        3.435,
+        3.432,
+        3.434,
+        3.435,
+        3.437
+      ],
+      "model": "transformer",
+      "H": 32,
+      "seed": 3
+    },
+    {
+      "final_copy_loss": 3.436,
+      "steps_to_learn": null,
+      "curve": [
+        3.437,
+        3.435,
+        3.436,
+        3.436,
+        3.435,
+        3.435,
+        3.435,
+        3.436,
+        3.436,
+        3.436
+      ],
+      "model": "transformer",
+      "H": 32,
+      "seed": 4
+    },
+    {
+      "final_copy_loss": 3.433,
+      "steps_to_learn": null,
+      "curve": [
+        3.437,
+        3.434,
+        3.439,
+        3.434,
+        3.436,
+        3.436,
+        3.434,
+        3.436,
+        3.435,
+        3.433
+      ],
+      "model": "transformer",
+      "H": 32,
+      "seed": 5
+    },
+    {
+      "final_copy_loss": 1.116,
+      "steps_to_learn": null,
+      "curve": [
+        3.386,
+        3.36,
+        3.338,
+        3.315,
+        2.723,
+        1.792,
+        1.432,
+        1.267,
+        1.173,
+        1.116
+      ],
+      "model": "pcn",
+      "H": 64,
+      "seed": 1
+    },
+    {
+      "final_copy_loss": 1.072,
+      "steps_to_learn": null,
+      "curve": [
+        3.407,
+        3.376,
+        3.361,
+        3.343,
+        3.302,
+        2.333,
+        1.653,
+        1.339,
+        1.174,
+        1.072
+      ],
+      "model": "pcn",
+      "H": 64,
+      "seed": 2
+    },
+    {
+      "final_copy_loss": 1.027,
+      "steps_to_learn": null,
+      "curve": [
+        3.395,
+        3.37,
+        3.346,
+        3.157,
+        1.895,
+        1.395,
+        1.187,
+        1.079,
+        1.046,
+        1.027
+      ],
+      "model": "pcn",
+      "H": 64,
+      "seed": 3
+    },
+    {
+      "final_copy_loss": 1.07,
+      "steps_to_learn": null,
+      "curve": [
+        3.399,
+        3.361,
+        3.338,
+        3.23,
+        1.924,
+        1.415,
+        1.207,
+        1.133,
+        1.099,
+        1.07
+      ],
+      "model": "pcn",
+      "H": 64,
+      "seed": 4
+    },
+    {
+      "final_copy_loss": 1.191,
+      "steps_to_learn": null,
+      "curve": [
+        3.39,
+        3.362,
+        3.339,
+        2.63,
+        1.882,
+        1.514,
+        1.36,
+        1.263,
+        1.229,
+        1.191
+      ],
+      "model": "pcn",
+      "H": 64,
+      "seed": 5
+    },
+    {
+      "final_copy_loss": 3.435,
+      "steps_to_learn": null,
+      "curve": [
+        3.437,
+        3.435,
+        3.435,
+        3.435,
+        3.434,
+        3.435,
+        3.434,
+        3.435,
+        3.434,
+        3.435
+      ],
+      "model": "transformer",
+      "H": 64,
+      "seed": 1
+    },
+    {
+      "final_copy_loss": 3.435,
+      "steps_to_learn": null,
+      "curve": [
+        3.438,
+        3.436,
+        3.435,
+        3.435,
+        3.435,
+        3.435,
+        3.434,
+        3.436,
+        3.435,
+        3.435
+      ],
+      "model": "transformer",
+      "H": 64,
+      "seed": 2
+    },
+    {
+      "final_copy_loss": 3.435,
+      "steps_to_learn": null,
+      "curve": [
+        3.437,
+        3.437,
+        3.434,
+        3.435,
+        3.435,
+        3.434,
+        3.434,
+        3.435,
+        3.435,
+        3.435
+      ],
+      "model": "transformer",
+      "H": 64,
+      "seed": 3
+    },
+    {
+      "final_copy_loss": 3.435,
+      "steps_to_learn": null,
+      "curve": [
+        3.437,
+        3.435,
+        3.435,
+        3.436,
+        3.435,
+        3.435,
+        3.434,
+        3.435,
+        3.435,
+        3.435
+      ],
+      "model": "transformer",
+      "H": 64,
+      "seed": 4
+    },
+    {
+      "final_copy_loss": 3.435,
+      "steps_to_learn": null,
+      "curve": [
+        3.436,
+        3.435,
+        3.434,
+        3.436,
+        3.434,
+        3.434,
+        3.434,
+        3.434,
+        3.434,
+        3.435
+      ],
+      "model": "transformer",
+      "H": 64,
+      "seed": 5
+    }
+  ],
+  "summary": {
+    "pcn_H16": {
+      "learned_rate": "5/5",
+      "median_steps_to_learn": 500,
+      "mean_final_copy_loss": 0.519
+    },
+    "transformer_H16": {
+      "learned_rate": "0/5",
+      "median_steps_to_learn": null,
+      "mean_final_copy_loss": 3.436
+    },
+    "pcn_H32": {
+      "learned_rate": "5/5",
+      "median_steps_to_learn": 600,
+      "mean_final_copy_loss": 0.66
+    },
+    "transformer_H32": {
+      "learned_rate": "0/5",
+      "median_steps_to_learn": null,
+      "mean_final_copy_loss": 3.435
+    },
+    "pcn_H64": {
+      "learned_rate": "0/5",
+      "median_steps_to_learn": null,
+      "mean_final_copy_loss": 1.095
+    },
+    "transformer_H64": {
+      "learned_rate": "0/5",
+      "median_steps_to_learn": null,
+      "mean_final_copy_loss": 3.435
+    }
+  },
+  "protocol": {
+    "steps": 1000,
+    "learn_thr": 1.0,
+    "unigram": 3.4657359027997265,
+    "d_model": 64,
+    "n_layers": 12
+  }
+}

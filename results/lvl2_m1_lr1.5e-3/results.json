@@ -1,0 +1,79 @@
+{
+  "config": {
+    "model": "pcn",
+    "dataset": "tinystories",
+    "attn_impl": "sdpa",
+    "no_feedback": false,
+    "no_gating": true,
+    "feedback_mode": "prev_layer",
+    "local_rule": "m1",
+    "lr_loc": 0.0015,
+    "n_pass": 1,
+    "layers": 12,
+    "d_model": 256,
+    "n_heads": 4,
+    "ffn_dim": 1024,
+    "d_gate": 64,
+    "dropout": 0.1,
+    "max_seq_len": 256,
+    "topk": 64,
+    "batch_size": 32,
+    "seq_len": 256,
+    "lr": 0.0005,
+    "weight_decay": 0.1,
+    "warmup_steps": 500,
+    "max_steps": 5000,
+    "grad_clip": 1.0,
+    "accum_steps": 1,
+    "eval_interval": 1000,
+    "log_interval": 1000,
+    "save_dir": "./results/",
+    "exp_name": "lvl2_m1_lr1.5e-3",
+    "seed": 0
+  },
+  "n_params": 21025024,
+  "vocab_size": 50257,
+  "val_ppl": [
+    {
+      "step": 1000,
+      "loss": 4.193864329787325,
+      "ppl": 66.27841839440649,
+      "time_min": 1.375848404566447
+    },
+    {
+      "step": 2000,
+      "loss": 3.9006773735866074,
+      "ppl": 49.435924356013246,
+      "time_min": 2.7382636149724324
+    },
+    {
+      "step": 3000,
+      "loss": 3.748703058100929,
+      "ppl": 42.46597037323712,
+      "time_min": 4.103773101170858
+    },
+    {
+      "step": 4000,
+      "loss": 3.7042760119950477,
+      "ppl": 40.620627821186645,
+      "time_min": 5.28719710111618
+    },
+    {
+      "step": 5000,
+      "loss": 3.7535468330068036,
+      "ppl": 42.672164951800035,
+      "time_min": 6.633215538660685
+    }
+  ],
+  "best_ppl": 40.620627821186645,
+  "total_time_s": 397.99363017082214,
+  "budget": {
+    "optimizer_steps": 5000,
+    "accum_steps": 1,
+    "effective_batch": 32,
+    "seq_len": 256,
+    "total_tokens_seen": 40960000,
+    "tokens_per_sec": 102916.2199968367,
+    "peak_vram_gb": 6.96850432
+  }
+}

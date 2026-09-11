@@ -1,0 +1,4 @@
+{
+  "verdict": "INVALID",
+  "note": "四格全败（含已知✅对照）——Hybrid 块遗漏 gate_ln 且值对象误用 W_lat(h)（PCN 为 W_lat(e)），对照失效。正确做法：PCNLayer 内部加门来源/值通路开关重做（待办）。R2 原结论（门控通路整体）基于 PCN 原生实现的有效对照，不受影响。"
+}

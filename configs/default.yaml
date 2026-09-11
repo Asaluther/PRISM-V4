@@ -1,0 +1,30 @@
+model:
+  type: pcn           # pcn | transformer
+  n_layers: 12
+  d_model: 256
+  n_heads: 4
+  ffn_dim: 1024
+  d_gate: 32           # PCN 门控压缩维度
+  dropout: 0.1
+  topk: 64              # PCN Top-K 门控
+  max_seq_len: 512
+
+training:
+  batch_size: 32
+  seq_len: 256
+  lr: 3.0e-4
+  weight_decay: 0.1
+  warmup_steps: 500
+  max_steps: 5000
+  grad_clip: 1.0
+  eval_interval: 1000
+  log_interval: 50
+
+data:
+  dataset: TinyStories
+  max_train: 50000
+  max_val: 5000
+
+output:
+  save_dir: ./results/
+  exp_name: default

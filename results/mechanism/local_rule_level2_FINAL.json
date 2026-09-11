@@ -1,0 +1,67 @@
+{
+  "baseline_M0": 16.5,
+  "baseline_note": "ts_causal_no_gating 5-seed 16.50±0.07（已验证管线）",
+  "m1": {
+    "ppl": 39.82,
+    "ratio": 2.41,
+    "rule": "W_td/W_bu 局部（其余 BP）",
+    "verdict": "FAIL (初判)"
+  },
+  "m2": {
+    "ppl": 48.5,
+    "ratio": 2.94,
+    "rule": "+W_res 局部（e_{l+1} 上一步）",
+    "verdict": "FAIL (初判)"
+  },
+  "criteria": {
+    "m1": "<=19.0 (x1.15)",
+    "m2": "<=21.5 (x1.3)"
+  },
+  "analysis": "失败机理指向明确：W&B 等价性依赖迭代推断（误差松弛至平衡点）；m1/m2 用单步前向 e 作梯度代理，必然有偏。级别 0（MLP+迭代推断）完全等比、级别 2（LM+无推断）差 2.4-2.9x——差异与理论预期一致。",
+  "caveats": "局部规则的 lr_loc=5e-4 未经扫描（教训 8 的对称性欠账）——当前判定为初步 FAIL；V6 首个待办是 lr_loc 扫描 + 迭代推断版（two_pass 骨架可复用）。",
+  "date": "2026-09-09",
+  "p1a": {
+    "lr_scan": {
+      "5e-5": 43.42,
+      "1.5e-4": 41.84,
+      "5e-4": 39.82,
+      "1.5e-3": 40.62
+    },
+    "verdict": "lr 混杂排除——全平台 2.4-2.6x，差距对 lr_loc 不敏感，是代理本身偏差"
+  },
+  "p1b": {
+    "verdict": "数值不稳定待修",
+    "detail": "K=3 迭代推断在 ~1142 步后 NaN 发散（8674 skip），m1-inf=72.2@1000步 / m2-inf 同样",
+    "fix_options": [
+      "grad_clip 0.5 + K=2",
+      "pass>1 梯度阻断（末 pass detach，BP 只走 pass1——需设计兼容）",
+      "残差流的 pass 间衰减系数"
+    ],
+    "date": "2026-09-10"
+  },
+  "p1b_final": {
+    "verdict": "FAIL — V6 级别 2 终判（09-10 晨）",
+    "ratios": {
+      "m1_vs_bp@K3": 3.65,
+      "m1_vs_bp_single": 2.41
+    },
+    "controls": {
+      "单pass BP (clip1.0)": 16.56,
+      "单pass BP (clip0.5)": 14.13,
+      "K2 纯BP": 13.84,
+      "K3 纯BP": 13.6,
+      "m1@K2c0.5": 51.25,
+      "m1@K3c0.5": 49.63
+    },
+    "confounds_cleared": [
+      "lr_loc（P1a 四点平台）",
+      "迭代推断（K2/K3 矩阵全跑，数值稳定但性能更差）"
+    ],
+    "conclusion": "W&B 式局部学习规则在 PCN 结构上与 BP 差 2.4-3.7x，两混杂排除后为结构性差距。V6「PCN 可局部学习（W&B 形式）」证伪。",
+    "side_findings": [
+      "K-pass 增益是 clip 混杂（K2 13.84 vs 单pass 14.13，差 2%）",
+      "clip 0.5 对 no_gating 更优（16.56→14.13）——绝对数字有提升空间，但两边对称 clip 的规律结论不受影响"
+    ],
+    "implication": "V6 转备线评估（稀疏高效推理）；或局部规则的其它形式（非 W&B）可再议但优先级降低"
+  }
+}

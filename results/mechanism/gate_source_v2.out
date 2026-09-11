@@ -1,0 +1,7 @@
+Device: cpu | PCN internal-switch 2x2 | 3 seed
+===== calibration: feat/wlat_e (native, known GOOD) =====
+  3 seed: [0.309, 0.167, 0.165]  learned 3/3
+  qk/wlat_e          3 seed: [0.114, 0.072, 0.091]  learned 3/3
+  feat/wlat_h        3 seed: [0.026, 0.02, 0.02]  learned 3/3
+  qk/wlat_h          3 seed: [0.047, 0.049, 0.046]  learned 3/3
+saved: results\mechanism/gate_source_v2.json

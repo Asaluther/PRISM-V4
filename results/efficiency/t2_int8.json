@@ -1,0 +1,12 @@
+{
+  "transformer": {
+    "fp32": 556.58,
+    "int8": 556.62,
+    "loss_pct": 0.0
+  },
+  "no_gating": {
+    "fp32": 173.79,
+    "int8": 173.91,
+    "loss_pct": 0.1
+  }
+}

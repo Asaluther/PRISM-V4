@@ -1,0 +1,75 @@
+{
+  "config": {
+    "model": "pcn",
+    "dataset": "tinystories",
+    "no_feedback": false,
+    "no_gating": false,
+    "feedback_mode": "two_pass",
+    "layers": 12,
+    "d_model": 256,
+    "n_heads": 4,
+    "ffn_dim": 1024,
+    "d_gate": 64,
+    "dropout": 0.1,
+    "max_seq_len": 256,
+    "topk": 64,
+    "batch_size": 16,
+    "seq_len": 256,
+    "lr": 0.0003,
+    "weight_decay": 0.1,
+    "warmup_steps": 500,
+    "max_steps": 5000,
+    "grad_clip": 1.0,
+    "accum_steps": 2,
+    "eval_interval": 1000,
+    "log_interval": 1000,
+    "save_dir": "./results/",
+    "exp_name": "ts_causal_twopass_s3",
+    "seed": 3
+  },
+  "n_params": 21025024,
+  "vocab_size": 50257,
+  "val_ppl": [
+    {
+      "step": 1000,
+      "loss": 3.7673898521533684,
+      "ppl": 43.26698409595882,
+      "time_min": 7.67533251841863
+    },
+    {
+      "step": 2000,
+      "loss": 3.379700407508976,
+      "ppl": 29.361973168773172,
+      "time_min": 15.346494054794311
+    },
+    {
+      "step": 3000,
+      "loss": 3.1731776107441294,
+      "ppl": 23.883255596507137,
+      "time_min": 23.016485810279846
+    },
+    {
+      "step": 4000,
+      "loss": 3.073992803077067,
+      "ppl": 21.628087194697237,
+      "time_min": 30.507829662164053
+    },
+    {
+      "step": 5000,
+      "loss": 3.052614162776096,
+      "ppl": 21.170615582362544,
+      "time_min": 38.17541546026866
+    }
+  ],
+  "best_ppl": 21.170615582362544,
+  "total_time_s": 2290.9172077178955,
+  "budget": {
+    "optimizer_steps": 5000,
+    "accum_steps": 2,
+    "effective_batch": 32,
+    "seq_len": 256,
+    "total_tokens_seen": 40960000,
+    "tokens_per_sec": 17879.301732078933,
+    "peak_vram_gb": 8.638434304
+  }
+}

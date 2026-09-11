@@ -1,0 +1,68 @@
+{
+  "config": {
+    "model": "transformer",
+    "dataset": "tinystories",
+    "attn_impl": "sdpa",
+    "no_feedback": false,
+    "no_gating": false,
+    "feedback_mode": "prev_layer",
+    "local_rule": "none",
+    "lr_loc": null,
+    "n_pass": 1,
+    "gate_impl": "bmm",
+    "layers": 12,
+    "d_model": 256,
+    "n_heads": 4,
+    "ffn_dim": 1024,
+    "d_gate": 32,
+    "dropout": 0.1,
+    "max_seq_len": 256,
+    "topk": 64,
+    "batch_size": 32,
+    "seq_len": 256,
+    "lr": 0.001,
+    "weight_decay": 0.1,
+    "warmup_steps": 200,
+    "max_steps": 610,
+    "grad_clip": 0.5,
+    "accum_steps": 1,
+    "eval_interval": 300,
+    "log_interval": 1000,
+    "save_dir": "./results/",
+    "exp_name": "dslice_tf_5M_s1",
+    "seed": 1
+  },
+  "n_params": 22408960,
+  "vocab_size": 50257,
+  "val_ppl": [
+    {
+      "step": 300,
+      "loss": 6.011630077992589,
+      "ppl": 408.1480915339274,
+      "time_min": 0.5548982898394267
+    },
+    {
+      "step": 600,
+      "loss": 5.605603761909422,
+      "ppl": 271.9460665546477,
+      "time_min": 0.9452328205108642
+    },
+    {
+      "step": 610,
+      "loss": 5.6053996795465135,
+      "ppl": 271.8905728216402,
+      "time_min": 1.0984381556510925
+    }
+  ],
+  "best_ppl": 271.8905728216402,
+  "total_time_s": 66.20058822631836,
+  "budget": {
+    "optimizer_steps": 610,
+    "accum_steps": 1,
+    "effective_batch": 32,
+    "seq_len": 256,
+    "total_tokens_seen": 4997120,
+    "tokens_per_sec": 75484.52564977921,
+    "peak_vram_gb": 6.247149568
+  }
+}

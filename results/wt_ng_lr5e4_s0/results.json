@@ -1,0 +1,76 @@
+{
+  "config": {
+    "model": "pcn",
+    "dataset": "wikitext",
+    "attn_impl": "sdpa",
+    "no_feedback": false,
+    "no_gating": true,
+    "feedback_mode": "prev_layer",
+    "layers": 12,
+    "d_model": 256,
+    "n_heads": 4,
+    "ffn_dim": 1024,
+    "d_gate": 64,
+    "dropout": 0.1,
+    "max_seq_len": 256,
+    "topk": 64,
+    "batch_size": 32,
+    "seq_len": 256,
+    "lr": 0.0005,
+    "weight_decay": 0.1,
+    "warmup_steps": 500,
+    "max_steps": 5000,
+    "grad_clip": 1.0,
+    "accum_steps": 1,
+    "eval_interval": 1000,
+    "log_interval": 1000,
+    "save_dir": "./results/",
+    "exp_name": "wt_ng_lr5e4_s0",
+    "seed": 0
+  },
+  "n_params": 21025024,
+  "vocab_size": 50257,
+  "val_ppl": [
+    {
+      "step": 1000,
+      "loss": 5.822560205281152,
+      "ppl": 337.83587657156596,
+      "time_min": 1.1363935589790344
+    },
+    {
+      "step": 2000,
+      "loss": 5.356828797631849,
+      "ppl": 212.05142110263225,
+      "time_min": 2.1797395745913186
+    },
+    {
+      "step": 3000,
+      "loss": 5.139488081426482,
+      "ppl": 170.62839811385072,
+      "time_min": 3.221828814347585
+    },
+    {
+      "step": 4000,
+      "loss": 5.021578909701469,
+      "ppl": 151.65055740074152,
+      "time_min": 4.261872212092082
+    },
+    {
+      "step": 5000,
+      "loss": 4.995758230126078,
+      "ppl": 147.78495791974242,
+      "time_min": 5.301391967137655
+    }
+  ],
+  "best_ppl": 147.78495791974242,
+  "total_time_s": 318.3816759586334,
+  "budget": {
+    "optimizer_steps": 5000,
+    "accum_steps": 1,
+    "effective_batch": 32,
+    "seq_len": 256,
+    "total_tokens_seen": 40960000,
+    "tokens_per_sec": 128650.61997262001,
+    "peak_vram_gb": 6.895104
+  }
+}

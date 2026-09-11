@@ -1,0 +1,75 @@
+{
+  "config": {
+    "model": "pcn",
+    "dataset": "wikitext",
+    "no_feedback": false,
+    "no_gating": false,
+    "feedback_mode": "two_pass",
+    "layers": 12,
+    "d_model": 256,
+    "n_heads": 4,
+    "ffn_dim": 1024,
+    "d_gate": 64,
+    "dropout": 0.1,
+    "max_seq_len": 256,
+    "topk": 64,
+    "batch_size": 16,
+    "seq_len": 256,
+    "lr": 0.0003,
+    "weight_decay": 0.1,
+    "warmup_steps": 500,
+    "max_steps": 5000,
+    "grad_clip": 1.0,
+    "accum_steps": 2,
+    "eval_interval": 1000,
+    "log_interval": 1000,
+    "save_dir": "./results/",
+    "exp_name": "wt_causal_twopass_s3",
+    "seed": 3
+  },
+  "n_params": 21025024,
+  "vocab_size": 50257,
+  "val_ppl": [
+    {
+      "step": 1000,
+      "loss": 6.045813261099516,
+      "ppl": 422.3410914341554,
+      "time_min": 7.276545651753744
+    },
+    {
+      "step": 2000,
+      "loss": 5.6646590153541485,
+      "ppl": 288.489593821309,
+      "time_min": 14.483781707286834
+    },
+    {
+      "step": 3000,
+      "loss": 5.477747986569474,
+      "ppl": 239.3071771107027,
+      "time_min": 21.666232963403065
+    },
+    {
+      "step": 4000,
+      "loss": 5.391172946366847,
+      "ppl": 219.46065021797168,
+      "time_min": 28.84899473587672
+    },
+    {
+      "step": 5000,
+      "loss": 5.371410776324678,
+      "ppl": 215.16620507142235,
+      "time_min": 36.02864496707916
+    }
+  ],
+  "best_ppl": 215.16620507142235,
+  "total_time_s": 2161.9843118190765,
+  "budget": {
+    "optimizer_steps": 5000,
+    "accum_steps": 2,
+    "effective_batch": 32,
+    "seq_len": 256,
+    "total_tokens_seen": 40960000,
+    "tokens_per_sec": 18945.558381751893,
+    "peak_vram_gb": 8.638434304
+  }
+}

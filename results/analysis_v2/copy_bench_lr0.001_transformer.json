@@ -1,0 +1,313 @@
+{
+  "results": [
+    {
+      "final_copy_loss": 3.438,
+      "steps_to_learn": null,
+      "curve": [
+        3.436,
+        3.435,
+        3.44,
+        3.439,
+        3.439,
+        3.438,
+        3.436,
+        3.438,
+        3.436,
+        3.438
+      ],
+      "model": "transformer",
+      "H": 16,
+      "seed": 1
+    },
+    {
+      "final_copy_loss": 3.437,
+      "steps_to_learn": null,
+      "curve": [
+        3.435,
+        3.441,
+        3.437,
+        3.44,
+        3.436,
+        3.439,
+        3.434,
+        3.436,
+        3.435,
+        3.437
+      ],
+      "model": "transformer",
+      "H": 16,
+      "seed": 2
+    },
+    {
+      "final_copy_loss": 3.432,
+      "steps_to_learn": null,
+      "curve": [
+        3.433,
+        3.441,
+        3.439,
+        3.434,
+        3.438,
+        3.439,
+        3.437,
+        3.442,
+        3.435,
+        3.432
+      ],
+      "model": "transformer",
+      "H": 16,
+      "seed": 3
+    },
+    {
+      "final_copy_loss": 3.436,
+      "steps_to_learn": null,
+      "curve": [
+        3.437,
+        3.44,
+        3.437,
+        3.435,
+        3.437,
+        3.439,
+        3.433,
+        3.438,
+        3.436,
+        3.436
+      ],
+      "model": "transformer",
+      "H": 16,
+      "seed": 4
+    },
+    {
+      "final_copy_loss": 3.431,
+      "steps_to_learn": null,
+      "curve": [
+        3.435,
+        3.439,
+        3.441,
+        3.438,
+        3.436,
+        3.437,
+        3.44,
+        3.435,
+        3.437,
+        3.431
+      ],
+      "model": "transformer",
+      "H": 16,
+      "seed": 5
+    },
+    {
+      "final_copy_loss": 3.433,
+      "steps_to_learn": null,
+      "curve": [
+        3.436,
+        3.439,
+        3.435,
+        3.44,
+        3.438,
+        3.436,
+        3.439,
+        3.436,
+        3.435,
+        3.433
+      ],
+      "model": "transformer",
+      "H": 32,
+      "seed": 1
+    },
+    {
+      "final_copy_loss": 3.434,
+      "steps_to_learn": null,
+      "curve": [
+        3.438,
+        3.44,
+        3.437,
+        3.436,
+        3.438,
+        3.435,
+        3.434,
+        3.436,
+        3.436,
+        3.434
+      ],
+      "model": "transformer",
+      "H": 32,
+      "seed": 2
+    },
+    {
+      "final_copy_loss": 3.435,
+      "steps_to_learn": null,
+      "curve": [
+        3.436,
+        3.434,
+        3.437,
+        3.436,
+        3.434,
+        3.436,
+        3.437,
+        3.434,
+        3.435,
+        3.435
+      ],
+      "model": "transformer",
+      "H": 32,
+      "seed": 3
+    },
+    {
+      "final_copy_loss": 3.434,
+      "steps_to_learn": null,
+      "curve": [
+        3.437,
+        3.438,
+        3.439,
+        3.437,
+        3.434,
+        3.437,
+        3.433,
+        3.437,
+        3.435,
+        3.434
+      ],
+      "model": "transformer",
+      "H": 32,
+      "seed": 4
+    },
+    {
+      "final_copy_loss": 3.436,
+      "steps_to_learn": null,
+      "curve": [
+        3.437,
+        3.437,
+        3.436,
+        3.437,
+        3.432,
+        3.437,
+        3.436,
+        3.434,
+        3.436,
+        3.436
+      ],
+      "model": "transformer",
+      "H": 32,
+      "seed": 5
+    },
+    {
+      "final_copy_loss": 3.435,
+      "steps_to_learn": null,
+      "curve": [
+        3.436,
+        3.438,
+        3.435,
+        3.436,
+        3.435,
+        3.436,
+        3.434,
+        3.435,
+        3.436,
+        3.435
+      ],
+      "model": "transformer",
+      "H": 64,
+      "seed": 1
+    },
+    {
+      "final_copy_loss": 3.435,
+      "steps_to_learn": null,
+      "curve": [
+        3.437,
+        3.435,
+        3.435,
+        3.435,
+        3.435,
+        3.435,
+        3.435,
+        3.436,
+        3.434,
+        3.435
+      ],
+      "model": "transformer",
+      "H": 64,
+      "seed": 2
+    },
+    {
+      "final_copy_loss": 3.434,
+      "steps_to_learn": null,
+      "curve": [
+        3.436,
+        3.436,
+        3.437,
+        3.434,
+        3.436,
+        3.434,
+        3.434,
+        3.434,
+        3.434,
+        3.434
+      ],
+      "model": "transformer",
+      "H": 64,
+      "seed": 3
+    },
+    {
+      "final_copy_loss": 3.435,
+      "steps_to_learn": null,
+      "curve": [
+        3.435,
+        3.437,
+        3.436,
+        3.435,
+        3.434,
+        3.434,
+        3.434,
+        3.435,
+        3.436,
+        3.435
+      ],
+      "model": "transformer",
+      "H": 64,
+      "seed": 4
+    },
+    {
+      "final_copy_loss": 3.434,
+      "steps_to_learn": null,
+      "curve": [
+        3.437,
+        3.439,
+        3.435,
+        3.434,
+        3.436,
+        3.435,
+        3.435,
+        3.437,
+        3.435,
+        3.434
+      ],
+      "model": "transformer",
+      "H": 64,
+      "seed": 5
+    }
+  ],
+  "summary": {
+    "transformer_H16": {
+      "learned_rate": "0/5",
+      "median_steps_to_learn": null,
+      "mean_final_copy_loss": 3.435
+    },
+    "transformer_H32": {
+      "learned_rate": "0/5",
+      "median_steps_to_learn": null,
+      "mean_final_copy_loss": 3.434
+    },
+    "transformer_H64": {
+      "learned_rate": "0/5",
+      "median_steps_to_learn": null,
+      "mean_final_copy_loss": 3.435
+    }
+  },
+  "protocol": {
+    "steps": 1000,
+    "learn_thr": 1.0,
+    "unigram": 3.4657359027997265,
+    "d_model": 64,
+    "n_layers": 12
+  }
+}

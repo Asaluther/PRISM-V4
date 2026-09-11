@@ -1,0 +1,36 @@
+Device: cpu | 2×2 门来源×值通路 | 12L-d64 | 1000 步
+
+Traceback (most recent call last):
+  File "G:\PRISM V4\gate_source_test.py", line 146, in <module>
+    main()
+    ~~~~^^
+  File "G:\PRISM V4\gate_source_test.py", line 135, in main
+    run('qk门+V值（已知❌对照）', 'qk', 'v'),
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "G:\PRISM V4\gate_source_test.py", line 122, in run
+    loss = F.cross_entropy(model(x).reshape(-1, V), y.reshape(-1))
+                           ~~~~~^^^
+  File "G:\PRISM V4\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "G:\PRISM V4\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "G:\PRISM V4\gate_source_test.py", line 101, in forward
+    x = b(x)
+  File "G:\PRISM V4\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "G:\PRISM V4\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "G:\PRISM V4\gate_source_test.py", line 77, in forward
+    x = x + self.proj(o)
+            ~~~~~~~~~^^^
+  File "G:\PRISM V4\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "G:\PRISM V4\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "G:\PRISM V4\.venv\Lib\site-packages\torch\nn\modules\linear.py", line 134, in forward
+    return F.linear(input, self.weight, self.bias)
+           ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: mat1 and mat2 shapes cannot be multiplied (1536x16 and 64x64)

@@ -1,0 +1,292 @@
+[
+  {
+    "name": "tf_softmax(\u539f\u7248)",
+    "curve": [
+      {
+        "step": 100,
+        "copy_loss": 3.437,
+        "pointability": 0.0283,
+        "entropy": 3.59
+      },
+      {
+        "step": 200,
+        "copy_loss": 3.436,
+        "pointability": 0.0284,
+        "entropy": 3.588
+      },
+      {
+        "step": 300,
+        "copy_loss": 3.436,
+        "pointability": 0.0284,
+        "entropy": 3.587
+      },
+      {
+        "step": 400,
+        "copy_loss": 3.435,
+        "pointability": 0.0284,
+        "entropy": 3.587
+      },
+      {
+        "step": 500,
+        "copy_loss": 3.435,
+        "pointability": 0.0284,
+        "entropy": 3.588
+      },
+      {
+        "step": 600,
+        "copy_loss": 3.435,
+        "pointability": 0.0284,
+        "entropy": 3.588
+      },
+      {
+        "step": 700,
+        "copy_loss": 3.435,
+        "pointability": 0.0284,
+        "entropy": 3.588
+      },
+      {
+        "step": 800,
+        "copy_loss": 3.435,
+        "pointability": 0.0283,
+        "entropy": 3.589
+      },
+      {
+        "step": 900,
+        "copy_loss": 3.437,
+        "pointability": 0.0283,
+        "entropy": 3.589
+      },
+      {
+        "step": 1000,
+        "copy_loss": 3.435,
+        "pointability": 0.0284,
+        "entropy": 3.588
+      }
+    ]
+  },
+  {
+    "name": "tf_sigmoid(\u95e8\u63a7\u5f0f)",
+    "curve": [
+      {
+        "step": 100,
+        "copy_loss": 3.436
+      },
+      {
+        "step": 200,
+        "copy_loss": 3.436
+      },
+      {
+        "step": 300,
+        "copy_loss": 3.436
+      },
+      {
+        "step": 400,
+        "copy_loss": 3.435
+      },
+      {
+        "step": 500,
+        "copy_loss": 3.435
+      },
+      {
+        "step": 600,
+        "copy_loss": 3.435
+      },
+      {
+        "step": 700,
+        "copy_loss": 3.435
+      },
+      {
+        "step": 800,
+        "copy_loss": 3.435
+      },
+      {
+        "step": 900,
+        "copy_loss": 3.437
+      },
+      {
+        "step": 1000,
+        "copy_loss": 3.435
+      }
+    ]
+  },
+  {
+    "name": "tf_sm_t0.5",
+    "curve": [
+      {
+        "step": 100,
+        "copy_loss": 3.437
+      },
+      {
+        "step": 200,
+        "copy_loss": 3.436
+      },
+      {
+        "step": 300,
+        "copy_loss": 3.436
+      },
+      {
+        "step": 400,
+        "copy_loss": 3.435
+      },
+      {
+        "step": 500,
+        "copy_loss": 3.435
+      },
+      {
+        "step": 600,
+        "copy_loss": 3.435
+      },
+      {
+        "step": 700,
+        "copy_loss": 3.435
+      },
+      {
+        "step": 800,
+        "copy_loss": 3.435
+      },
+      {
+        "step": 900,
+        "copy_loss": 3.437
+      },
+      {
+        "step": 1000,
+        "copy_loss": 3.435
+      }
+    ]
+  },
+  {
+    "name": "tf_sm_t2.0",
+    "curve": [
+      {
+        "step": 100,
+        "copy_loss": 3.437
+      },
+      {
+        "step": 200,
+        "copy_loss": 3.436
+      },
+      {
+        "step": 300,
+        "copy_loss": 3.436
+      },
+      {
+        "step": 400,
+        "copy_loss": 3.435
+      },
+      {
+        "step": 500,
+        "copy_loss": 3.435
+      },
+      {
+        "step": 600,
+        "copy_loss": 3.435
+      },
+      {
+        "step": 700,
+        "copy_loss": 3.435
+      },
+      {
+        "step": 800,
+        "copy_loss": 3.435
+      },
+      {
+        "step": 900,
+        "copy_loss": 3.437
+      },
+      {
+        "step": 1000,
+        "copy_loss": 3.435
+      }
+    ]
+  },
+  {
+    "name": "pcn_sigmoid(\u539f\u7248)",
+    "curve": [
+      {
+        "step": 100,
+        "copy_loss": 3.274
+      },
+      {
+        "step": 200,
+        "copy_loss": 2.852
+      },
+      {
+        "step": 300,
+        "copy_loss": 1.97
+      },
+      {
+        "step": 400,
+        "copy_loss": 1.142
+      },
+      {
+        "step": 500,
+        "copy_loss": 0.499
+      },
+      {
+        "step": 600,
+        "copy_loss": 0.262
+      },
+      {
+        "step": 700,
+        "copy_loss": 0.206
+      },
+      {
+        "step": 800,
+        "copy_loss": 0.185
+      },
+      {
+        "step": 900,
+        "copy_loss": 0.173
+      },
+      {
+        "step": 1000,
+        "copy_loss": 0.167
+      }
+    ]
+  },
+  {
+    "name": "pcn_softmax(2c)",
+    "curve": [
+      {
+        "step": 100,
+        "copy_loss": 3.438
+      },
+      {
+        "step": 200,
+        "copy_loss": 3.437
+      },
+      {
+        "step": 300,
+        "copy_loss": 3.421
+      },
+      {
+        "step": 400,
+        "copy_loss": 2.098
+      },
+      {
+        "step": 500,
+        "copy_loss": 0.736
+      },
+      {
+        "step": 600,
+        "copy_loss": 0.337
+      },
+      {
+        "step": 700,
+        "copy_loss": 0.237
+      },
+      {
+        "step": 800,
+        "copy_loss": 0.201
+      },
+      {
+        "step": 900,
+        "copy_loss": 0.184
+      },
+      {
+        "step": 1000,
+        "copy_loss": 0.173
+      }
+    ]
+  }
+]

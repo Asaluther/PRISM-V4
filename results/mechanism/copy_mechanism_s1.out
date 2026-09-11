@@ -1,0 +1,14 @@
+Device: cpu | 复制任务 H=24 | 12L-d64 | 1000 步 | seed=1
+
+===== 2a/2b/2c 变体矩阵 =====
+  tf_softmax(原版)         最终 copy=3.435  学会=❌
+  tf_sigmoid(门控式)        最终 copy=3.435  学会=❌
+  tf_sm_t0.5             最终 copy=3.435  学会=❌
+  tf_sm_t2.0             最终 copy=3.435  学会=❌
+  pcn_sigmoid(原版)        最终 copy=0.167  学会=✅
+  pcn_softmax(2c)        最终 copy=0.173  学会=✅
+
+===== 判读 =====
+  ❓ 混合，看 json 曲线
+
+输出: results\mechanism/copy_mechanism.json

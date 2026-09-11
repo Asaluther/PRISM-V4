@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+
+# 模型 checkpoint（过大，不进仓库）
+*.pt
+*.pth
+
+# 数据缓存（公开 HF 数据集，运行时自动下载）
+cache/
+
+# 训练日志（结果 JSON 已保留，日志太长）
+*.log
+results/*.out
+
+# 已归档的双向时代数据（见 results/_invalid_bidirectional/README.md 说明）
+results/_invalid_bidirectional/
+
+# 临时文件
+tmp/
+*.tmp
+.DS_Store
+.zcode/

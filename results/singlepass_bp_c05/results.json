@@ -1,0 +1,79 @@
+{
+  "config": {
+    "model": "pcn",
+    "dataset": "tinystories",
+    "attn_impl": "sdpa",
+    "no_feedback": false,
+    "no_gating": true,
+    "feedback_mode": "prev_layer",
+    "local_rule": "none",
+    "lr_loc": null,
+    "n_pass": 1,
+    "layers": 12,
+    "d_model": 256,
+    "n_heads": 4,
+    "ffn_dim": 1024,
+    "d_gate": 64,
+    "dropout": 0.1,
+    "max_seq_len": 256,
+    "topk": 64,
+    "batch_size": 32,
+    "seq_len": 256,
+    "lr": 0.0005,
+    "weight_decay": 0.1,
+    "warmup_steps": 500,
+    "max_steps": 5000,
+    "grad_clip": 0.5,
+    "accum_steps": 1,
+    "eval_interval": 1000,
+    "log_interval": 1000,
+    "save_dir": "./results/",
+    "exp_name": "singlepass_bp_c05",
+    "seed": 0
+  },
+  "n_params": 21025024,
+  "vocab_size": 50257,
+  "val_ppl": [
+    {
+      "step": 1000,
+      "loss": 3.359121200466944,
+      "ppl": 28.763902065267416,
+      "time_min": 1.3500043908754984
+    },
+    {
+      "step": 2000,
+      "loss": 2.960097590753855,
+      "ppl": 19.299855151013748,
+      "time_min": 2.696054208278656
+    },
+    {
+      "step": 3000,
+      "loss": 2.7695465698715083,
+      "ppl": 15.951399524615137,
+      "time_min": 4.042367895444234
+    },
+    {
+      "step": 4000,
+      "loss": 2.669422334875942,
+      "ppl": 14.431630135031043,
+      "time_min": 5.216523770491282
+    },
+    {
+      "step": 5000,
+      "loss": 2.648411147850604,
+      "ppl": 14.13156782678288,
+      "time_min": 6.565572210152944
+    }
+  ],
+  "best_ppl": 14.13156782678288,
+  "total_time_s": 394.22230768203735,
+  "budget": {
+    "optimizer_steps": 5000,
+    "accum_steps": 1,
+    "effective_batch": 32,
+    "seq_len": 256,
+    "total_tokens_seen": 40960000,
+    "tokens_per_sec": 103900.76665330812,
+    "peak_vram_gb": 6.954479616
+  }
+}

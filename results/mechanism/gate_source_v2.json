@@ -1,0 +1,49 @@
+{
+  "calibration": [
+    0.309,
+    0.167,
+    0.165
+  ],
+  "valid": true,
+  "results": [
+    {
+      "name": "feat/wlat_e(control)",
+      "copies": [
+        0.309,
+        0.167,
+        0.165
+      ],
+      "mean": 0.214
+    },
+    {
+      "name": "qk/wlat_e",
+      "copies": [
+        0.114,
+        0.072,
+        0.091
+      ],
+      "mean": 0.092,
+      "learned": "3/3"
+    },
+    {
+      "name": "feat/wlat_h",
+      "copies": [
+        0.026,
+        0.02,
+        0.02
+      ],
+      "mean": 0.022,
+      "learned": "3/3"
+    },
+    {
+      "name": "qk/wlat_h",
+      "copies": [
+        0.047,
+        0.049,
+        0.046
+      ],
+      "mean": 0.047,
+      "learned": "3/3"
+    }
+  ]
+}

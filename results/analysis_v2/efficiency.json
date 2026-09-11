@@ -1,0 +1,39 @@
+{
+  "exps": {
+    "transformer_baseline": {
+      "params_M": 22.47,
+      "best_ppl": 2.37,
+      "total_tokens_M": 41.0,
+      "wall_time_s": 298,
+      "tokens_per_s": 137589,
+      "peak_vram_gb": null
+    },
+    "pcn_v2_fixed": {
+      "params_M": 20.93,
+      "best_ppl": 14.05,
+      "total_tokens_M": 41.0,
+      "wall_time_s": 1030,
+      "tokens_per_s": 39779,
+      "peak_vram_gb": 9.181778944
+    },
+    "pcn_v2_no_feedback": {
+      "params_M": 20.93,
+      "best_ppl": 2.07,
+      "total_tokens_M": 41.0,
+      "wall_time_s": 1023,
+      "tokens_per_s": 40032,
+      "peak_vram_gb": 9.174569984
+    },
+    "pcn_v2_no_gating": {
+      "params_M": 20.93,
+      "best_ppl": 1.23,
+      "total_tokens_M": 41.0,
+      "wall_time_s": 395,
+      "tokens_per_s": 103787,
+      "peak_vram_gb": 6.794047488
+    }
+  },
+  "power_mean_W": 199.0,
+  "power_peak_W": 301.0,
+  "samples": 266
+}

@@ -1,0 +1,14 @@
+{
+  "transformer": 181005.49088235846,
+  "pcn_eager": 28399.185300846657,
+  "pcn_eager_twopass": 3791.433107578954,
+  "pcn_compile": 18677.67184635356,
+  "pcn_compile_twopass": 17781.081787828938,
+  "_meta": {
+    "gpu": "NVIDIA GeForce RTX 4080",
+    "B": 32,
+    "N": 256,
+    "steps": 20,
+    "note": "\u8bad\u7ec3\u6b65\u541e\u5410\uff0c\u542b\u4f18\u5316\u5668"
+  }
+}

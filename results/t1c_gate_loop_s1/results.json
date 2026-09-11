@@ -1,0 +1,80 @@
+{
+  "config": {
+    "model": "pcn",
+    "dataset": "tinystories",
+    "attn_impl": "sdpa",
+    "no_feedback": false,
+    "no_gating": false,
+    "feedback_mode": "prev_layer",
+    "local_rule": "none",
+    "lr_loc": null,
+    "n_pass": 1,
+    "gate_impl": "loop",
+    "layers": 12,
+    "d_model": 256,
+    "n_heads": 4,
+    "ffn_dim": 1024,
+    "d_gate": 64,
+    "dropout": 0.1,
+    "max_seq_len": 256,
+    "topk": 64,
+    "batch_size": 32,
+    "seq_len": 256,
+    "lr": 0.0005,
+    "weight_decay": 0.1,
+    "warmup_steps": 500,
+    "max_steps": 5000,
+    "grad_clip": 0.5,
+    "accum_steps": 1,
+    "eval_interval": 1000,
+    "log_interval": 1000,
+    "save_dir": "./results/",
+    "exp_name": "t1c_gate_loop_s1",
+    "seed": 1
+  },
+  "n_params": 21025024,
+  "vocab_size": 50257,
+  "val_ppl": [
+    {
+      "step": 1000,
+      "loss": 3.6782198306942773,
+      "ppl": 39.57587956126805,
+      "time_min": 5.733031173547109
+    },
+    {
+      "step": 2000,
+      "loss": 3.3032726965659904,
+      "ppl": 27.201515715011755,
+      "time_min": 11.464491148789724
+    },
+    {
+      "step": 3000,
+      "loss": 3.09405347138397,
+      "ppl": 22.066342225259632,
+      "time_min": 17.193716009457905
+    },
+    {
+      "step": 4000,
+      "loss": 2.995841239109512,
+      "ppl": 20.002179429849658,
+      "time_min": 22.75934544404348
+    },
+    {
+      "step": 5000,
+      "loss": 2.9687550816654174,
+      "ppl": 19.467668846183393,
+      "time_min": 28.51053803364436
+    }
+  ],
+  "best_ppl": 19.467668846183393,
+  "total_time_s": 1710.8989572525024,
+  "budget": {
+    "optimizer_steps": 5000,
+    "accum_steps": 1,
+    "effective_batch": 32,
+    "seq_len": 256,
+    "total_tokens_seen": 40960000,
+    "tokens_per_sec": 23940.63064120211,
+    "peak_vram_gb": 12.466855424
+  }
+}
