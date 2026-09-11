@@ -1,0 +1,274 @@
+{
+  "protocol": {
+    "k_batches": 8,
+    "steps_per_batch": 60,
+    "lr": 0.0001,
+    "note": "prequential：每批先评（在线分）后学"
+  },
+  "streams": {
+    "cross": {
+      "pcn": {
+        "traj": [
+          {
+            "batch": 0,
+            "online_ppl": 1342.76,
+            "gen_ppl": 1823.87,
+            "wt_held_ppl": 181.73
+          },
+          {
+            "batch": 1,
+            "online_ppl": 696.49,
+            "gen_ppl": 677.78,
+            "wt_held_ppl": 699.01
+          },
+          {
+            "batch": 2,
+            "online_ppl": 3496.62,
+            "gen_ppl": 1030.4,
+            "wt_held_ppl": 1201.54
+          },
+          {
+            "batch": 3,
+            "online_ppl": 1381.69,
+            "gen_ppl": 1106.36,
+            "wt_held_ppl": 1420.77
+          },
+          {
+            "batch": 4,
+            "online_ppl": 982.3,
+            "gen_ppl": 949.26,
+            "wt_held_ppl": 1611.12
+          },
+          {
+            "batch": 5,
+            "online_ppl": 1985.09,
+            "gen_ppl": 1067.73,
+            "wt_held_ppl": 1943.28
+          },
+          {
+            "batch": 6,
+            "online_ppl": 2049.99,
+            "gen_ppl": 1531.64,
+            "wt_held_ppl": 1604.58
+          },
+          {
+            "batch": 7,
+            "online_ppl": 1107.92,
+            "gen_ppl": 1284.0,
+            "wt_held_ppl": 1586.68
+          }
+        ],
+        "final": {
+          "cum_dw": 0.5989,
+          "user_held_ppl_adapted": 1728.14,
+          "user_held_ppl_frozen": 2392.47,
+          "user_held_gain_pct": 27.8
+        },
+        "frozen_ppl": [
+          1342.76,
+          1865.54,
+          2741.22,
+          2625.05,
+          1701.11,
+          2493.8,
+          2806.16,
+          1164.85
+        ],
+        "online_gain_pct": 24.0
+      },
+      "tf": {
+        "traj": [
+          {
+            "batch": 0,
+            "online_ppl": 992.61,
+            "gen_ppl": 1392.61,
+            "wt_held_ppl": 200.53
+          },
+          {
+            "batch": 1,
+            "online_ppl": 727.61,
+            "gen_ppl": 680.6,
+            "wt_held_ppl": 325.02
+          },
+          {
+            "batch": 2,
+            "online_ppl": 3399.38,
+            "gen_ppl": 1904.79,
+            "wt_held_ppl": 540.17
+          },
+          {
+            "batch": 3,
+            "online_ppl": 2059.5,
+            "gen_ppl": 2499.43,
+            "wt_held_ppl": 796.46
+          },
+          {
+            "batch": 4,
+            "online_ppl": 1676.65,
+            "gen_ppl": 2100.95,
+            "wt_held_ppl": 1239.24
+          },
+          {
+            "batch": 5,
+            "online_ppl": 5128.05,
+            "gen_ppl": 2450.05,
+            "wt_held_ppl": 1407.81
+          },
+          {
+            "batch": 6,
+            "online_ppl": 2663.55,
+            "gen_ppl": 2567.8,
+            "wt_held_ppl": 1420.58
+          },
+          {
+            "batch": 7,
+            "online_ppl": 12470.37,
+            "gen_ppl": 5187.61,
+            "wt_held_ppl": 3902.07
+          }
+        ],
+        "final": {
+          "cum_dw": 1.1196,
+          "user_held_ppl_adapted": 6406.29,
+          "user_held_ppl_frozen": 2257.02,
+          "user_held_gain_pct": -183.8
+        },
+        "frozen_ppl": [
+          992.61,
+          1837.48,
+          2109.49,
+          2615.76,
+          1537.83,
+          3129.92,
+          3159.34,
+          1161.61
+        ],
+        "online_gain_pct": -80.9
+      }
+    },
+    "indomain": {
+      "pcn": {
+        "traj": [
+          {
+            "batch": 0,
+            "online_ppl": 11.51,
+            "gen_ppl": 14.37
+          },
+          {
+            "batch": 1,
+            "online_ppl": 33.0,
+            "gen_ppl": 24.56
+          },
+          {
+            "batch": 2,
+            "online_ppl": 62.65,
+            "gen_ppl": 31.57
+          },
+          {
+            "batch": 3,
+            "online_ppl": 76.73,
+            "gen_ppl": 39.29
+          },
+          {
+            "batch": 4,
+            "online_ppl": 79.81,
+            "gen_ppl": 41.93
+          },
+          {
+            "batch": 5,
+            "online_ppl": 33.36,
+            "gen_ppl": 43.92
+          },
+          {
+            "batch": 6,
+            "online_ppl": 42.64,
+            "gen_ppl": 53.45
+          },
+          {
+            "batch": 7,
+            "online_ppl": 56.66,
+            "gen_ppl": 52.24
+          }
+        ],
+        "final": {
+          "cum_dw": 0.6647,
+          "user_held_ppl_adapted": 81.91,
+          "user_held_ppl_frozen": 19.51,
+          "user_held_gain_pct": -319.8
+        },
+        "frozen_ppl": [
+          11.51,
+          21.28,
+          25.23,
+          23.17,
+          20.3,
+          12.27,
+          15.88,
+          14.94
+        ],
+        "online_gain_pct": -189.2
+      },
+      "tf": {
+        "traj": [
+          {
+            "batch": 0,
+            "online_ppl": 10.43,
+            "gen_ppl": 12.8
+          },
+          {
+            "batch": 1,
+            "online_ppl": 24.15,
+            "gen_ppl": 18.39
+          },
+          {
+            "batch": 2,
+            "online_ppl": 38.42,
+            "gen_ppl": 23.96
+          },
+          {
+            "batch": 3,
+            "online_ppl": 54.36,
+            "gen_ppl": 31.13
+          },
+          {
+            "batch": 4,
+            "online_ppl": 92.63,
+            "gen_ppl": 43.46
+          },
+          {
+            "batch": 5,
+            "online_ppl": 31.53,
+            "gen_ppl": 42.66
+          },
+          {
+            "batch": 6,
+            "online_ppl": 52.64,
+            "gen_ppl": 52.31
+          },
+          {
+            "batch": 7,
+            "online_ppl": 74.68,
+            "gen_ppl": 63.84
+          }
+        ],
+        "final": {
+          "cum_dw": 1.1011,
+          "user_held_ppl_adapted": 94.41,
+          "user_held_ppl_frozen": 18.66,
+          "user_held_gain_pct": -405.9
+        },
+        "frozen_ppl": [
+          10.43,
+          18.24,
+          20.1,
+          21.53,
+          19.21,
+          11.66,
+          14.52,
+          13.8
+        ],
+        "online_gain_pct": -209.4
+      }
+    }
+  }
+}
