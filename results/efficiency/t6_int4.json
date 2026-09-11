@@ -1,0 +1,166 @@
+{
+  "wt": {
+    "TF": {
+      "fp32": 206.34,
+      "methods": {
+        "int8 对称 per-channel (T2 连续)": {
+          "ppl": 206.32,
+          "loss_pct": -0.0
+        },
+        "int4 对称 per-channel": {
+          "ppl": 209.99,
+          "loss_pct": 1.8
+        },
+        "int4 非对称 per-channel": {
+          "ppl": 208.37,
+          "loss_pct": 1.0
+        },
+        "int4 非对称 group128": {
+          "ppl": 207.54,
+          "loss_pct": 0.6
+        },
+        "int4 非对称 group64": {
+          "ppl": 206.65,
+          "loss_pct": 0.1
+        }
+      },
+      "size_mb": {
+        "fp32(全fp16对照)": 63.8,
+        "int8 对称 per-channel (T2 连续)": 35.5,
+        "int4 对称 per-channel": 30.8,
+        "int4 非对称 per-channel": 30.9,
+        "int4 非对称 group128": 31.3,
+        "int4 非对称 group64": 31.8
+      }
+    },
+    "PCN no_gating": {
+      "fp32": 167.08,
+      "methods": {
+        "int8 对称 per-channel (T2 连续)": {
+          "ppl": 167.14,
+          "loss_pct": 0.0
+        },
+        "int4 对称 per-channel": {
+          "ppl": 523.66,
+          "loss_pct": 213.4
+        },
+        "int4 非对称 per-channel": {
+          "ppl": 383.98,
+          "loss_pct": 129.8
+        },
+        "int4 非对称 group128": {
+          "ppl": 199.68,
+          "loss_pct": 19.5
+        },
+        "int4 非对称 group64": {
+          "ppl": 175.43,
+          "loss_pct": 5.0
+        }
+      },
+      "size_mb": {
+        "fp32(全fp16对照)": 58.3,
+        "int8 对称 per-channel (T2 连续)": 34.1,
+        "int4 对称 per-channel": 30.1,
+        "int4 非对称 per-channel": 30.2,
+        "int4 非对称 group128": 30.5,
+        "int4 非对称 group64": 31.0
+      }
+    }
+  },
+  "ts": {
+    "TF": {
+      "fp32": 11.53,
+      "methods": {
+        "int8 对称 per-channel (T2 连续)": {
+          "ppl": 11.53,
+          "loss_pct": -0.0
+        },
+        "int4 对称 per-channel": {
+          "ppl": 11.82,
+          "loss_pct": 2.5
+        },
+        "int4 非对称 per-channel": {
+          "ppl": 11.72,
+          "loss_pct": 1.6
+        },
+        "int4 非对称 group128": {
+          "ppl": 11.63,
+          "loss_pct": 0.8
+        },
+        "int4 非对称 group64": {
+          "ppl": 11.6,
+          "loss_pct": 0.6
+        }
+      },
+      "size_mb": {
+        "fp32(全fp16对照)": 63.8,
+        "int8 对称 per-channel (T2 连续)": 35.5,
+        "int4 对称 per-channel": 30.8,
+        "int4 非对称 per-channel": 30.9,
+        "int4 非对称 group128": 31.3,
+        "int4 非对称 group64": 31.8
+      }
+    },
+    "PCN no_gating": {
+      "fp32": 12.84,
+      "methods": {
+        "int8 对称 per-channel (T2 连续)": {
+          "ppl": 12.84,
+          "loss_pct": 0.0
+        },
+        "int4 对称 per-channel": {
+          "ppl": 34.27,
+          "loss_pct": 166.9
+        },
+        "int4 非对称 per-channel": {
+          "ppl": 22.85,
+          "loss_pct": 77.9
+        },
+        "int4 非对称 group128": {
+          "ppl": 14.86,
+          "loss_pct": 15.7
+        },
+        "int4 非对称 group64": {
+          "ppl": 13.4,
+          "loss_pct": 4.3
+        }
+      },
+      "size_mb": {
+        "fp32(全fp16对照)": 58.3,
+        "int8 对称 per-channel (T2 连续)": 34.1,
+        "int4 对称 per-channel": 30.1,
+        "int4 非对称 per-channel": 30.2,
+        "int4 非对称 group128": 30.5,
+        "int4 非对称 group64": 31.0
+      }
+    }
+  },
+  "wres_probe": {
+    "wt": {
+      "fp32": 167.08,
+      "仅 W_res int4-g64": {
+        "ppl": 174.67,
+        "loss_pct": 4.5,
+        "size_mb": 41.0
+      },
+      "int4-g64 W_res除外": {
+        "ppl": 167.46,
+        "loss_pct": 0.2,
+        "size_mb": 32.0
+      }
+    },
+    "ts": {
+      "fp32": 12.84,
+      "仅 W_res int4-g64": {
+        "ppl": 13.38,
+        "loss_pct": 4.2,
+        "size_mb": 41.0
+      },
+      "int4-g64 W_res除外": {
+        "ppl": 12.89,
+        "loss_pct": 0.4,
+        "size_mb": 32.0
+      }
+    }
+  }
+}
