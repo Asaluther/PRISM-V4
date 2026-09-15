@@ -66,6 +66,7 @@ def build_model(args, vocab_size):
             dropout=args.dropout,
             max_seq_len=args.max_seq_len,
             use_bmm_gate=(getattr(args, 'gate_impl', 'bmm') == 'bmm'),
+            act_sparse=getattr(args, 'act_sparse', 0.0),
         )
     elif args.model == 'transformer':
         model = TransformerModel(
@@ -342,6 +343,8 @@ def main():
                         help='局部规则学习率（默认=args.lr；P1a 对称扫描用）')
     parser.add_argument('--n_pass', type=int, default=1,
                         help='K-pass 迭代推断（P1b：K>1 时末 pass 误差用于局部规则）')
+    parser.add_argument('--act_sparse', type=float, default=0.0,
+                        help='V7 激活稀疏化比例（0=不稀疏，0.25=保留 25%% 最大激活）')
     parser.add_argument('--gate_impl', type=str, default='bmm', choices=['bmm', 'loop'],
                         help='门控实现：bmm=等价加速形式（默认）；loop=原 chunk 循环（对照）')
     parser.add_argument('--layers', type=int, default=12)

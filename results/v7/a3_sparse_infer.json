@@ -1,0 +1,26 @@
+{
+  "1": {
+    "tf": 58998,
+    "pcn_dense": 34417,
+    "pcn_sparse25": 31021,
+    "sparse_vs_dense": 0.9
+  },
+  "4": {
+    "tf": 249269,
+    "pcn_dense": 129567,
+    "pcn_sparse25": 116571,
+    "sparse_vs_dense": 0.9
+  },
+  "16": {
+    "tf": 379813,
+    "pcn_dense": 375554,
+    "pcn_sparse25": 338123,
+    "sparse_vs_dense": 0.9
+  },
+  "32": {
+    "tf": 404650,
+    "pcn_dense": 400682,
+    "pcn_sparse25": 360474,
+    "sparse_vs_dense": 0.9
+  }
+}

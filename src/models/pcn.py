@@ -19,9 +19,14 @@ class PCNLayer(nn.Module):
     """预测编码层 — 双向信息流 + 误差驱动门控"""
 
     def __init__(self, d_model, d_gate=32, dropout=0.1, gate_ln=True, gate_softmax=False,
-                 gate_source='feat', val_source='wlat_e', use_bmm_gate=True):
+                 gate_source='feat', val_source='wlat_e', use_bmm_gate=True,
+                 act_sparse=0.0):
         super().__init__()
         self.d = d_model
+        # V7-A1 激活稀疏化：act_sparse ∈ (0, 1) 为保留的激活比例（如 0.25 = 保留 25%）
+        # 实现：对 GELU(W_up(...)) 的输出做 Top-K（取前 k=d*act_sparse 个最大值）
+        # 0.0 = 不稀疏化（默认，与原行为一致）
+        self.act_sparse = act_sparse
         # 门控输入归一化（无参数，不改变 checkpoint 结构）。
         # 诊断 step1：无归一化时 e_comp 量级 ~1e-2，g ≈ sigmoid(0) ≈ 0.5 恒定，
         # w_g 梯度 ~1e-8 → 门控死锁。归一化后 g 初始有方差，w_g 可学习。
@@ -156,7 +161,14 @@ class PCNLayer(nn.Module):
 
         # === 步骤5: 状态更新 ===
         update = self.W_up(self.norm_update(e + lat))
-        h = F.gelu(update) + self.W_res(x)
+        h = F.gelu(update)
+        # V7-A1 激活稀疏化：只保留前 k% 最大激活（SAPN 思想：事件驱动）
+        if self.act_sparse > 0:
+            k = max(1, int(h.size(-1) * self.act_sparse))
+            topk_v, _ = h.topk(k, dim=-1)
+            threshold = topk_v[..., -1:]  # 每 [B,N] 位置的阈值
+            h = h * (h >= threshold).float()
+        h = h + self.W_res(x)
         h = self.dropout(h)
 
         if return_stats:
@@ -177,12 +189,12 @@ class PCNBlock(nn.Module):
 
     def __init__(self, d_model, n_heads=4, d_gate=32, dropout=0.1, gate_ln=True,
                  gate_softmax=False, gate_source='feat', val_source='wlat_e',
-                 use_ffn=False, use_bmm_gate=True):
+                 use_ffn=False, use_bmm_gate=True, act_sparse=0.0):
         super().__init__()
         self.pcn_layer = PCNLayer(d_model, d_gate=d_gate, dropout=dropout,
                                   gate_ln=gate_ln, gate_softmax=gate_softmax,
                                   gate_source=gate_source, val_source=val_source,
-                                  use_bmm_gate=use_bmm_gate)
+                                  use_bmm_gate=use_bmm_gate, act_sparse=act_sparse)
         # 机制二分（块子件）：True 时块尾加标准 FFN 子层——
         # 假说：FFN 的逐位置通道混合稀释位置 token 身份，干扰精确复制
         self.use_ffn = use_ffn
@@ -221,7 +233,14 @@ class PCNBlock(nn.Module):
             self.last_attn_w = None
             lat = self.attn_out(attn_out)
             update = pc.W_up(pc.norm_update(e + lat))
-            h = F.gelu(update) + pc.W_res(x)
+            h = F.gelu(update)
+            # V7-A1 激活稀疏化（no_gating 路径同步）
+            if self.pcn_layer.act_sparse > 0:
+                k = max(1, int(h.size(-1) * self.pcn_layer.act_sparse))
+                topk_v, _ = h.topk(k, dim=-1)
+                threshold = topk_v[..., -1:]
+                h = h * (h >= threshold).float()
+            h = h + pc.W_res(x)
             if self.use_ffn:
                 h = h + self.ffn(self.ffn_ln(h))
             h = pc.dropout(h)
@@ -238,7 +257,7 @@ class PCNModel(nn.Module):
     def __init__(self, vocab_size, d_model=256, n_layers=12, n_heads=4,
                  d_gate=32, dropout=0.1, max_seq_len=512, init_mode='fixed',
                  gate_softmax=False, gate_source='feat', val_source='wlat_e',
-                 use_ffn=False, use_bmm_gate=True):
+                 use_ffn=False, use_bmm_gate=True, act_sparse=0.0):
         super().__init__()
         self.d_model = d_model
         self.n_layers = n_layers
@@ -254,7 +273,8 @@ class PCNModel(nn.Module):
             PCNBlock(d_model, n_heads=n_heads, d_gate=d_gate, dropout=dropout,
                      gate_ln=(init_mode == 'fixed'), gate_softmax=gate_softmax,
                      gate_source=gate_source, val_source=val_source,
-                     use_ffn=use_ffn, use_bmm_gate=use_bmm_gate)
+                     use_ffn=use_ffn, use_bmm_gate=use_bmm_gate,
+                     act_sparse=act_sparse)
             for _ in range(n_layers)
         ])
 
