@@ -1,0 +1,23 @@
+[
+  {
+    "user": 1,
+    "before": 1676.9,
+    "after": 793.2,
+    "improvement": 52.7,
+    "time_s": 22.6
+  },
+  {
+    "user": 2,
+    "before": 2034.3,
+    "after": 957.2,
+    "improvement": 52.9,
+    "time_s": 22.9
+  },
+  {
+    "user": 3,
+    "before": 2246.9,
+    "after": 911.2,
+    "improvement": 59.4,
+    "time_s": 22.6
+  }
+]

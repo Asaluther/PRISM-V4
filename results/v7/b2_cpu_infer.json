@@ -1,0 +1,32 @@
+{
+  "model_params_M": 21.0,
+  "model_mb_fp32": 80,
+  "b1_s128": {
+    "tok_per_s": 7255,
+    "latency_ms": 17.6
+  },
+  "b1_s256": {
+    "tok_per_s": 8603,
+    "latency_ms": 29.8
+  },
+  "b2_s128": {
+    "tok_per_s": 9475,
+    "latency_ms": 27.0
+  },
+  "b2_s256": {
+    "tok_per_s": 9687,
+    "latency_ms": 52.9
+  },
+  "b4_s128": {
+    "tok_per_s": 11122,
+    "latency_ms": 46.0
+  },
+  "b4_s256": {
+    "tok_per_s": 10604,
+    "latency_ms": 96.6
+  },
+  "generation": {
+    "tok_per_s": 112.9,
+    "ms_per_tok": 8.9
+  }
+}
