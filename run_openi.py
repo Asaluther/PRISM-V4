@@ -1,10 +1,15 @@
 #!/usr/bin/env python3
-"""启智社区训练启动脚本 v3——使用 c2net 官方 API
+"""启智社区训练启动脚本 v3.2——使用 c2net 官方 API
 
 关键改进：
 1. 使用 c2net.context.prepare() 获取数据集真实挂载路径
 2. 使用 c2net_context.output_path 保存结果（自动回传到启智）
 3. 使用项目内 tokenizer/ 目录（无需网络下载）
+4. v3.1: 修复 mode 解析——平台实际传参格式与精确匹配 `--mode` 不符时会静默回退
+   pcn（导致 TF 任务重跑 PCN）。现兼容 --mode tf / --mode=tf / ----mode tf 等
+   形式，默认改为 tf，未知值直接退出；启动时打印 sys.argv 以便日志确诊。
+5. v3.2: 新增 tf_scan 模式——TF lr 三点扫描（5e-4 / 2e-3 / 1e-3 复跑），
+   验证 1e-3 在 101M 规模仍是最优；每点跑完立即保存，中断不丢已完成部分。
 """
 import os
 import sys
@@ -99,19 +104,34 @@ def setup_data():
         print(f'[数据] {name}: {status}')
 
 
+def tf_cmd(lr, exp_name):
+    """TF 基线统一命令——单点与 lr 扫描共用同一配置，仅 lr/exp_name 不同"""
+    return [sys.executable, 'train.py',
+            '--model', 'transformer', '--attn_impl', 'sdpa',
+            '--layers', '24', '--d_model', '512', '--ffn_dim', '2048',
+            '--lr', lr, '--batch_size', '16', '--accum_steps', '2',
+            '--seq_len', '256', '--max_seq_len', '256',
+            '--max_steps', '10000', '--warmup_steps', '2000',
+            '--grad_clip', '1.0',
+            '--dataset', 'wikitext',
+            '--eval_interval', '1000', '--log_interval', '500',
+            '--seed', '0', '--exp_name', exp_name]
+
+
 def train(mode='pcn'):
     """启动训练"""
+    if mode == 'tf_scan':
+        runs = [('5e-4', 'wt_200m_tf_lr5e-4'),
+                ('2e-3', 'wt_200m_tf_lr2e-3'),
+                ('1e-3', 'wt_200m_tf_lr1e-3')]
+        codes = []
+        for i, (lr, exp) in enumerate(runs, 1):
+            print(f'\n[训练] tf_scan {i}/{len(runs)} | lr={lr} | exp={exp}')
+            codes.append(subprocess.run(tf_cmd(lr, exp)).returncode)
+            save_results()
+        return max(codes)
     if mode == 'tf':
-        cmd = [sys.executable, 'train.py',
-               '--model', 'transformer', '--attn_impl', 'sdpa',
-               '--layers', '24', '--d_model', '512', '--ffn_dim', '2048',
-               '--lr', '1e-3', '--batch_size', '16', '--accum_steps', '2',
-               '--seq_len', '256', '--max_seq_len', '256',
-               '--max_steps', '10000', '--warmup_steps', '2000',
-               '--grad_clip', '1.0',
-               '--dataset', 'wikitext',
-               '--eval_interval', '1000', '--log_interval', '500',
-               '--seed', '0', '--exp_name', 'wt_200m_tf']
+        cmd = tf_cmd('1e-3', 'wt_200m_tf')
     else:
         cmd = [sys.executable, 'train.py',
                '--model', 'pcn', '--no_gating',
@@ -155,7 +175,8 @@ def save_results():
 
     # 打印结果摘要
     import json
-    for exp in ('wt_200m_pcn', 'wt_200m_tf'):
+    for exp in ('wt_200m_tf', 'wt_200m_tf_lr5e-4', 'wt_200m_tf_lr1e-3',
+                'wt_200m_tf_lr2e-3', 'wt_090m_pcn_v2'):
         rf = Path(f'results/{exp}/results.json')
         if rf.exists():
             r = json.loads(rf.read_text())
@@ -167,10 +188,25 @@ def save_results():
             print(f'{"="*50}')
 
 
+def parse_mode(argv):
+    """解析训练模式。默认 tf（仅剩 TF 基线任务），兼容平台各种传参形式。"""
+    mode = 'tf'
+    for i, arg in enumerate(argv[1:], start=1):
+        a = arg.lstrip('-').lower()
+        if a == 'mode' and i + 1 < len(argv):
+            mode = argv[i + 1].lstrip('-').lower().replace('-', '_')
+            break
+        if a.startswith('mode='):
+            mode = a.split('=', 1)[1].strip().lower().replace('-', '_')
+            break
+    return mode
+
+
 def main():
     print('=' * 60)
-    print('PRISM 200M 验证实验（启智社区 v3）')
+    print('PRISM 200M 验证实验（启智社区 v3.2）')
     print('=' * 60)
+    print(f'[启动参数] sys.argv = {sys.argv}')
     print(f'\n[环境] Python: {sys.version}')
     print(f'[环境] 工作目录: {os.getcwd()}')
     os.system('nvidia-smi --query-gpu=name,memory.total --format=csv,noheader')
@@ -186,10 +222,10 @@ def main():
     print(f'[检查] src/models/pcn.py: {Path("src/models/pcn.py").exists()}')
     print(f'[检查] data: {Path("cache/wikitext_train_int32.npy").exists()}')
 
-    mode = 'pcn'
-    for i, arg in enumerate(sys.argv):
-        if arg == '--mode' and i + 1 < len(sys.argv):
-            mode = sys.argv[i + 1]
+    mode = parse_mode(sys.argv)
+    if mode not in ('pcn', 'tf', 'tf_scan'):
+        print(f'!!! 未知 mode: {mode!r}（应为 pcn / tf / tf_scan），退出')
+        sys.exit(2)
 
     print(f'\n--- 开始训练: {mode} ---')
     code = train(mode)
