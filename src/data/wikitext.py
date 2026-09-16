@@ -29,7 +29,12 @@ CACHE_DIR = Path(__file__).resolve().parent.parent.parent / 'cache'
 class WikiTextDataset(Dataset):
     def __init__(self, split='train', seq_len=256, max_tokens=None):
         self.seq_len = seq_len
-        self.tokenizer = GPT2TokenizerFast.from_pretrained('gpt2')
+        # 优先从项目内 tokenizer/ 目录加载（离线环境），否则从 HuggingFace 下载
+        _tok_dir = Path(__file__).resolve().parent.parent.parent / 'tokenizer'
+        if (_tok_dir / 'vocab.json').exists():
+            self.tokenizer = GPT2TokenizerFast.from_pretrained(str(_tok_dir))
+        else:
+            self.tokenizer = GPT2TokenizerFast.from_pretrained('gpt2')
 
         CACHE_DIR.mkdir(exist_ok=True)
         cache_file = CACHE_DIR / f'wikitext_{split}_int32.npy'

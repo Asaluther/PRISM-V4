@@ -18,7 +18,11 @@ os.environ.setdefault('HF_HUB_OFFLINE', '1')
 class TinyStoriesDataset(Dataset):
     def __init__(self, split='train', tokenizer_name='gpt2', seq_len=256, max_examples=None):
         self.seq_len = seq_len
-        self.tokenizer = GPT2TokenizerFast.from_pretrained(tokenizer_name)
+        _tok_dir = Path(__file__).resolve().parent.parent.parent / 'tokenizer'
+        if (_tok_dir / 'vocab.json').exists():
+            self.tokenizer = GPT2TokenizerFast.from_pretrained(str(_tok_dir))
+        else:
+            self.tokenizer = GPT2TokenizerFast.from_pretrained(tokenizer_name)
         if self.tokenizer.pad_token is None:
             self.tokenizer.pad_token = self.tokenizer.eos_token
 
