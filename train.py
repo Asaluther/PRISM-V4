@@ -143,6 +143,8 @@ def train(args):
     optimizer = AdamW(opt_params, lr=args.lr, weight_decay=args.weight_decay)
     scheduler = get_cosine_schedule(optimizer, args.warmup_steps, args.max_steps)
     scaler = GradScaler(enabled=(device.type == 'cuda'))
+    _last_good_weights = None
+    nan_recoveries = 0
 
     # 输出目录
     exp_name = args.exp_name
@@ -211,10 +213,24 @@ def train(args):
                 scaler.scale(loss).backward()
 
         if nan_hit:
-            print(f'⚠️ Step {step}: NaN/Inf loss, skipping')
-            optimizer.zero_grad()
+            # 检查权重是否也 NaN 了（不只是 loss）
+            weight_nan = any(torch.isnan(p).any().item() for p in model.parameters())
+            if weight_nan and _last_good_weights is not None:
+                print(f'⚠️ Step {step}: 权重 NaN，从最近保存恢复')
+                model.load_state_dict(_last_good_weights)
+                scaler = torch.amp.GradScaler('cuda', enabled=(device.type == 'cuda'))
+                nan_recoveries += 1
+            else:
+                print(f'⚠️ Step {step}: NaN/Inf loss, skipping')
+                optimizer.zero_grad()
             step += 1
             continue
+
+        # 每 500 步保存 last good weights + 检查
+        if step % 500 == 0:
+            has_nan = any(torch.isnan(p).any().item() for p in model.parameters())
+            if not has_nan:
+                _last_good_weights = {k: v.clone() for k, v in model.state_dict().items()}
 
         scaler.unscale_(optimizer)
         torch.nn.utils.clip_grad_norm_(model.parameters(), args.grad_clip)

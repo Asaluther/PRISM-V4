@@ -107,7 +107,8 @@ def train(mode='pcn'):
                '--layers', '24', '--d_model', '512', '--ffn_dim', '2048',
                '--lr', '1e-3', '--batch_size', '16', '--accum_steps', '2',
                '--seq_len', '256', '--max_seq_len', '256',
-               '--max_steps', '10000', '--warmup_steps', '1000',
+               '--max_steps', '10000', '--warmup_steps', '2000',
+               '--grad_clip', '1.0',
                '--dataset', 'wikitext',
                '--eval_interval', '1000', '--log_interval', '500',
                '--seed', '0', '--exp_name', 'wt_200m_tf']
@@ -116,12 +117,13 @@ def train(mode='pcn'):
                '--model', 'pcn', '--no_gating',
                '--d_gate', '128', '--topk', '128',
                '--layers', '24', '--d_model', '512', '--ffn_dim', '2048',
-               '--lr', '3e-4', '--batch_size', '16', '--accum_steps', '2',
+               '--lr', '1e-4', '--batch_size', '16', '--accum_steps', '2',
                '--seq_len', '256', '--max_seq_len', '256',
-               '--max_steps', '10000', '--warmup_steps', '1000',
+               '--max_steps', '10000', '--warmup_steps', '2000',
+               '--grad_clip', '0.5',
                '--dataset', 'wikitext',
                '--eval_interval', '1000', '--log_interval', '500',
-               '--seed', '0', '--exp_name', 'wt_200m_pcn']
+               '--seed', '0', '--exp_name', 'wt_090m_pcn_v2']
 
     print(f'[训练] 启动 {mode} 200M')
     result = subprocess.run(cmd)
