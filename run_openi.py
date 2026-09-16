@@ -74,6 +74,9 @@ def setup_data():
 
             # 在数据集目录中搜索
             for found in ds_path.rglob(name):
+                if found.resolve() == target.resolve():
+                    print(f'[数据] {name} 已在正确位置')
+                    continue
                 print(f'[数据] 找到 {found}，复制...')
                 shutil.copy2(str(found), str(target))
                 print(f'[数据] {name}: {target.stat().st_size/1024/1024:.0f} MB')
