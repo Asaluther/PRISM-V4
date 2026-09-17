@@ -19,6 +19,7 @@ from torch.amp import autocast, GradScaler
 
 from src.models.pcn import PCNModel
 from src.models.transformer import TransformerModel
+from src.models.hybrid import HybridModel
 from src.data.tinystories import get_dataloaders
 from src.data.wikitext import get_wikitext_loaders
 
@@ -75,6 +76,19 @@ def build_model(args, vocab_size):
             n_layers=args.layers,
             n_heads=args.n_heads,
             ffn_dim=args.ffn_dim,
+            dropout=args.dropout,
+            max_seq_len=args.max_seq_len,
+            attn_impl=getattr(args, 'attn_impl', 'sdpa'),
+        )
+    elif args.model == 'hybrid':
+        model = HybridModel(
+            vocab_size=vocab_size,
+            d_model=args.d_model,
+            n_tf_layers=getattr(args, 'tf_layers', 12),
+            n_pcn_layers=args.layers - getattr(args, 'tf_layers', 12),
+            n_heads=args.n_heads,
+            ffn_dim=args.ffn_dim,
+            d_gate=args.d_gate,
             dropout=args.dropout,
             max_seq_len=args.max_seq_len,
             attn_impl=getattr(args, 'attn_impl', 'sdpa'),
@@ -140,6 +154,24 @@ def train(args):
         print(f"  局部规则 {args.local_rule}: 排除 {len(list(model.parameters())) - len(opt_params)} 个 BP 参数")
     else:
         opt_params = model.parameters()
+    clip_groups = None
+    if args.model == 'hybrid' and getattr(args, 'lr_backbone', None):
+        # 组件级各自最优（对称调优原则落到组件级）：TF 骨干 + embedding 用
+        # lr_backbone（本规模 TF 扫描最优 5e-4）；PCN 头 + ln_out 用 args.lr
+        # （本规模 PCN 扫描最优 1e-4）。clip 同理分组：骨干 1.0 / 头 args.grad_clip
+        backbone, head = [], []
+        for n_, p in model.named_parameters():
+            if n_.startswith('layers.') or n_.startswith(('token_emb.', 'pos_emb.')):
+                backbone.append(p)
+            else:
+                head.append(p)
+        opt_params = [
+            {'params': backbone, 'lr': args.lr_backbone},
+            {'params': head, 'lr': args.lr},
+        ]
+        clip_groups = {'backbone': backbone, 'head': head}
+        print(f'  混合分组 lr: 骨干 {args.lr_backbone:g}（{len(backbone)} 张量）| '
+              f'PCN 头 {args.lr:g}（{len(head)} 张量）')
     optimizer = AdamW(opt_params, lr=args.lr, weight_decay=args.weight_decay)
     scheduler = get_cosine_schedule(optimizer, args.warmup_steps, args.max_steps)
     amp_enabled = device.type == 'cuda'
@@ -183,7 +215,7 @@ def train(args):
     no_feedback = getattr(args, 'no_feedback', False)
     no_gating = getattr(args, 'no_gating', False)
     model_kwargs = {}
-    if args.model == 'pcn':
+    if args.model in ('pcn', 'hybrid'):
         model_kwargs = dict(topk=args.topk, no_feedback=no_feedback, no_gating=no_gating,
                             feedback_mode=getattr(args, 'feedback_mode', 'prev_layer'),
                             n_pass=getattr(args, 'n_pass', 1))
@@ -250,7 +282,11 @@ def train(args):
                 _last_good_weights = {k: v.clone() for k, v in model.state_dict().items()}
 
         scaler.unscale_(optimizer)
-        torch.nn.utils.clip_grad_norm_(model.parameters(), args.grad_clip)
+        if clip_groups:
+            torch.nn.utils.clip_grad_norm_(clip_groups['backbone'], 1.0)
+            torch.nn.utils.clip_grad_norm_(clip_groups['head'], args.grad_clip)
+        else:
+            torch.nn.utils.clip_grad_norm_(model.parameters(), args.grad_clip)
         scaler.step(optimizer)
         scaler.update()
         scheduler.step()
@@ -363,7 +399,8 @@ def train(args):
 
 def main():
     parser = argparse.ArgumentParser(description='PRISM V4 Training')
-    parser.add_argument('--model', type=str, default='pcn', choices=['pcn', 'transformer'])
+    parser.add_argument('--model', type=str, default='pcn',
+                        choices=['pcn', 'transformer', 'hybrid'])
     parser.add_argument('--dataset', type=str, default='tinystories',
                         choices=['tinystories', 'wikitext'])
     parser.add_argument('--attn_impl', type=str, default='sdpa', choices=['sdpa', 'mha', 'decay'],
@@ -403,6 +440,10 @@ def main():
     parser.add_argument('--grad_clip', type=float, default=1.0)
     parser.add_argument('--amp_dtype', choices=['fp16', 'bf16'], default='fp16',
                         help='CUDA autocast 精度：fp16（默认）或 bf16（V8 稳定化）')
+    parser.add_argument('--tf_layers', type=int, default=12,
+                        help='hybrid：TF 骨干层数（总层数 = --layers，PCN 头 = 差值）')
+    parser.add_argument('--lr_backbone', type=float, default=None,
+                        help='hybrid：TF 骨干+embedding 参数组 lr（缺省与 --lr 同值）')
     parser.add_argument('--accum_steps', type=int, default=1,
                         help='梯度累积微批次数：等效 batch = batch_size × accum_steps')
     parser.add_argument('--eval_interval', type=int, default=1000)

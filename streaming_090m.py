@@ -36,17 +36,18 @@ FT_LRS = [1e-4, 5e-5, 2.5e-4]   # 首项为主协议常数
 CKPTS = {
     'pcn': 'results/wt_090m_pcn_lr1e-4_ckpt/best_model.pt',
     'tf': 'results/wt_200m_tf_lr5e-4_ckpt/best_model.pt',
+    'hyb': 'results/wt_094m_hyb_s0/best_model.pt',
 }
 
 
 def load_ckpt(kind):
-    m = build_model(kind == 'pcn')
+    m = build_model(kind)
     m.load_state_dict(torch.load(CKPTS[kind], map_location=DEV, weights_only=True))
     return m.to(DEV)
 
 
 def forward_logits(model, kind, x):
-    return model(x, **PCN_KW) if kind == 'pcn' else model(x)
+    return model(x, **PCN_KW) if kind in ('pcn', 'hyb') else model(x)
 
 
 @torch.no_grad()
@@ -88,8 +89,9 @@ def adapt_batch(model, kind, batch, steps, lr):
 def run_stream(kind, stream, gen, user_held, wt_held, lr, tag):
     model = load_ckpt(kind)
     traj = []
+    # ΔW 快照覆盖两种命名：纯架构 layers.* / hybrid 的 pcn_blocks.*（可训练部分）
     pre = {n: p.detach().clone() for n, p in model.named_parameters()
-           if n.startswith('layers.')}
+           if n.startswith(('layers.', 'pcn_blocks.'))}
     for i, batch in enumerate(stream):
         rec = {'batch': i,
                'online_ppl': round(eval_ppl(model, kind, batch), 2),
@@ -100,8 +102,10 @@ def run_stream(kind, stream, gen, user_held, wt_held, lr, tag):
               f'gen={rec["gen_ppl"]:.1f}  WT={rec["wt_held_ppl"]:.0f}')
         if i < len(stream) - 1:   # 最后一批只评不学
             model = adapt_batch(model, kind, batch, STEPS_PER_BATCH, lr)
+    # ΔW 只算可训练部分：layers ≥FREEZE_LAYERS（纯架构）/ pcn_blocks.*（hybrid 适应头）
     deltas = [(p.detach() - pre[n]).norm().item() for n, p in model.named_parameters()
-              if n in pre and int(n.split('.')[1]) >= FREEZE_LAYERS]
+              if n in pre and (n.startswith('pcn_blocks.')
+                               or int(n.split('.')[1]) >= FREEZE_LAYERS)]
     final = {'cum_dw': round(sum(deltas) / len(deltas), 4),
              'user_held_ppl_adapted': round(eval_ppl(model, kind, user_held), 2)}
     return traj, final
@@ -135,7 +139,7 @@ def main():
 
     # 冻结基线与流末 held-out 冻结对照（与 lr 无关，每臂算一次）
     frozen_all, user_held_frozen = {}, {}
-    for kind in ('pcn', 'tf'):
+    for kind in ('pcn', 'tf', 'hyb'):
         m = load_ckpt(kind)
         frozen_all[kind] = [round(eval_ppl(m, kind, b), 2) for b in stream]
         user_held_frozen[kind] = round(eval_ppl(m, kind, user_held), 2)
@@ -147,7 +151,7 @@ def main():
     for lr in FT_LRS:
         print(f'\n--- 流式适应 lr={lr:g} ---')
         results['streams'][f'lr={lr:g}'] = {}
-        for kind in ('pcn', 'tf'):
+        for kind in ('pcn', 'tf', 'hyb'):
             tag = f'{lr:g}/{kind}'
             traj, final = run_stream(kind, stream, gen, user_held, wt_held, lr, tag)
             final['user_held_ppl_frozen'] = user_held_frozen[kind]
@@ -168,7 +172,7 @@ def main():
     print(f'\n输出: {OUT}/streaming_090m.json')
 
     print('\n===== 判读（主协议 lr=1e-4）=====')
-    for kind in ('pcn', 'tf'):
+    for kind in ('pcn', 'tf', 'hyb'):
         f = results['streams']['lr=0.0001'][kind]['final']
         print(f'  {kind}: 在线增益 {f["online_gain_pct"]:+.1f}% | '
               f'held-out {f["user_held_gain_pct"]:+.1f}% | ΔW {f["cum_dw"]}')

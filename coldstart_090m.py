@@ -23,17 +23,20 @@ import torch
 import torch.nn.functional as F
 from src.models.pcn import PCNModel
 from src.models.transformer import TransformerModel
+from src.models.hybrid import HybridModel
 from src.data.tinystories import get_dataloaders
 
 VOCAB = 50257
 DEV = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 STEPS = 300
-FREEZE_LAYERS = 12   # 底部一半（同小规模协议 6/12 的比例）
+FREEZE_LAYERS = 12   # 底部一半（同小规模协议 6/12 的比例；hybrid 的 layers=TF 骨干，
+                    # 恰好全部冻结——适应只发生在 PCN 头，混合架构的设计意图）
 OUT = Path('results/v7')
 
 CKPTS = {
     'PCN 90.5M (lr1e-4)': 'results/wt_090m_pcn_lr1e-4_ckpt/best_model.pt',
     'TF 101.5M (lr5e-4)': 'results/wt_200m_tf_lr5e-4_ckpt/best_model.pt',
+    'HYB 96.0M (12TF+12PCN)': 'results/wt_094m_hyb_s0/best_model.pt',
 }
 
 # 与 train.py 训练时的 model_kwargs 完全一致
@@ -95,11 +98,20 @@ def finetune(model, train_data, is_pcn):
     return model
 
 
-def build_model(is_pcn):
-    if is_pcn:
+def build_model(kind):
+    """kind: 'pcn' / 'tf' / 'hyb'（兼容旧布尔调用：True→pcn, False→tf）"""
+    if kind is True:
+        kind = 'pcn'
+    elif kind is False:
+        kind = 'tf'
+    if kind == 'pcn':
         return PCNModel(vocab_size=VOCAB, d_model=512, n_layers=24, n_heads=4,
                         d_gate=128, dropout=0.0, max_seq_len=256,
                         init_mode='fixed', use_bmm_gate=True)
+    if kind == 'hyb':
+        return HybridModel(vocab_size=VOCAB, d_model=512, n_tf_layers=12,
+                           n_pcn_layers=12, n_heads=4, ffn_dim=2048,
+                           d_gate=128, dropout=0.0, max_seq_len=256)
     return TransformerModel(vocab_size=VOCAB, d_model=512, n_layers=24, n_heads=4,
                             ffn_dim=2048, dropout=0.0, max_seq_len=256,
                             attn_impl='sdpa')
@@ -114,15 +126,16 @@ def main():
         if not Path(ckpt).exists():
             print(f'  {tag}: CHECKPOINT MISSING ({ckpt}), SKIP')
             continue
-        is_pcn = tag.startswith('PCN')
+        kind = 'pcn' if tag.startswith('PCN') else ('hyb' if tag.startswith('HYB') else 'tf')
+        use_kw = kind != 'tf'   # PCN / HYB 前向需要 PCN kwargs
         improvements, before_ppls, after_ppls = [], [], []
         for u in range(len(users)):
-            m = build_model(is_pcn)
+            m = build_model(kind)
             m.load_state_dict(torch.load(ckpt, map_location=DEV, weights_only=True))
             m = m.to(DEV)
-            pb = eval_ppl(m, tests[u], is_pcn)
-            m_ft = finetune(m, users[u], is_pcn)
-            pa = eval_ppl(m_ft, tests[u], is_pcn)
+            pb = eval_ppl(m, tests[u], use_kw)
+            m_ft = finetune(m, users[u], use_kw)
+            pa = eval_ppl(m_ft, tests[u], use_kw)
             improvements.append((1 - pa / pb) * 100)
             before_ppls.append(pb); after_ppls.append(pa)
             print(f'  {tag} user{u}: PPL {pb:.1f} -> {pa:.1f}  ({improvements[-1]:+.1f}%)')
@@ -138,17 +151,16 @@ def main():
     print(f'输出: {OUT / "coldstart_090m.json"}')
 
     print('\n===== 判定 =====')
-    if len(results) == 2:
-        pcn_avg = next(v for k, v in results.items() if k.startswith('PCN'))
-        tf_avg = next(v for k, v in results.items() if k.startswith('TF'))
-        gap = pcn_avg - tf_avg
-        print(f'  PCN {pcn_avg:+.1f}% vs TF {tf_avg:+.1f}%  (差 {gap:+.1f}pp)')
-        if gap > 20:
-            print('  → 冷启动优势在 90M 保持——混合路径（TF 骨干 + 误差流适应）成立')
-        elif gap < -20:
-            print('  → 90M 上 TF 反超——小规模冷启动优势未外推，核心机制需重估')
-        else:
-            print('  → 两者接近——冷启动优势在 90M 基本抹平')
+    if len(results) >= 2:
+        pcn_avg = next((v for k, v in results.items() if k.startswith('PCN')), None)
+        tf_avg = next((v for k, v in results.items() if k.startswith('TF')), None)
+        hyb_avg = next((v for k, v in results.items() if k.startswith('HYB')), None)
+        if pcn_avg is not None and tf_avg is not None:
+            print(f'  PCN {pcn_avg:+.1f}% vs TF {tf_avg:+.1f}%  (差 {pcn_avg - tf_avg:+.1f}pp)')
+        if hyb_avg is not None:
+            # 预注册判据（HYBRID_MVP 计划）：单发 ≥+30% → PCN 头适应能力大体保留
+            ok = hyb_avg >= 30
+            print(f'  HYB {hyb_avg:+.1f}%  预注册判据 ≥+30%: {"✅ 命中" if ok else "❌ 未达"}')
 
 
 if __name__ == '__main__':
