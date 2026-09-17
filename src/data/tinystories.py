@@ -1,6 +1,8 @@
 """PRISM V4 — TinyStories 数据加载"""
 
 import os
+from pathlib import Path
+
 import torch
 from torch.utils.data import Dataset, DataLoader
 from transformers import GPT2TokenizerFast

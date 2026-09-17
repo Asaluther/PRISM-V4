@@ -15,7 +15,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 import torch
 import torch.nn as nn
 from torch.optim import AdamW
-from torch.cuda.amp import autocast, GradScaler
+from torch.amp import autocast, GradScaler
 
 from src.models.pcn import PCNModel
 from src.models.transformer import TransformerModel
@@ -142,9 +142,14 @@ def train(args):
         opt_params = model.parameters()
     optimizer = AdamW(opt_params, lr=args.lr, weight_decay=args.weight_decay)
     scheduler = get_cosine_schedule(optimizer, args.warmup_steps, args.max_steps)
-    scaler = GradScaler(enabled=(device.type == 'cuda'))
+    amp_enabled = device.type == 'cuda'
+    amp_dtype = torch.bfloat16 if args.amp_dtype == 'bf16' else torch.float16
+    # bf16 动态范围大，无需 GradScaler；fp16 保留 loss 缩放
+    scaler = GradScaler('cuda', enabled=(amp_enabled and amp_dtype == torch.float16))
     _last_good_weights = None
     nan_recoveries = 0
+    nan_skip_streak = 0        # V8：连续 NaN-loss 计数（激活溢出时权重可能干净）
+    emergency_lr_factor = 1.0  # V8：回滚后的紧急 lr 衰减系数
 
     # 输出目录
     exp_name = args.exp_name
@@ -197,7 +202,7 @@ def train(args):
         nan_hit = False
         running_loss = 0.0
 
-        with autocast(enabled=(device.type == 'cuda')):
+        with autocast('cuda', enabled=amp_enabled, dtype=amp_dtype):
             for _ in range(accum):
                 x, y = next_batch()
                 logits = model(x, **model_kwargs)
@@ -218,10 +223,22 @@ def train(args):
             if weight_nan and _last_good_weights is not None:
                 print(f'⚠️ Step {step}: 权重 NaN，从最近保存恢复')
                 model.load_state_dict(_last_good_weights)
-                scaler = torch.amp.GradScaler('cuda', enabled=(device.type == 'cuda'))
+                scaler = GradScaler('cuda', enabled=(amp_enabled and amp_dtype == torch.float16))
                 nan_recoveries += 1
+                nan_skip_streak = 0
+            elif (weight_nan or nan_skip_streak + 1 >= 50) and _last_good_weights is not None:
+                # V8 盲区补丁：fp16 前向激活溢出时权重可能保持干净，但连续 NaN-loss
+                # 说明权重已漂进溢出区——只回滚会在同一区域反复爆炸，须附带紧急降 lr
+                print(f'⚠️ Step {step}: 连续 {nan_skip_streak + 1} 次 NaN-loss，回滚 + lr×0.5')
+                model.load_state_dict(_last_good_weights)
+                scaler = GradScaler('cuda', enabled=(amp_enabled and amp_dtype == torch.float16))
+                emergency_lr_factor *= 0.5
+                nan_recoveries += 1
+                nan_skip_streak = 0
             else:
-                print(f'⚠️ Step {step}: NaN/Inf loss, skipping')
+                nan_skip_streak += 1
+                if nan_skip_streak % 100 == 1:
+                    print(f'⚠️ Step {step}: NaN/Inf loss 连续 {nan_skip_streak} 次，跳过')
                 optimizer.zero_grad()
             step += 1
             continue
@@ -237,7 +254,12 @@ def train(args):
         scaler.step(optimizer)
         scaler.update()
         scheduler.step()
+        if emergency_lr_factor != 1.0:
+            # 调度器每步覆写 lr，紧急系数在覆写后乘回
+            for g in optimizer.param_groups:
+                g['lr'] *= emergency_lr_factor
         optimizer.zero_grad()
+        nan_skip_streak = 0
 
         # V6 级别2：局部学习规则（在已验证的训练循环内插入，其余流程不变）
         if args.model == 'pcn' and getattr(args, 'local_rule', 'none') != 'none':
@@ -314,6 +336,7 @@ def train(args):
     total_time = time.time() - start_time
     results_data['best_ppl'] = best_ppl
     results_data['total_time_s'] = total_time
+    results_data['nan_recoveries'] = nan_recoveries
     # 效率记录（证据线 B）：等效 token 预算与吞吐
     tokens_per_step = args.batch_size * accum * args.seq_len
     results_data['budget'] = {
@@ -378,6 +401,8 @@ def main():
     parser.add_argument('--warmup_steps', type=int, default=500)
     parser.add_argument('--max_steps', type=int, default=5000)
     parser.add_argument('--grad_clip', type=float, default=1.0)
+    parser.add_argument('--amp_dtype', choices=['fp16', 'bf16'], default='fp16',
+                        help='CUDA autocast 精度：fp16（默认）或 bf16（V8 稳定化）')
     parser.add_argument('--accum_steps', type=int, default=1,
                         help='梯度累积微批次数：等效 batch = batch_size × accum_steps')
     parser.add_argument('--eval_interval', type=int, default=1000)
