@@ -1,0 +1,62 @@
+{
+  "hyb16_8": {
+    "pretrain_ppl": 54.42,
+    "nan_recoveries": 0,
+    "coldstart_pct": 18.9,
+    "stream_lr5e-05": {
+      "online_gain_pct": 50.8,
+      "heldout_gain_pct": 40.9,
+      "cum_dw": 0.6119
+    },
+    "stream_lr0.0001": {
+      "online_gain_pct": 3.1,
+      "heldout_gain_pct": 16.8,
+      "cum_dw": 0.8989
+    }
+  },
+  "hyb8_16": {
+    "pretrain_ppl": 74.51,
+    "nan_recoveries": 0,
+    "coldstart_pct": 54.2,
+    "stream_lr5e-05": {
+      "online_gain_pct": 38.0,
+      "heldout_gain_pct": 63.6,
+      "cum_dw": 0.4495
+    },
+    "stream_lr0.0001": {
+      "online_gain_pct": 12.4,
+      "heldout_gain_pct": 32.5,
+      "cum_dw": 0.6988
+    }
+  },
+  "hyb_h5e5": {
+    "pretrain_ppl": 62.53,
+    "nan_recoveries": 0,
+    "coldstart_pct": 48.6,
+    "stream_lr5e-05": {
+      "online_gain_pct": 13.5,
+      "heldout_gain_pct": 33.8,
+      "cum_dw": 0.525
+    },
+    "stream_lr0.0001": {
+      "online_gain_pct": -17.5,
+      "heldout_gain_pct": 15.6,
+      "cum_dw": 0.8627
+    }
+  },
+  "hyb_h2e4": {
+    "pretrain_ppl": 75.66,
+    "nan_recoveries": 0,
+    "coldstart_pct": 62.5,
+    "stream_lr5e-05": {
+      "online_gain_pct": 71.1,
+      "heldout_gain_pct": 77.3,
+      "cum_dw": 0.4407
+    },
+    "stream_lr0.0001": {
+      "online_gain_pct": 60.2,
+      "heldout_gain_pct": 73.4,
+      "cum_dw": 0.7234
+    }
+  }
+}
