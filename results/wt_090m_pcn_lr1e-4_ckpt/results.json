@@ -1,0 +1,113 @@
+{
+  "config": {
+    "model": "pcn",
+    "dataset": "wikitext",
+    "attn_impl": "sdpa",
+    "no_feedback": false,
+    "no_gating": true,
+    "feedback_mode": "prev_layer",
+    "local_rule": "none",
+    "lr_loc": null,
+    "n_pass": 1,
+    "act_sparse": 0.0,
+    "gate_impl": "bmm",
+    "layers": 24,
+    "d_model": 512,
+    "n_heads": 4,
+    "ffn_dim": 2048,
+    "d_gate": 128,
+    "dropout": 0.1,
+    "max_seq_len": 256,
+    "topk": 128,
+    "batch_size": 16,
+    "seq_len": 256,
+    "lr": 0.0001,
+    "weight_decay": 0.1,
+    "warmup_steps": 2000,
+    "max_steps": 10000,
+    "grad_clip": 0.5,
+    "amp_dtype": "fp16",
+    "accum_steps": 2,
+    "eval_interval": 1000,
+    "log_interval": 500,
+    "save_dir": "./results/",
+    "exp_name": "wt_090m_pcn_lr1e-4_ckpt",
+    "seed": 0
+  },
+  "n_params": 90480128,
+  "vocab_size": 50257,
+  "val_ppl": [
+    {
+      "step": 1000,
+      "loss": 6.532849478374648,
+      "ppl": 687.3540240729488,
+      "time_min": 2.894795548915863
+    },
+    {
+      "step": 2000,
+      "loss": 5.9472563648422145,
+      "ppl": 382.70190294625166,
+      "time_min": 5.615279265244802
+    },
+    {
+      "step": 3000,
+      "loss": 5.593444976885948,
+      "ppl": 268.65955328624676,
+      "time_min": 8.29427620569865
+    },
+    {
+      "step": 4000,
+      "loss": 5.399391850413998,
+      "ppl": 221.27180891866556,
+      "time_min": 10.970126163959502
+    },
+    {
+      "step": 5000,
+      "loss": 5.250462718416401,
+      "ppl": 190.6544673846506,
+      "time_min": 13.64546804825465
+    },
+    {
+      "step": 6000,
+      "loss": 5.14317957428042,
+      "ppl": 171.25943564483316,
+      "time_min": 16.318534155686695
+    },
+    {
+      "step": 7000,
+      "loss": 5.077182729130228,
+      "ppl": 160.32174929853474,
+      "time_min": 18.994703245162963
+    },
+    {
+      "step": 8000,
+      "loss": 5.032653116634631,
+      "ppl": 153.3393005417806,
+      "time_min": 21.673107294241586
+    },
+    {
+      "step": 9000,
+      "loss": 5.014137985800507,
+      "ppl": 150.52632499461714,
+      "time_min": 24.349334212144218
+    },
+    {
+      "step": 10000,
+      "loss": 5.010501813987684,
+      "ppl": 149.97997931992523,
+      "time_min": 27.02774417002996
+    }
+  ],
+  "best_ppl": 149.97997931992523,
+  "total_time_s": 1622.502044916153,
+  "nan_recoveries": 0,
+  "budget": {
+    "optimizer_steps": 10000,
+    "accum_steps": 2,
+    "effective_batch": 32,
+    "seq_len": 256,
+    "total_tokens_seen": 81920000,
+    "tokens_per_sec": 50489.92095676122,
+    "peak_vram_gb": 6.32010496
+  }
+}
