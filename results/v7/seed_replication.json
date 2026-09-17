@@ -1,0 +1,197 @@
+{
+  "pretrain": {
+    "hyb": {
+      "per_seed": [
+        63.4208323623105,
+        63.13327730680192,
+        62.98859563197309
+      ],
+      "mean": 63.18,
+      "std": 0.22
+    },
+    "tf": {
+      "per_seed": [
+        101.03643138172299,
+        96.31784017363883,
+        100.65454935416905
+      ],
+      "mean": 99.34,
+      "std": 2.62
+    },
+    "pcn": {
+      "per_seed": [
+        149.97997931992523,
+        149.45552237198712,
+        150.4205253648228
+      ],
+      "mean": 149.95,
+      "std": 0.48
+    }
+  },
+  "coldstart": {
+    "hyb": {
+      "per_seed": [
+        63.1,
+        62.4,
+        55.3
+      ],
+      "mean": 60.27,
+      "std": 4.32
+    },
+    "tf": {
+      "per_seed": [
+        -59.8,
+        -66.7,
+        -46.1
+      ],
+      "mean": -57.53,
+      "std": 10.49
+    },
+    "pcn": {
+      "per_seed": [
+        77.6,
+        69.9,
+        74.9
+      ],
+      "mean": 74.13,
+      "std": 3.91
+    }
+  },
+  "streaming": {
+    "hyb_s0_lr0.0001": {
+      "online_gain_pct": -6.7,
+      "heldout_gain_pct": 4.3,
+      "cum_dw": 0.8311
+    },
+    "hyb_s0_lr5e-05": {
+      "online_gain_pct": 43.0,
+      "heldout_gain_pct": 16.1,
+      "cum_dw": 0.5395
+    },
+    "hyb_s0_lr0.00025": {
+      "online_gain_pct": -47.9,
+      "heldout_gain_pct": 30.1,
+      "cum_dw": 1.4722
+    },
+    "hyb_s1_lr0.0001": {
+      "online_gain_pct": -9.2,
+      "heldout_gain_pct": 17.5,
+      "cum_dw": 0.812
+    },
+    "hyb_s1_lr5e-05": {
+      "online_gain_pct": 29.7,
+      "heldout_gain_pct": 40.6,
+      "cum_dw": 0.5542
+    },
+    "hyb_s1_lr0.00025": {
+      "online_gain_pct": -41.5,
+      "heldout_gain_pct": 10.6,
+      "cum_dw": 1.4729
+    },
+    "hyb_s2_lr0.0001": {
+      "online_gain_pct": -74.3,
+      "heldout_gain_pct": 10.7,
+      "cum_dw": 0.7844
+    },
+    "hyb_s2_lr5e-05": {
+      "online_gain_pct": 26.1,
+      "heldout_gain_pct": 41.4,
+      "cum_dw": 0.5015
+    },
+    "hyb_s2_lr0.00025": {
+      "online_gain_pct": -90.9,
+      "heldout_gain_pct": -16.8,
+      "cum_dw": 1.4594
+    },
+    "tf_s0_lr0.0001": {
+      "online_gain_pct": -139.5,
+      "heldout_gain_pct": -149.9,
+      "cum_dw": 1.6592
+    },
+    "tf_s0_lr5e-05": {
+      "online_gain_pct": -56.3,
+      "heldout_gain_pct": -199.6,
+      "cum_dw": 1.1532
+    },
+    "tf_s0_lr0.00025": {
+      "online_gain_pct": -198.2,
+      "heldout_gain_pct": -203.3,
+      "cum_dw": 2.6188
+    },
+    "tf_s1_lr0.0001": {
+      "online_gain_pct": -49.1,
+      "heldout_gain_pct": -170.0,
+      "cum_dw": 1.6823
+    },
+    "tf_s1_lr5e-05": {
+      "online_gain_pct": -1.5,
+      "heldout_gain_pct": -57.5,
+      "cum_dw": 1.1765
+    },
+    "tf_s1_lr0.00025": {
+      "online_gain_pct": -113.5,
+      "heldout_gain_pct": -208.3,
+      "cum_dw": 2.658
+    },
+    "tf_s2_lr0.0001": {
+      "online_gain_pct": -62.6,
+      "heldout_gain_pct": -185.3,
+      "cum_dw": 1.7081
+    },
+    "tf_s2_lr5e-05": {
+      "online_gain_pct": -15.5,
+      "heldout_gain_pct": -154.6,
+      "cum_dw": 1.1868
+    },
+    "tf_s2_lr0.00025": {
+      "online_gain_pct": -144.3,
+      "heldout_gain_pct": -248.2,
+      "cum_dw": 2.7003
+    },
+    "pcn_s0_lr0.0001": {
+      "online_gain_pct": 34.3,
+      "heldout_gain_pct": 31.5,
+      "cum_dw": 0.7766
+    },
+    "pcn_s0_lr5e-05": {
+      "online_gain_pct": 44.3,
+      "heldout_gain_pct": 54.3,
+      "cum_dw": 0.5108
+    },
+    "pcn_s0_lr0.00025": {
+      "online_gain_pct": 41.9,
+      "heldout_gain_pct": 46.8,
+      "cum_dw": 1.3187
+    },
+    "pcn_s1_lr0.0001": {
+      "online_gain_pct": 31.6,
+      "heldout_gain_pct": 42.0,
+      "cum_dw": 0.7822
+    },
+    "pcn_s1_lr5e-05": {
+      "online_gain_pct": 45.1,
+      "heldout_gain_pct": 52.2,
+      "cum_dw": 0.5202
+    },
+    "pcn_s1_lr0.00025": {
+      "online_gain_pct": 25.1,
+      "heldout_gain_pct": 33.0,
+      "cum_dw": 1.3246
+    },
+    "pcn_s2_lr0.0001": {
+      "online_gain_pct": 33.2,
+      "heldout_gain_pct": 33.0,
+      "cum_dw": 0.7682
+    },
+    "pcn_s2_lr5e-05": {
+      "online_gain_pct": 44.7,
+      "heldout_gain_pct": 50.4,
+      "cum_dw": 0.521
+    },
+    "pcn_s2_lr0.00025": {
+      "online_gain_pct": 41.4,
+      "heldout_gain_pct": 41.2,
+      "cum_dw": 1.3141
+    }
+  }
+}
