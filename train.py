@@ -292,7 +292,7 @@ def train(args):
             elapsed = time.time() - start_time
             steps_per_sec = step / elapsed
             eta = (args.max_steps - step) / max(steps_per_sec, 1e-10)
-            lr = scheduler.get_last_lr()[0]
+            lr = optimizer.param_groups[0]['lr']  # 实际生效值（含紧急衰减系数）
 
             line = (f"Step {step:>6}/{args.max_steps} | "
                     f"loss={running_loss:.4f} | "
