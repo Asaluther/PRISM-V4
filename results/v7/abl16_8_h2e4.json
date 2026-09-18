@@ -1,0 +1,29 @@
+{
+  "ref": {
+    "hyb16_8@1e-4": {
+      "ppl": 54.42,
+      "cold": 18.9,
+      "st5e5": 50.8,
+      "st1e4": 3.1
+    },
+    "h2e4(12+12)@2e-4": {
+      "ppl": 75.66,
+      "cold": 62.5,
+      "st5e5": 71.1,
+      "st1e4": 60.2
+    }
+  },
+  "pretrain_ppl": 59.86,
+  "nan_recoveries": 0,
+  "coldstart_pct": 52.8,
+  "stream_lr5e-05": {
+    "online_gain_pct": 74.2,
+    "heldout_gain_pct": 78.2,
+    "cum_dw": 0.5453
+  },
+  "stream_lr0.0001": {
+    "online_gain_pct": 59.1,
+    "heldout_gain_pct": 72.4,
+    "cum_dw": 0.828
+  }
+}
