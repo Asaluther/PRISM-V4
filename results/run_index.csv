@@ -181,3 +181,5 @@ wt_330m_hyb_lr5e-4_s0,hybrid,wikitext,0.0001,0.0005,24,12,1024,0,fp16,36.5,0,100
 wt_353m_tf_lr5e-4_s0,transformer,wikitext,0.0005,,24,12,1024,0,fp16,41.72,0,123.2,354.0,results/wt_353m_tf_lr5e-4_s0/results.json
 wt_353m_tf_lr2.5e-4_s0,transformer,wikitext,0.00025,,24,12,1024,0,fp16,63.52,0,123.1,354.0,results/wt_353m_tf_lr2.5e-4_s0/results.json
 wt_306m_pcn_lr1e-4_s0,pcn,wikitext,0.0001,,24,12,1024,0,fp16,147.77,0,111.0,306.8,results/wt_306m_pcn_lr1e-4_s0/results.json
+wt_097m_hyb16_8_h2e-4_s1,hybrid,wikitext,0.0002,0.0005,24,16,512,1,fp16,60.18,0,26.9,97.8,results/wt_097m_hyb16_8_h2e-4_s1/results.json
+wt_097m_hyb16_8_h2e-4_s2,hybrid,wikitext,0.0002,0.0005,24,16,512,2,fp16,58.55,0,26.7,97.8,results/wt_097m_hyb16_8_h2e-4_s2/results.json
