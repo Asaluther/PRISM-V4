@@ -80,7 +80,7 @@
 
 **适应轴（full-FT，详见 §5）**：PCN/HYB 全部适应协议为正且随规模放大，Transformer 全负。
 
-**330-354M 外推（v6.1，单 seed，判决 W1）**：d1024/24L、20K 步（164M tokens ≈ 480 tok/param）——HYB 330.4M **36.50** vs 调优直承 TF 354.0M 41.72（2.5e-4 夹逼臂 63.52，直承值仍近优）：**优势保持为正（-12.5% PPL）且参数少 6.7%**，幅度自 96M 的 36.4% 收窄——方向与 4.1 倒 U 左翼一致（离开 ≈1000 峰位进入更稀缺区）。PCN 306.8M：3.4× 参数 + 2× tokens 下峰值仅改善 1.5%（147.77@6K 步）且**中途软发散至终点 222**（零 NaN）——「规模天花板」由预测转为实测，同预算 TF/HYB 分别改善 58%/42%。详见 SCALE_330M_VALIDATION.md。
+**330-354M 外推（v6.2，3-seed + 双侧夹逼，判决 W1）**：d1024/24L、20K 步（164M tokens ≈ 470 tok/param）——HYB 330.4M 三 seed **39.75 ± 0.34**（5e-4 直承）+ 夹逼最优 **37.05**（骨干 1e-3）；TF 354.0M 三 seed **48.78 ± 11.67**（5e-4，含慢收敛坏 seed 62.24；夹逼 2.5e-4 劣 34%、1e-3 发散）。**逐 seed 配对 3/3 全胜；调优对调优 +11.2% 且参数少 6.7%**；幅度自 96M 的 36.4% 收窄——方向与 4.1 倒 U 左翼一致（离开 ≈1000 峰位进入更稀缺区）。**稳定性不对称放大**：seed σ 之比 12×（96M）→ 34×（330M）。**lr 容忍度分化**：骨干最优点 HYB 上漂（1e-3）、TF 上探即死（1e-3 发散）——主干锚定的预训练侧再现。PCN 306.8M：3.4× 参数 + 2× tokens 峰值仅改善 1.5%（147.77@6K 步）且中途软发散至 222（零 NaN）——「规模天花板」由预测转为实测，同预算 TF/HYB 分别改善 58%/42%。详见 SCALE_330M_VALIDATION.md（v2，含 v1 配置失误与修复记录）。
 
 ### 4.3 混合架构：定律的工程兑现
 
@@ -109,6 +109,8 @@
 | 2.5e-4 | +36.1 ± 9.3 | -47.9 ~ -90.9 | -198.2 ~ -113.5 |
 
 单发（协议常数 lr 5e-4，300 步）：PCN +74.1 ± 4.0、HYB +60.3 ± 4.3、TF -57.5 ± 10.5。**符号矩阵 27 格（3 架构 × 3 seed × 3 lr）零翻转**；配对统计：HYB−TF 单发 +117.8pp [+101.4, +129.1]、流式@5e-5 +57.4pp [+31.2, +99.3]；PCN 流式@5e-5 统计显著优于 HYB（+11.8pp [-18.6, -1.3]，p=0.022，如实报告）。
+
+**330M 复测（3-seed）**：符号结构保持——冷启动 HYB 3/3 全正（+34~+51）vs TF 混合（~+2，每 seed 含负用户，坏 seed -4.1）；流式@5e-5 HYB +55~61% 且 held-out 同步为正（+62~68）vs TF +19~26% 且 held-out 零至负（坏 seed 在线 -100.5%、held -497%）；ΔW 参数经济性保持（~140 vs ~230）。@1e-4 双方仍脆弱（阈值行为跨规模）。gating 单点对照适应全灭（-47.8/-104.5）——no_gating 主线双支柱确认。330M 用户抽签方差较 96M 放大一个量级（同检查点三次测量 +47.9/-0.0/+33.9），单发数字需多抽签支撑（adapt330.json / SCALE_330M v2）。
 
 ### 5.2 PEFT 对照（LoRA r∈{4,8,16}/α16；bitfit；同协议，3-seed × LoRA 3 init 抽样）
 
@@ -169,7 +171,7 @@ CPU 8.6K tok/s、生成 113 tok/s、冷启动 22.7s → +55%、模型 80MB、全
 
 **未被动摇的主结果**：混合架构的预训练优势（36%，p≈0，seed 方差全场最小）与主干锚定机制——它们不依赖适应侧主张。
 **被重述的主结果**：适应优势从「性能独占」收窄为「零配置鲁棒性」（§5.3）。
-**局限**：(a) 330-354M 外推点为单 seed、lr 直承（TF 双点夹逼、HYB/PCN 单点）且 20K 步未饱和——优势为正的结论稳固，幅度数字（12.5%）待 3-seed 与 lr 复核（3-seed + HYB 夹逼运行中）；200-500M 以上仍未测；(b) PEFT 对照已 3-seed + init 抽样量化（LoRA-TF 单发稳健为负、bitfit-TF 复现）；流式格为单 init × 3 seed；(c) 主干锚定已经 16+8@头2e-4 消融验证；16+8@2e-4 三 seed 确认为**流式专精配置**（单发反转：薄头单发不稳 ~27.6±7.1，h2e4 维持终端默认）；hyb16_8/8_16/h5e5 变体仍单 seed；(d) 适应协议为短流（8 批）/单发（6 序列），真实长时程未测；330M 检查点适应协议复测运行中；(e) 真实用户数据未测；(f) 稀疏/CUDA Graph/int4 结论继承 v1 限于小模型；(g) 冷启动协议用户抽签未播种——对 12+12 系影响 ±4 内，薄头配置可达 33pp（PHASE2 3c 节）。
+**局限**：(a) 330-354M 外推已完成 3-seed + 双侧 lr 夹逼（§4.2）；HYB@1e-3 臂与 gating 对照为单 seed；20K 步未饱和；TF 三 seed 含一个慢收敛 seed（n=3 无法区分坏 seed 与宽分布尾部）；200-500M 以上仍未测；(b) PEFT 对照已 3-seed + init 抽样量化（LoRA-TF 单发稳健为负、bitfit-TF 复现）；流式格为单 init × 3 seed；(c) 主干锚定已经 16+8@头2e-4 消融验证；16+8@2e-4 三 seed 确认为**流式专精配置**（单发反转：薄头单发不稳 ~27.6±7.1，h2e4 维持终端默认）；hyb16_8/8_16/h5e5 变体仍单 seed；(d) 适应协议为短流（8 批）/单发（6 序列），真实长时程未测；330M 适应协议复测见 §7.2；(e) 真实用户数据未测；(f) 稀疏/CUDA Graph/int4 结论继承 v1 限于小模型；(g) 冷启动协议用户抽签未播种——对 12+12 系影响 ±4 内，薄头配置可达 33pp（PHASE2 3c 节）。
 **对终端愿景的含义**：混合架构 + PEFT 工具箱是当前证据下的最优终端配置；误差流头的价值在「不可调参环境下的默认安全性」。
 
 ## 附录 A：关键数字索引
@@ -184,12 +186,15 @@ CPU 8.6K tok/s、生成 113 tok/s、冷启动 22.7s → +55%、模型 80MB、全
 | 端侧 | 2240 tok/s / 20s→+85% | phase3_edge_hyb.json |
 | h2e4 3-seed | 75.91±1.02 / 流式@5e-5 +72.0±2.0 / @1e-4 +60.1±0.4 | h2e4_replication.json |
 | 锚定消融 16+8@2e-4 | 59.86 零 NaN / 单发 +52.8% / @1e-4 +59.1% | abl16_8_h2e4.json |
+| 16+8@2e-4 三 seed | 预训练 59.53±0.86 复现；**单发反转** ~27.6±7.1（薄头不稳）；流式 76.2±1.8 不劣 | abl16_8_3seed.json |
 | step50 机制 | train 163→5；gen 38.7→1590-1816（41-47×）；峰值=用户属性 | step50_mechanism.json |
-| 330M 外推 | HYB 36.50 vs TF 41.72（-12.5%，参数少 6.7%）；PCN 峰值 147.77 后倒退 222 | wt_33*m 各 results.json |
+| PEFT 3-seed | LoRA-TF 单发 -29.8±13.5（钉死为负）；bitfit-TF +69.7±3.2 复现；bitfit 流式不对称（TF +24~37 / HYB +6~11） | peft_3seed.json |
+| 330M 外推 | HYB 3/3 全胜；调优口径 37.05 vs 41.72（+11.2%）；σ 比 34×；PCN 峰值 147.77 后倒退 222 | wt_33*m 各 results.json |
+| 330M 适应复测 | 冷启动 HYB +34~51 vs TF ~+2；流式@5e-5 +55~61（held 双正）vs TF +19~26（held 负）；gating 适应全灭（-47.8/-104.5） | adapt330.json |
 
 ## 附录 B：实验统计与 power
 
-本地 run 索引 182 条（`results/run_index.csv`：配置/seed/PPL/NaN 恢复/耗时/参数量）+ 启智 11 条。Power（α=0.05, 1-β=0.8，两样本）：预训练 PPL（σ=2.62）检测 10% 差异需 n=2/组；单发改善（σ=4.3）检测 10% 级需 n=8/组、30% 级需 n=1。配对统计明细：analysis_stats.json（bootstrap 20000 次，seed 固定）。
+本地 run 索引 191 条（`results/run_index.csv`：配置/seed/PPL/NaN 恢复/耗时/参数量；另 TF@1e-3 发散臂提前终止无 results.json，见 SCALE_330M v2）+ 启智 11 条。Power（α=0.05, 1-β=0.8，两样本）：预训练 PPL（σ=2.62）检测 10% 差异需 n=2/组；单发改善（σ=4.3）检测 10% 级需 n=8/组、30% 级需 n=1。配对统计明细：analysis_stats.json（bootstrap 20000 次，seed 固定）。
 
 ## 附录 C：术语表
 
@@ -226,4 +231,4 @@ CPU 8.6K tok/s、生成 113 tok/s、冷启动 22.7s → +55%、模型 80MB、全
 
 ## 附录 E：开源与复现
 
-仓库含全部训练/协议/分析脚本（train.py、coldstart_090m.py、streaming_090m.py、seed_replication.py、phase2_protocols.py、phase3_edge.py、peft_baselines.py、analysis_stats.py、h2e4_replication.py、abl16_8_eval.py、step50_mechanism.py、run_d1024_extrap.sh）与逐 run results.json；run_index.csv 为全量索引；检查点文件（.pt）因体积不入库，可按索引中配置用附带脚本逐一复现（本地 RTX 4080 上单检查点 25-28 分钟，330M 档约 2 小时）。
+仓库含全部训练/协议/分析脚本（train.py、coldstart_090m.py、streaming_090m.py、seed_replication.py、phase2_protocols.py、phase3_edge.py、peft_baselines.py、analysis_stats.py、h2e4_replication.py、abl16_8_eval.py、abl16_8_3seed.py、peft_3seed.py、step50_mechanism.py、adapt330.py、run_d1024_extrap.sh、run_d1024_reinforce.sh）与逐 run results.json；run_index.csv 为全量索引；检查点文件（.pt）因体积不入库，可按索引中配置用附带脚本逐一复现（本地 RTX 4080 上单检查点 25-28 分钟，330M 档约 2 小时）。

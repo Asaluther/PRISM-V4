@@ -175,7 +175,7 @@ def main():
             m = load_model(tag, ckpt)
             if pre is None:
                 pre = {n: p.detach().clone() for n, p in m.named_parameters()
-                       if n.startswith(('layers.', 'pcn_blocks.'))}
+                       if n.startswith(('layers.', 'pcn_blocks.', 'ln_out'))}
             trainable_names = set()
             tmodel = freeze(m, is_hyb)
             del tmodel
