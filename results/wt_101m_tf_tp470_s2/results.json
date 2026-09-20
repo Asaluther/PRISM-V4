@@ -1,0 +1,91 @@
+{
+  "config": {
+    "model": "transformer",
+    "dataset": "wikitext",
+    "attn_impl": "sdpa",
+    "no_feedback": false,
+    "no_gating": false,
+    "feedback_mode": "prev_layer",
+    "local_rule": "none",
+    "lr_loc": null,
+    "n_pass": 1,
+    "act_sparse": 0.0,
+    "gate_impl": "bmm",
+    "layers": 24,
+    "d_model": 512,
+    "n_heads": 4,
+    "ffn_dim": 2048,
+    "d_gate": 128,
+    "dropout": 0.1,
+    "max_seq_len": 256,
+    "topk": 128,
+    "batch_size": 16,
+    "seq_len": 256,
+    "lr": 0.0005,
+    "weight_decay": 0.1,
+    "warmup_steps": 1140,
+    "max_steps": 5700,
+    "grad_clip": 0.5,
+    "amp_dtype": "fp16",
+    "tf_layers": 12,
+    "lr_backbone": null,
+    "accum_steps": 2,
+    "eval_interval": 1000,
+    "log_interval": 2000,
+    "save_dir": "./results/",
+    "exp_name": "wt_101m_tf_tp470_s2",
+    "seed": 2
+  },
+  "n_params": 101520896,
+  "vocab_size": 50257,
+  "val_ppl": [
+    {
+      "step": 1000,
+      "loss": 7.133537623589847,
+      "ppl": 1253.3028474662065,
+      "time_min": 2.5675906499226886
+    },
+    {
+      "step": 2000,
+      "loss": 6.375693822848822,
+      "ppl": 587.3928361628041,
+      "time_min": 5.047454194227854
+    },
+    {
+      "step": 3000,
+      "loss": 5.830637028708032,
+      "ppl": 340.5755663957366,
+      "time_min": 7.526273119449615
+    },
+    {
+      "step": 4000,
+      "loss": 5.507330575256982,
+      "ppl": 246.4922555290089,
+      "time_min": 10.011271671454113
+    },
+    {
+      "step": 5000,
+      "loss": 5.3718740340330005,
+      "ppl": 215.26590556622043,
+      "time_min": 12.495340756575267
+    },
+    {
+      "step": 5700,
+      "loss": 5.354699031726734,
+      "ppl": 211.60028179691966,
+      "time_min": 14.277602012952169
+    }
+  ],
+  "best_ppl": 211.60028179691966,
+  "total_time_s": 857.6069507598877,
+  "nan_recoveries": 0,
+  "budget": {
+    "optimizer_steps": 5700,
+    "accum_steps": 2,
+    "effective_batch": 32,
+    "seq_len": 256,
+    "total_tokens_seen": 46694400,
+    "tokens_per_sec": 54447.319904096104,
+    "peak_vram_gb": 6.834984448
+  }
+}

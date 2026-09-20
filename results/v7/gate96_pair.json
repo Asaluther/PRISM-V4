@@ -1,0 +1,38 @@
+{
+  "hyb512_ng_s0": {
+    "coldstart_pct": {
+      "per_user": [
+        70.0,
+        48.9,
+        70.3
+      ],
+      "avg": 63.1
+    },
+    "stream_lr5e-05": {
+      "online_gain_pct": 43.0,
+      "heldout_gain_pct": 16.1
+    },
+    "stream_lr0.0001": {
+      "online_gain_pct": -6.7,
+      "heldout_gain_pct": 4.3
+    }
+  },
+  "hyb512_gate_s0": {
+    "coldstart_pct": {
+      "per_user": [
+        46.2,
+        0.2,
+        56.3
+      ],
+      "avg": 34.2
+    },
+    "stream_lr5e-05": {
+      "online_gain_pct": 22.8,
+      "heldout_gain_pct": 21.7
+    },
+    "stream_lr0.0001": {
+      "online_gain_pct": -68.2,
+      "heldout_gain_pct": -36.0
+    }
+  }
+}
