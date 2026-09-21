@@ -1,0 +1,66 @@
+{
+  "idle_w": 25.0,
+  "note": "4080 台式独显口径，绝对值不外推手机 SoC；结论看比值与量级",
+  "infer_b1_hyb96_fp32": {
+    "tok_per_s": 23249,
+    "mean_w": 122.4,
+    "idle_w": 25.0,
+    "n_samples": 41,
+    "duration_s": 2.2,
+    "j_per_tok_abs": 0.005264,
+    "j_per_tok_net": 0.004188
+  },
+  "infer_b1_hyb96_fp16": {
+    "tok_per_s": 22855,
+    "mean_w": 61.2,
+    "idle_w": 25.0,
+    "n_samples": 41,
+    "duration_s": 2.24,
+    "j_per_tok_abs": 0.002679,
+    "j_per_tok_net": 0.001585
+  },
+  "infer_b1_tf101_fp32": {
+    "tok_per_s": 33198,
+    "mean_w": 119.2,
+    "idle_w": 25.0,
+    "n_samples": 29,
+    "duration_s": 1.54,
+    "j_per_tok_abs": 0.003591,
+    "j_per_tok_net": 0.002838
+  },
+  "infer_b1_pcn21_fp32": {
+    "tok_per_s": 36195,
+    "mean_w": 53.5,
+    "idle_w": 25.0,
+    "n_samples": 26,
+    "duration_s": 1.41,
+    "j_per_tok_abs": 0.001477,
+    "j_per_tok_net": 0.000786
+  },
+  "gen40_hyb96_fp32": {
+    "tok_per_s": 107,
+    "mean_w": 36.7,
+    "idle_w": 25.0,
+    "n_samples": 7,
+    "duration_s": 0.37,
+    "j_per_tok_abs": 0.343416,
+    "j_per_tok_net": 0.109185
+  },
+  "gen40_hyb96_fp16": {
+    "tok_per_s": 109,
+    "mean_w": 31.4,
+    "idle_w": 25.0,
+    "n_samples": 7,
+    "duration_s": 0.37,
+    "j_per_tok_abs": 0.289323,
+    "j_per_tok_net": 0.058784
+  },
+  "adapt50_hyb96_fp32": {
+    "mean_w": 89.0,
+    "idle_w": 25.0,
+    "n_samples": 22,
+    "duration_s": 1.16,
+    "j_per_step_abs": 2.063247,
+    "total_j": 103.0
+  }
+}

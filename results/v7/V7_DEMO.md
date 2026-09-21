@@ -82,3 +82,28 @@ dequant-GEMM kernel 就没有终端价值**（RSS 不降、速度倒退）。部
 可行路径二选一：(a) torchao+torch.compile（需 Linux 或 mslk 可用环境）；
 (b) GGUF/llama.cpp 移植（工程量 ~1 周，列为独立后续项）。V7 demo 的 int4
 模式维持 fake-quant 口径（数值验证）+ 本节的真打包实测记录。
+
+## 八、能耗口径补测（2026-09-21 傍晚，bench_energy_hyb.py，T4 方法平移）
+
+NVML 50ms 采样、v1 measure 契约（`results/efficiency/t4_hyb.json`）。4080
+台式独显口径——绝对值不外推手机 SoC，结论看比值与量级（空闲 25W）：
+
+| 用例 | 吞吐 | 平均功率 | mJ/token（绝对） |
+|---|---|---|---|
+| 推理 b1 · hybrid 96M fp32 | 23,249 tok/s | 122.4 W | 5.264 |
+| **推理 b1 · hybrid 96M fp16** | 22,855 tok/s | 61.2 W | **2.679** |
+| 推理 b1 · TF 101M fp32 | 33,198 tok/s | 119.2 W | 3.591 |
+| 推理 b1 · PCN 21M fp32（锚点） | 36,195 tok/s | 53.5 W | 1.477 |
+| 生成 40 tok · hybrid fp32 | 107 tok/s | 36.7 W | 343.4 / 生成 token |
+| 生成 40 tok · hybrid fp16 | 109 tok/s | 31.4 W | 289.3 / 生成 token |
+
+- **fp16 是终端部署的明确默认**：同速度下每 token 能耗 -49%（5.26→2.68 mJ），
+  生成能耗 -16%
+- **hybrid fp16 比 TF fp32 每 token 省 25% 能耗**（2.68 vs 3.59）——参数多
+  换来适应能力，能耗还占优；对 21M 锚点为 1.8× 能耗 / 4.6× 参数
+- **一次完整个性化适应（50 步）总能耗 ≈ 103 J**（89W × 1.16s，GPU 口径）；
+  折算 CPU 口径（19.4s × 30-65W）≈ 0.6-1.3 kJ——手机电池（~11 Wh ≈ 40 kJ）
+  可支撑**数万次适应**。「20 秒个性化」的能耗代价可以忽略，终端在线学习的
+  能耗瓶颈在推理而非适应
+- 与 v1 结论衔接：v1 的「CUDA Graph 后 PCN 能耗反超」结论限于 21M b1 eager
+  口径；96M 档的 fp16 路径拿到同样的「每 token 能耗优势」而不需要 graph 化
