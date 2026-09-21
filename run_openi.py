@@ -242,6 +242,16 @@ def save_results():
             shutil.copy2(str(json_file), str(dest))
             print(f'[输出] 已保存 {exp_name}/results.json → {dest}')
 
+        # 复制检查点（500M 教训：容器销毁即丢失；c2net 支持大文件回传）
+        for ckpt_file in results_dir.glob('**/best_model.pt'):
+            exp_name = ckpt_file.parent.name
+            dest = output_path / exp_name / 'best_model.pt'
+            if not dest.exists():
+                dest.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(str(ckpt_file), str(dest))
+                print(f'[输出] 已保存 {exp_name}/best_model.pt '
+                      f'({ckpt_file.stat().st_size/1024/1024:.0f} MB)')
+
         # 也复制训练日志
         for log_file in results_dir.glob('**/train.log'):
             exp_name = log_file.parent.name
