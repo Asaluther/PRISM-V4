@@ -1,21 +1,21 @@
 #!/usr/bin/env python3
-"""启智社区训练启动脚本 v3.4——使用 c2net 官方 API
+"""启智社区训练启动脚本 v3.5——使用 c2net 官方 API
 
-关键改进：
+v3.5 新增 m500 系列（500M 判决实验，W1/B4 后续）：
+  m500_hyb      HYB 12+12 d1280/L24 骨干5e-4/头1e-4 s0（~516M，~4.8h V100S）
+  m500_hyb1e3   HYB 骨干 1e-3 夹逼臂（330M 最优上漂，500M 必须上探）
+  m500_tf       TF 24L d1280 @5e-4 s0（~553M，~5.8h）
+  m500_hyb_s1 / m500_tf_s1  第二 seed（配对误差条，积分富余时）
+  TF 向下夹逼（2.5e-4）省略：101M/330M 双点已证 5e-4 近优且 1e-3 发散。
+  协议与 330M 点（run_d1024_reinforce.sh）逐字段一致，仅 d_model/n_heads/
+  ffn_dim 升档。VRAM 估 19-22GB（V100S-32GB 可容，4080 16GB 不可）。
+
+关键改进（历史）：
 1. 使用 c2net.context.prepare() 获取数据集真实挂载路径
 2. 使用 c2net_context.output_path 保存结果（自动回传到启智）
 3. 使用项目内 tokenizer/ 目录（无需网络下载）
-4. v3.1: 修复 mode 解析——平台实际传参格式与精确匹配 `--mode` 不符时会静默回退
-   pcn（导致 TF 任务重跑 PCN）。现兼容 --mode tf / --mode=tf / ----mode tf 等
-   形式，默认改为 tf，未知值直接退出；启动时打印 sys.argv 以便日志确诊。
-5. v3.2: 新增 tf_scan 模式——TF lr 三点扫描（5e-4 / 2e-3 / 1e-3 复跑）。
-   结果：101M 上 TF 最优 ≤5e-4（99.66），63M 扫出的 1e-3 已失效。
-6. v3.3: 新增 scan2 模式——对称补扫。终判：调优 TF（99.66）领先 PCN（150.25）
-   33.7%；PCN@3e-4 早期全场最佳后失稳崩溃（fp16 激活溢出，权重非 NaN）。
-7. v3.4: 新增 v8a 模式——V8 稳定化解锁：① PCN@3e-4 bf16（检验稳定性天花板
-   假说：早期优势区间能否被动态范围解锁）② PCN@2e-4 fp16（夹逼中间点）。
-   train.py 同步升级：--amp_dtype bf16 + 连续 50 次 NaN-loss 回滚并紧急降 lr。
-   每点跑完立即保存，中断不丢已完成部分。
+4. v3.1: 修复 mode 解析；v3.2: tf_scan；v3.3: scan2 对称补扫；
+   v3.4: v8a 稳定化解锁。每点跑完立即保存，中断不丢已完成部分。
 """
 import os
 import sys
@@ -150,8 +150,55 @@ def run_scan(tag, runs):
     return max(codes)
 
 
+def m500_hyb_cmd(backbone_lr, exp_name, seed=0):
+    """500M 判决实验——HYB 12+12 d1280/L24（与 330M 协议逐字段一致，仅升档）"""
+    return [sys.executable, 'train.py',
+            '--model', 'hybrid', '--no_gating',
+            '--tf_layers', '12',
+            '--d_gate', '128', '--topk', '128',
+            '--layers', '24', '--d_model', '1280', '--n_heads', '10',
+            '--ffn_dim', '5120',
+            '--lr', '1e-4', '--lr_backbone', backbone_lr,
+            '--batch_size', '16', '--accum_steps', '2',
+            '--seq_len', '256', '--max_seq_len', '256',
+            '--max_steps', '20000', '--warmup_steps', '4000',
+            '--grad_clip', '0.5',
+            '--dataset', 'wikitext',
+            '--eval_interval', '1000', '--log_interval', '500',
+            '--seed', str(seed), '--exp_name', exp_name,
+            '--amp_dtype', 'fp16']
+
+
+def m500_tf_cmd(exp_name, seed=0):
+    """500M 判决实验——TF 24L d1280 @5e-4（330M 双侧夹逼直承值）"""
+    return [sys.executable, 'train.py',
+            '--model', 'transformer', '--attn_impl', 'sdpa',
+            '--layers', '24', '--d_model', '1280', '--n_heads', '10',
+            '--ffn_dim', '5120',
+            '--lr', '5e-4',
+            '--batch_size', '16', '--accum_steps', '2',
+            '--seq_len', '256', '--max_seq_len', '256',
+            '--max_steps', '20000', '--warmup_steps', '4000',
+            '--grad_clip', '0.5',
+            '--dataset', 'wikitext',
+            '--eval_interval', '1000', '--log_interval', '500',
+            '--seed', str(seed), '--exp_name', exp_name,
+            '--amp_dtype', 'fp16']
+
+
 def train(mode='pcn'):
     """启动训练"""
+    m500 = {
+        'm500_hyb':     lambda: m500_hyb_cmd('5e-4', 'wt_516m_hyb_ng_lr5e-4_s0'),
+        'm500_hyb1e3':  lambda: m500_hyb_cmd('1e-3', 'wt_516m_hyb_ng_lr1e-3_s0'),
+        'm500_tf':      lambda: m500_tf_cmd('wt_553m_tf_lr5e-4_s0'),
+        'm500_hyb_s1':  lambda: m500_hyb_cmd('5e-4', 'wt_516m_hyb_ng_lr5e-4_s1', 1),
+        'm500_tf_s1':   lambda: m500_tf_cmd('wt_553m_tf_lr5e-4_s1', 1),
+    }
+    if mode in m500:
+        print(f'[训练] 500M 判决: {mode}')
+        result = subprocess.run(m500[mode]())
+        return result.returncode
     if mode == 'tf_scan':
         return run_scan('tf_scan', [
             (tf_cmd, '5e-4', 'wt_200m_tf_lr5e-4'),
@@ -204,7 +251,10 @@ def save_results():
 
     # 打印结果摘要
     import json
-    for exp in ('wt_200m_tf', 'wt_200m_tf_lr5e-4', 'wt_200m_tf_lr1e-3',
+    for exp in ('wt_516m_hyb_ng_lr5e-4_s0', 'wt_516m_hyb_ng_lr1e-3_s0',
+                'wt_553m_tf_lr5e-4_s0', 'wt_516m_hyb_ng_lr5e-4_s1',
+                'wt_553m_tf_lr5e-4_s1',
+                'wt_200m_tf', 'wt_200m_tf_lr5e-4', 'wt_200m_tf_lr1e-3',
                 'wt_200m_tf_lr2e-3', 'wt_200m_tf_lr3e-4',
                 'wt_090m_pcn_v2', 'wt_090m_pcn_lr3e-4', 'wt_090m_pcn_lr5e-5',
                 'wt_090m_pcn_lr3e-4_bf16', 'wt_090m_pcn_lr2e-4'):
@@ -254,8 +304,10 @@ def main():
     print(f'[检查] data: {Path("cache/wikitext_train_int32.npy").exists()}')
 
     mode = parse_mode(sys.argv)
-    if mode not in ('pcn', 'tf', 'tf_scan', 'scan2', 'v8a'):
-        print(f'!!! 未知 mode: {mode!r}（应为 pcn / tf / tf_scan / scan2 / v8a），退出')
+    if mode not in ('pcn', 'tf', 'tf_scan', 'scan2', 'v8a',
+                    'm500_hyb', 'm500_hyb1e3', 'm500_tf',
+                    'm500_hyb_s1', 'm500_tf_s1'):
+        print(f'!!! 未知 mode: {mode!r}，退出')
         sys.exit(2)
 
     print(f'\n--- 开始训练: {mode} ---')
