@@ -64,3 +64,21 @@ kernel 化（后续工程项）。
 - int4 底座 + fp 适应头的两段式部署形态
 - 真实用户数据试点 + 长时程流（与论文侧挂账项同源）
 - 能耗口径补测（v1 的 T4 方法平移到 96M 混合）
+
+## 七、packed int4 实测补记（2026-09-21 下午，int4_kernel.py）
+
+把 fake-quant 推进到**真实打包存储**（int4-g64 非对称，两权重/字节 uint8，
+路线 B 自写实现——torchao 路线 A 在 Windows 上被 mslk 内核库缺失阻塞）：
+
+| 指标 | fp32 | packed int4 | 判据 |
+|---|---|---|---|
+| 权重驻留（tensor 存储） | 366 MB | **201 MB**（Linear 部分仅 ~95MB；emb 103MB fp32 + MHA 未打包） | ≤110MB ❌ |
+| 进程 RSS | 1338 MB | 1324 MB（-1%——逐前向反量化缓冲抵消收益） | -30% ❌ |
+| 生成 | 37.5 tok/s | 13.6 tok/s（无融合 kernel，反量化 2.7× 开销） | ≥25 ❌ |
+| PPL 损失 | — | **+0.39%** | ≤1% ✅ |
+
+**诚实结论**：打包与数值在 Windows CPU 上可行且近无损，但**没有融合
+dequant-GEMM kernel 就没有终端价值**（RSS 不降、速度倒退）。部署级 int4 的
+可行路径二选一：(a) torchao+torch.compile（需 Linux 或 mslk 可用环境）；
+(b) GGUF/llama.cpp 移植（工程量 ~1 周，列为独立后续项）。V7 demo 的 int4
+模式维持 fake-quant 口径（数值验证）+ 本节的真打包实测记录。

@@ -1,0 +1,28 @@
+{
+  "fp32": {
+    "rss_mb": 1338,
+    "weights_mb": 366,
+    "ppl": 72.14,
+    "infer_tok_s": 2055,
+    "gen_tok_s": 37.5,
+    "gen_ms_per_tok": 26.7
+  },
+  "int4_packed": {
+    "route": "B: 自写打包 int4-g64（121 Linear，mslk 不可用降级）",
+    "rss_mb": 1324,
+    "weights_mb": 201,
+    "ppl": 72.42,
+    "loss_pct": 0.39,
+    "infer_tok_s": 1512,
+    "gen_tok_s": 13.6,
+    "gen_ms_per_tok": 73.4,
+    "rss_drop_pct": 1.0
+  },
+  "criteria": {
+    "权重驻留 ≤110MB": false,
+    "RSS 较 fp32 降 ≥30%": false,
+    "生成 ≥25 tok/s": false,
+    "PPL 损失 ≤1%": true
+  },
+  "rss_baseline_mb": 628
+}
