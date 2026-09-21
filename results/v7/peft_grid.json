@@ -1,0 +1,200 @@
+{
+  "tf/lora/r4a16@lr0.0005": {
+    "per_seed": [
+      -20.4,
+      -31.9,
+      -52.9
+    ],
+    "mean": -35.1,
+    "spread": 32.5
+  },
+  "tf/lora/r4a32@lr0.0005": {
+    "per_seed": [
+      -22.7,
+      -66.1,
+      -67.1
+    ],
+    "mean": -52.0,
+    "spread": 44.4
+  },
+  "tf/lora/r8a16@lr0.0005": {
+    "per_seed": [
+      -8.9,
+      -10.2,
+      -61.2
+    ],
+    "mean": -26.8,
+    "spread": 52.3
+  },
+  "tf/lora/r8a32@lr0.0005": {
+    "per_seed": [
+      -60.5,
+      -50.5,
+      -72.2
+    ],
+    "mean": -61.1,
+    "spread": 21.7
+  },
+  "tf/lora/r16a16@lr0.0005": {
+    "per_seed": [
+      -3.1,
+      -4.9,
+      -27.5
+    ],
+    "mean": -11.8,
+    "spread": 24.4
+  },
+  "tf/lora/r16a32@lr0.0005": {
+    "per_seed": [
+      -31.9,
+      -41.5,
+      -44.5
+    ],
+    "mean": -39.3,
+    "spread": 12.6
+  },
+  "hyb/lora/r4a16@lr0.0005": {
+    "per_seed": [
+      71.4,
+      64.3,
+      58.8
+    ],
+    "mean": 64.8,
+    "spread": 12.6
+  },
+  "hyb/lora/r4a32@lr0.0005": {
+    "per_seed": [
+      81.0,
+      78.1,
+      73.0
+    ],
+    "mean": 77.4,
+    "spread": 8.0
+  },
+  "hyb/lora/r8a16@lr0.0005": {
+    "per_seed": [
+      58.9,
+      42.8,
+      37.7
+    ],
+    "mean": 46.5,
+    "spread": 21.2
+  },
+  "hyb/lora/r8a32@lr0.0005": {
+    "per_seed": [
+      59.2,
+      44.5,
+      24.8
+    ],
+    "mean": 42.8,
+    "spread": 34.4
+  },
+  "hyb/lora/r16a16@lr0.0005": {
+    "per_seed": [
+      67.5,
+      57.0,
+      57.1
+    ],
+    "mean": 60.5,
+    "spread": 10.5
+  },
+  "hyb/lora/r16a32@lr0.0005": {
+    "per_seed": [
+      57.6,
+      58.2,
+      40.6
+    ],
+    "mean": 52.1,
+    "spread": 17.6
+  },
+  "tf/lora/r8a16@lr0.0001": {
+    "per_seed": [
+      72.0,
+      71.9,
+      70.1
+    ],
+    "mean": 71.3,
+    "spread": 1.9
+  },
+  "tf/lora/r8a16@lr0.001": {
+    "per_seed": [
+      -50.7,
+      -68.8,
+      -116.5
+    ],
+    "mean": -78.7,
+    "spread": 65.8
+  },
+  "hyb/lora/r8a16@lr0.0001": {
+    "per_seed": [
+      84.1,
+      78.3,
+      79.6
+    ],
+    "mean": 80.7,
+    "spread": 5.8
+  },
+  "hyb/lora/r8a16@lr0.001": {
+    "per_seed": [
+      55.5,
+      37.8,
+      39.0
+    ],
+    "mean": 44.1,
+    "spread": 17.7
+  },
+  "tf/bitfit@lr0.001": {
+    "per_seed": [
+      78.8,
+      76.8,
+      74.3
+    ],
+    "mean": 76.6,
+    "spread": 4.5
+  },
+  "tf/bitfit@lr0.0005": {
+    "per_seed": [
+      74.6,
+      72.3,
+      68.5
+    ],
+    "mean": 71.8,
+    "spread": 6.1
+  },
+  "tf/bitfit@lr0.0001": {
+    "per_seed": [
+      47.0,
+      46.3,
+      42.1
+    ],
+    "mean": 45.1,
+    "spread": 4.9
+  },
+  "hyb/bitfit@lr0.001": {
+    "per_seed": [
+      55.7,
+      51.9,
+      51.6
+    ],
+    "mean": 53.1,
+    "spread": 4.1
+  },
+  "hyb/bitfit@lr0.0005": {
+    "per_seed": [
+      42.0,
+      39.5,
+      40.0
+    ],
+    "mean": 40.5,
+    "spread": 2.5
+  },
+  "hyb/bitfit@lr0.0001": {
+    "per_seed": [
+      15.1,
+      14.5,
+      15.2
+    ],
+    "mean": 14.9,
+    "spread": 0.7
+  }
+}
