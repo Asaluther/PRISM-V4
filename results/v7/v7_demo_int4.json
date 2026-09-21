@@ -1,0 +1,31 @@
+{
+  "model": "wt_096m_hyb_h2e-4_s0 (h2e4 终端默认)",
+  "quant_mode": "int4",
+  "size_mb": 100.1,
+  "load_s": 1.1,
+  "infer_tok_s": 1527.8,
+  "generation_tok_s": 35.6,
+  "ms_per_tok": 28.1,
+  "gen_sample": " wanted to make her \" the most happy scene \" . In the early 1960s , the show was nominated for a Film Production Award for Best Actress , and was nominated for a Actress in a Drama Series",
+  "adapt": {
+    "steps": 50,
+    "time_s": 18.8,
+    "heldout_ppl_before": 1769.4,
+    "heldout_ppl_after": 711.7,
+    "improvement_pct": 59.8
+  },
+  "rollback_restored": true,
+  "owner_binding_ok": true,
+  "offline_env": {
+    "HF_DATASETS_OFFLINE": "1",
+    "TRANSFORMERS_OFFLINE": "1",
+    "HF_HUB_OFFLINE": "1"
+  },
+  "criteria": {
+    "④生成可用": true,
+    "②50步适应≤30s且改善为正": true,
+    "⑤回滚可演示": true,
+    "①端到端纯CPU通过": true,
+    "③int4损失≤1%": true
+  }
+}

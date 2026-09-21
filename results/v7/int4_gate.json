@@ -1,0 +1,17 @@
+{
+  "ckpt": "results/wt_096m_hyb_h2e-4_s0/best_model.pt",
+  "n_eval_seqs": 100,
+  "fp32_ppl": 72.14,
+  "int4_g64_asym_Wres_exempt": {
+    "ppl": 72.25,
+    "loss_pct": 0.15,
+    "size_mb": 100.1
+  },
+  "int8_perchannel": {
+    "ppl": 72.19,
+    "loss_pct": 0.06,
+    "size_mb": 122.5
+  },
+  "fp32_size_mb": 366.2,
+  "gate_pass": true
+}

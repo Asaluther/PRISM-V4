@@ -1,0 +1,48 @@
+{
+  "frozen_ppl_wikitext_val": 29.8,
+  "frozen_ppl_tinystories_users": 8.96,
+  "coldstart_half": {
+    "per_user": [
+      -932.8,
+      -706.1,
+      -744.4
+    ],
+    "avg": -794.4
+  },
+  "coldstart_bitfit": {
+    "per_user": [
+      -174.7,
+      -226.4,
+      -173.5
+    ],
+    "avg": -191.5
+  },
+  "stream_lr5e-05": {
+    "online_gain_pct": -652.1,
+    "heldout_gain_pct": -921.2,
+    "traj": [
+      7.66,
+      26.59,
+      54.22,
+      191.31,
+      105.75,
+      68.6,
+      54.9,
+      54.39
+    ]
+  },
+  "stream_lr0.0001": {
+    "online_gain_pct": -1205.5,
+    "heldout_gain_pct": -1353.1,
+    "traj": [
+      7.66,
+      45.28,
+      93.84,
+      304.22,
+      223.07,
+      151.75,
+      72.9,
+      73.61
+    ]
+  }
+}
