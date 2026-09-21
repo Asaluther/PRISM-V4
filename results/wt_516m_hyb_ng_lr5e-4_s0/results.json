@@ -1,0 +1,156 @@
+{
+ "config": {
+  "model": "hybrid",
+  "dataset": "wikitext",
+  "attn_impl": "sdpa",
+  "no_feedback": false,
+  "no_gating": true,
+  "feedback_mode": "prev_layer",
+  "local_rule": "none",
+  "lr_loc": null,
+  "n_pass": 1,
+  "act_sparse": 0.0,
+  "gate_impl": "bmm",
+  "layers": 24,
+  "d_model": 1280,
+  "n_heads": 10,
+  "ffn_dim": 5120,
+  "d_gate": 128,
+  "dropout": 0.1,
+  "max_seq_len": 256,
+  "topk": 128,
+  "batch_size": 16,
+  "seq_len": 256,
+  "lr": 0.0001,
+  "weight_decay": 0.1,
+  "warmup_steps": 4000,
+  "max_steps": 20000,
+  "grad_clip": 0.5,
+  "amp_dtype": "fp16",
+  "tf_layers": 12,
+  "lr_backbone": 0.0005,
+  "accum_steps": 2,
+  "eval_interval": 1000,
+  "log_interval": 500,
+  "save_dir": "./results/",
+  "exp_name": "wt_516m_hyb_ng_lr5e-4_s0",
+  "seed": 0
+ },
+ "n_params": 499520000,
+ "vocab_size": 50257,
+ "val_ppl": [
+  {
+   "step": 1000,
+   "ppl": 356.14,
+   "time_min": 0.5
+  },
+  {
+   "step": 2000,
+   "ppl": 192.51,
+   "time_min": 10.03
+  },
+  {
+   "step": 3000,
+   "ppl": 132.24,
+   "time_min": 19.56
+  },
+  {
+   "step": 4000,
+   "ppl": 100.26,
+   "time_min": 29.089999999999996
+  },
+  {
+   "step": 5000,
+   "ppl": 81.73,
+   "time_min": 38.62
+  },
+  {
+   "step": 6000,
+   "ppl": 71.52,
+   "time_min": 48.15
+  },
+  {
+   "step": 7000,
+   "ppl": 67.14,
+   "time_min": 57.67999999999999
+  },
+  {
+   "step": 8000,
+   "ppl": 61.49,
+   "time_min": 67.21
+  },
+  {
+   "step": 9000,
+   "ppl": 58.37,
+   "time_min": 76.74
+  },
+  {
+   "step": 10000,
+   "ppl": 56.45,
+   "time_min": 86.27
+  },
+  {
+   "step": 11000,
+   "ppl": 51.51,
+   "time_min": 95.8
+  },
+  {
+   "step": 12000,
+   "ppl": 48.11,
+   "time_min": 105.33
+  },
+  {
+   "step": 13000,
+   "ppl": 46.14,
+   "time_min": 114.85999999999999
+  },
+  {
+   "step": 14000,
+   "ppl": 44.22,
+   "time_min": 124.38999999999999
+  },
+  {
+   "step": 15000,
+   "ppl": 43.13,
+   "time_min": 133.92
+  },
+  {
+   "step": 16000,
+   "ppl": 41.85,
+   "time_min": 143.45
+  },
+  {
+   "step": 17000,
+   "ppl": 40.79,
+   "time_min": 152.98
+  },
+  {
+   "step": 18000,
+   "ppl": 40.2,
+   "time_min": 162.51
+  },
+  {
+   "step": 19000,
+   "ppl": 39.75,
+   "time_min": 172.04
+  },
+  {
+   "step": 20000,
+   "ppl": 39.55,
+   "time_min": 181.57
+  }
+ ],
+ "best_ppl": 39.5524803728857,
+ "total_time_s": 11448.0,
+ "nan_recoveries": 1,
+ "budget": {
+  "optimizer_steps": 20000,
+  "accum_steps": 2,
+  "effective_batch": 32,
+  "seq_len": 256,
+  "total_tokens_seen": 163840000,
+  "tokens_per_sec": 14313.68,
+  "peak_vram_gb": 22.150104064
+ },
+ "_note": "V100S \u4e91\u7aef\uff1b~700 \u6b21\u5b64\u7acb fp16 \u8df3\u8fc7 + 1 \u6b21\u7d27\u6025\u56de\u6eda\uff0810425 \u6b65 lr\u00d70.5\uff09\uff1b39.55 \u4e3a\u300e5e-4 \u542b\u4e00\u6b21\u964d\u6863\u300f\u53e3\u5f84"
+}

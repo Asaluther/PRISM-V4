@@ -197,3 +197,5 @@ wt_101m_tf_tp470_s0,transformer,wikitext,0.0005,,24,12,512,0,fp16,196.61,0,14.3,
 wt_101m_tf_tp470_s1,transformer,wikitext,0.0005,,24,12,512,1,fp16,199.65,0,14.3,101.5,results/wt_101m_tf_tp470_s1/results.json
 wt_101m_tf_tp470_s2,transformer,wikitext,0.0005,,24,12,512,2,fp16,211.6,0,14.3,101.5,results/wt_101m_tf_tp470_s2/results.json
 wt_096m_hyb_gate_s0,hybrid,wikitext,0.0001,0.0005,24,12,512,0,fp16,61.75,0,24.5,96.0,results/wt_096m_hyb_gate_s0/results.json
+wt_516m_hyb_ng_lr5e-4_s0,hybrid,wikitext,0.0001,0.0005,24,12,1280,0,fp16,39.55,1,190.8,499.5,results/wt_516m_hyb_ng_lr5e-4_s0/results.json
+wt_553m_tf_lr5e-4_s0,transformer,wikitext,0.0005,,24,,1280,0,fp16,750.35,0,202.6,536.9,results/wt_553m_tf_lr5e-4_s0/results.json
