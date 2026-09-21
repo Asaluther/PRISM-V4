@@ -59,6 +59,7 @@ def esc(t):
 def inline(t):
     t = esc(t)
     t = re.sub(r'\*\*(.+?)\*\*', r'<b>\1</b>', t)
+    t = re.sub(r'~~(.+?)~~', r'<strike>\1</strike>', t)
     t = re.sub(r'`(.+?)`', r'<font face="MSYH">\1</font>', t)
     return t
 
