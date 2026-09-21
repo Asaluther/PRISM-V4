@@ -186,12 +186,22 @@ def m500_tf_cmd(exp_name, seed=0):
             '--amp_dtype', 'fp16']
 
 
+def m500_tf_cmd_25e4(seed=0):
+    """500M TF @2.5e-4 夹逼臂——堵「TF 中低 lr 窗口」反事实"""
+    cmd = m500_tf_cmd(f'wt_553m_tf_lr2.5e-4_s0', seed)
+    # 替换 lr
+    idx = cmd.index('--lr')
+    cmd[idx + 1] = '2.5e-4'
+    return cmd
+
+
 def train(mode='pcn'):
     """启动训练"""
     m500 = {
         'm500_hyb':     lambda: m500_hyb_cmd('5e-4', 'wt_516m_hyb_ng_lr5e-4_s0'),
         'm500_hyb1e3':  lambda: m500_hyb_cmd('1e-3', 'wt_516m_hyb_ng_lr1e-3_s0'),
         'm500_tf':      lambda: m500_tf_cmd('wt_553m_tf_lr5e-4_s0'),
+        'm500_tf25e4':  lambda: m500_tf_cmd_25e4(),
         'm500_hyb_s1':  lambda: m500_hyb_cmd('5e-4', 'wt_516m_hyb_ng_lr5e-4_s1', 1),
         'm500_tf_s1':   lambda: m500_tf_cmd('wt_553m_tf_lr5e-4_s1', 1),
     }
@@ -315,7 +325,7 @@ def main():
 
     mode = parse_mode(sys.argv)
     if mode not in ('pcn', 'tf', 'tf_scan', 'scan2', 'v8a',
-                    'm500_hyb', 'm500_hyb1e3', 'm500_tf',
+                    'm500_hyb', 'm500_hyb1e3', 'm500_tf', 'm500_tf25e4',
                     'm500_hyb_s1', 'm500_tf_s1'):
         print(f'!!! 未知 mode: {mode!r}，退出')
         sys.exit(2)
