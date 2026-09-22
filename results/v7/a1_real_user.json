@@ -1,0 +1,42 @@
+{
+  "model": "h2e4 (终端默认)",
+  "steps": 50,
+  "lr": 0.0005,
+  "R_real_diary": {
+    "n_train": 4,
+    "n_test": 1,
+    "frozen_ppl": 186.7,
+    "adapted_ppl": 62.4,
+    "improvement_pct": 66.6,
+    "per_test_before": [
+      186.7
+    ],
+    "per_test_after": [
+      62.4
+    ],
+    "gen_before": "し暥�徫嘞、 顙�厕偋し ) . As a fan of the game , the game is a sound @-@ based performance",
+    "gen_after": "囁雌嚫目茁伌批偌刎龚茠弤二定牑�，"
+  },
+  "S_structured_noise": {
+    "n_train": 6,
+    "n_test": 2,
+    "frozen_ppl": 256.0,
+    "adapted_ppl": 94.4,
+    "improvement_pct": 63.1,
+    "per_test_before": [
+      303.4,
+      208.6
+    ],
+    "per_test_after": [
+      108.8,
+      80.0
+    ],
+    "gen_before": " , who was named \" the most beautiful \" film in the country . In the same book , he also used a relationship with women 's agents , and he took a job in a fan . He",
+    "gen_after": "因犇很目蠁 缍厕尋刎 kW，�弤 쨖反Kar�誏"
+  },
+  "baseline_tinystories": {
+    "frozen_ppl": 1739.6,
+    "adapted_ppl": 224.7,
+    "improvement_pct": 87.1
+  }
+}
