@@ -1,0 +1,30 @@
+{
+  "A_full_fp32": {
+    "before": 1739.6,
+    "after": 212.1,
+    "improvement_pct": 87.8
+  },
+  "B_full_int4": {
+    "before": 1769.4,
+    "after": 218.1,
+    "improvement_pct": 87.7
+  },
+  "C_int4_backbone_fp_head": {
+    "n_quantized_layers": 48,
+    "before": 1771.5,
+    "after": 209.8,
+    "improvement_pct": 88.2
+  },
+  "criteria": {
+    "两段式恢复 ≥90% fp32": true,
+    "recovery_pct": 100.4,
+    "fp32_baseline": 87.8,
+    "int4_full": 87.7,
+    "twostage": 88.2
+  },
+  "size_est_mb": {
+    "fp32": 366.2,
+    "full_int4": 132.1,
+    "twostage": 338.6
+  }
+}
