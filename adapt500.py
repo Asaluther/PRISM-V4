@@ -104,7 +104,7 @@ def setup_trainable(m, mode, is_hyb):
                             isinstance(dict(blk.named_modules()).get(
                                 nm.rsplit('.', 1)[0]), nn.LayerNorm)):
                         p.requires_grad = True
-            for nm, p in m.ln_f.named_parameters():
+            for nm, p in m.ln_out.named_parameters():
                 p.requires_grad = True
     return [p for p in m.parameters() if p.requires_grad]
 

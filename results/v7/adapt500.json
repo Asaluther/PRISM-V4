@@ -1,11 +1,11 @@
 {
   "hyb330_coldstart": {
     "per_user": [
-      36.5,
-      12.0,
-      46.9
+      25.4,
+      19.9,
+      -4.7
     ],
-    "avg": 31.8
+    "avg": 13.5
   },
   "hyb330_stream_lr5e-05": {
     "online_gain_pct": 51.7,
@@ -14,5 +14,29 @@
   "hyb330_stream_lr0.0001": {
     "online_gain_pct": 5.0,
     "heldout_gain_pct": 2.5
+  },
+  "tf500_full_top12": {
+    "per_user": [
+      -14.2,
+      -59.1,
+      -66.2
+    ],
+    "avg": -46.5
+  },
+  "tf500_bitfit": {
+    "per_user": [
+      83.2,
+      72.9,
+      71.3
+    ],
+    "avg": 75.8
+  },
+  "tf500_stream_lr5e-05": {
+    "online_gain_pct": 7.9,
+    "heldout_gain_pct": -104.7
+  },
+  "tf500_stream_lr0.0001": {
+    "online_gain_pct": -23.2,
+    "heldout_gain_pct": -140.7
   }
 }
