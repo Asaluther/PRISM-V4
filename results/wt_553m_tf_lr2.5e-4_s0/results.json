@@ -1,0 +1,138 @@
+{
+ "config": {
+  "model": "transformer",
+  "dataset": "wikitext",
+  "attn_impl": "sdpa",
+  "layers": 24,
+  "d_model": 1280,
+  "n_heads": 10,
+  "ffn_dim": 5120,
+  "lr": 0.00025,
+  "warmup_steps": 4000,
+  "max_steps": 20000,
+  "grad_clip": 0.5,
+  "amp_dtype": "fp16",
+  "batch_size": 16,
+  "accum_steps": 2,
+  "seq_len": 256,
+  "seed": 0,
+  "exp_name": "wt_553m_tf_lr2.5e-4_s0"
+ },
+ "n_params": 536920000,
+ "vocab_size": 50257,
+ "val_ppl": [
+  {
+   "step": 1000,
+   "ppl": 1737.91,
+   "time_min": 10.2
+  },
+  {
+   "step": 2000,
+   "ppl": 1121.78,
+   "time_min": 20.4
+  },
+  {
+   "step": 3000,
+   "ppl": 759.07,
+   "time_min": 30.599999999999998
+  },
+  {
+   "step": 4000,
+   "ppl": 544.54,
+   "time_min": 40.8
+  },
+  {
+   "step": 5000,
+   "ppl": 353.54,
+   "time_min": 51.0
+  },
+  {
+   "step": 6000,
+   "ppl": 256.48,
+   "time_min": 61.199999999999996
+  },
+  {
+   "step": 7000,
+   "ppl": 193.83,
+   "time_min": 71.39999999999999
+  },
+  {
+   "step": 8000,
+   "ppl": 157.43,
+   "time_min": 81.6
+  },
+  {
+   "step": 9000,
+   "ppl": 133.61,
+   "time_min": 91.8
+  },
+  {
+   "step": 10000,
+   "ppl": 115.09,
+   "time_min": 102.0
+  },
+  {
+   "step": 11000,
+   "ppl": 101.71,
+   "time_min": 112.19999999999999
+  },
+  {
+   "step": 12000,
+   "ppl": 91.66,
+   "time_min": 122.39999999999999
+  },
+  {
+   "step": 13000,
+   "ppl": 83.5,
+   "time_min": 132.6
+  },
+  {
+   "step": 14000,
+   "ppl": 77.2,
+   "time_min": 142.79999999999998
+  },
+  {
+   "step": 15000,
+   "ppl": 72.52,
+   "time_min": 153.0
+  },
+  {
+   "step": 16000,
+   "ppl": 69.53,
+   "time_min": 163.2
+  },
+  {
+   "step": 17000,
+   "ppl": 66.97,
+   "time_min": 173.39999999999998
+  },
+  {
+   "step": 18000,
+   "ppl": 65.62,
+   "time_min": 183.6
+  },
+  {
+   "step": 19000,
+   "ppl": 64.98,
+   "time_min": 193.79999999999998
+  },
+  {
+   "step": 20000,
+   "ppl": 64.82,
+   "time_min": 204.0
+  }
+ ],
+ "best_ppl": 64.82,
+ "total_time_s": 12336.0,
+ "nan_recoveries": 0,
+ "budget": {
+  "optimizer_steps": 20000,
+  "accum_steps": 2,
+  "effective_batch": 32,
+  "seq_len": 256,
+  "total_tokens_seen": 163840000,
+  "tokens_per_sec": 13310,
+  "peak_vram_gb": 9.35
+ },
+ "_note": "V100S \u4e91\u7aef\uff1blr 2.5e-4 \u5939\u903c\u81c2\u2014\u2014\u4ece 5e-4 \u584c\u65b9\u6062\u590d\u5230 64.82 \u4f46\u4ecd\u900a HYB 39.55\uff08\u8c03\u4f18\u53e3\u5f84 +39.0%\uff09"
+}
