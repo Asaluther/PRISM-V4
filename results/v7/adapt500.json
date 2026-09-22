@@ -1,0 +1,18 @@
+{
+  "hyb330_coldstart": {
+    "per_user": [
+      36.5,
+      12.0,
+      46.9
+    ],
+    "avg": 31.8
+  },
+  "hyb330_stream_lr5e-05": {
+    "online_gain_pct": 51.7,
+    "heldout_gain_pct": 68.5
+  },
+  "hyb330_stream_lr0.0001": {
+    "online_gain_pct": 5.0,
+    "heldout_gain_pct": 2.5
+  }
+}
