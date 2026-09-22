@@ -28,3 +28,5 @@ tmp/
 
 # 外部预训练权重（gpt2-medium 手动下载，不入库）
 gpt2m/
+*.gguf
+*.gguf
